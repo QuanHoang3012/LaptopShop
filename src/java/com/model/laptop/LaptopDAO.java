@@ -17,7 +17,6 @@ import com.model.screen.ScreenDAO;
 import com.model.ssd.Ssd;
 import com.model.ssd.SsdDAO;
 import com.model.utils.DBUtils;
-import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,4 +120,142 @@ public class LaptopDAO extends DBUtils {
         }
         return list;
      }
+     public List<Laptop> searchByCheck(int manuId[] , int screenId[], int ramId[], int cpuId[], int ssdId[], double from, double end){
+            List<Laptop> list = new ArrayList<>();
+            String sql = "select * from laptop where 1=1";
+             if (manuId != null && manuId[0] != 0) {
+            sql += " and manufacturerId in(";
+            for (int i = 0; i < manuId.length; i++) {
+                sql += manuId[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+             if (ramId != null && ramId[0] != 0) {
+            sql += " and ramId in(";
+            for (int i = 0; i < ramId.length; i++) {
+                sql += ramId[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+              if (screenId != null && screenId[0] != 0) {
+            sql += " and screenId in(";
+            for (int i = 0; i < screenId.length; i++) {
+                sql += screenId[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+               if (cpuId != null && cpuId[0] != 0) {
+            sql += " and cpuId in(";
+            for (int i = 0; i < cpuId.length; i++) {
+                sql += cpuId[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+               if (ssdId != null && ssdId[0] != 0) {
+            sql += " and ssdId in(";
+            for (int i = 0; i < cpuId.length; i++) {
+                sql += ssdId[i] + ",";
+            }
+            if (sql.endsWith(",")) {
+                sql = sql.substring(0, sql.length() - 1);
+            }
+            sql += ")";
+        }
+             if(from != 0 || end !=0){
+                 sql+= "and discount between ' " + from + " ' and ' "+end+"  ' " ;
+             } 
+             
+            try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+             while (rs.next()) {
+                Laptop lp = new Laptop();
+                lp.setId(rs.getInt("id"));
+                lp.setName(rs.getString("name"));
+                lp.setInPrice(rs.getDouble("inPrice"));
+                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setStock(rs.getInt("stock"));
+                Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
+                lp.setScreen(sc);
+                Cpu c = cdb.getCpubyId(rs.getInt("cpuId"));
+                lp.setCpu(c);
+                Ram r = rdb.getRambyId(rs.getInt("ramId"));
+                lp.setRam(r);
+                Ssd ss = ssdb.getSsdbyId(rs.getInt("ssdId"));
+                lp.setSsd(ss);
+                lp.setCard(rs.getString("card"));
+                lp.setReleaseYear(rs.getDate("releaseYear"));
+                lp.setOrigin(rs.getString("origin"));
+                lp.setDiscount(rs.getDouble("discount"));
+                lp.setSystem(rs.getString("system"));
+                lp.setWeight(rs.getFloat("weight"));
+                images i = idb.getImagesbyId(rs.getInt("id"));
+                lp.setImage(i);
+                Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
+                lp.setManufacturer(m);
+                list.add(lp);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+     }
+     
+     public List<Laptop> getLaptopByManufacturerId(int manuId){
+         List<Laptop> list = new ArrayList<>();
+         String sql ="select * from Laptop where 1=1";
+           if (manuId != 0) {
+            sql += "and manufacturerId =" + manuId;
+        }
+         try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+             while (rs.next()) {
+                Laptop lp = new Laptop();
+                lp.setId(rs.getInt("id"));
+                lp.setName(rs.getString("name"));
+                lp.setInPrice(rs.getDouble("inPrice"));
+                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setStock(rs.getInt("stock"));
+                Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
+                lp.setScreen(sc);
+                Cpu c = cdb.getCpubyId(rs.getInt("cpuId"));
+                lp.setCpu(c);
+                Ram r = rdb.getRambyId(rs.getInt("ramId"));
+                lp.setRam(r);
+                Ssd ss = ssdb.getSsdbyId(rs.getInt("ssdId"));
+                lp.setSsd(ss);
+                lp.setCard(rs.getString("card"));
+                lp.setReleaseYear(rs.getDate("releaseYear"));
+                lp.setOrigin(rs.getString("origin"));
+                lp.setDiscount(rs.getDouble("discount"));
+                lp.setSystem(rs.getString("system"));
+                lp.setWeight(rs.getFloat("weight"));
+                images i = idb.getImagesbyId(rs.getInt("id"));
+                lp.setImage(i);
+                Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
+                lp.setManufacturer(m);
+                list.add(lp);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+     }
+     
+     public static void main(String[] args) {
+        LaptopDAO l =new LaptopDAO();
+        List<Laptop> ld = l.getLaptopByManufacturerId(2);
+         System.out.println(ld.get(0).getName());
+    }
 }

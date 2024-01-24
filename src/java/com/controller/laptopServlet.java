@@ -7,12 +7,15 @@ package com.controller;
 import com.model.images.imagesDAO;
 import com.model.laptop.Laptop;
 import com.model.laptop.LaptopDAO;
+import com.model.manufacturer.Manufacturer;
+import com.model.manufacturer.ManufacturerDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +41,7 @@ public class laptopServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet laptopServlet</title>");            
+            out.println("<title>Servlet laptopServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet laptopServlet at " + request.getContextPath() + "</h1>");
@@ -59,33 +62,64 @@ public class laptopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   LaptopDAO ldb = new LaptopDAO();
-            
-            List<Laptop> list = ldb.getAll();
-            int page , numOfProduct = 9;
-            String key = request.getParameter("key");
-            if (key==null){
-                key = "";
-            }
-            List<Laptop> listSearch = ldb.searchByName(key);
-            int size  = listSearch.size();
-            int numOfPage = (size%9==0?(size/9):(size/9)+1);
-            String xpage = request.getParameter("page");
-            if(xpage==null) {
-                page=1;
-            }else {
-                page = Integer.parseInt(xpage);
-            }
-            int start, end;
-            start = (page-1)*numOfProduct;
-            end =Math.min(page*numOfProduct, size);
-            List<Laptop> listP = ldb.getListByPage(listSearch, start, end);
-            request.setAttribute("data", listP);
-            request.setAttribute("page", page);
-            request.setAttribute("num", numOfPage);
-            request.setAttribute("key",key);
-            request.getRequestDispatcher("shop.jsp").forward(request, response);
-    
+        LaptopDAO ldb = new LaptopDAO();
+        ManufacturerDAO mdb = new ManufacturerDAO();
+        
+         List<Laptop> list = ldb.getAll();
+        List<Manufacturer> listManu = mdb.getAll();
+         boolean chid[] = new boolean[listManu.size()+1];
+     /////////////  filter laptop by taskbar  
+        String manuId_raw = request.getParameter("manuId");  // get manufacturerId on taskbar
+        int manuId =0;                          /// set it to 0 to get All
+        if(manuId_raw!=null){               /// parse it to integer and getLaptop by it Id 
+            manuId = Integer.parseInt(manuId_raw);
+            list = ldb.getLaptopByManufacturerId(manuId);
+            if(manuId==0){
+                chid[0]= true;                     ///   tick to check box "Alll"  
+            } 
+        }
+        
+        ////////////////////   end filter laptop by taskbar
+        int page, numOfProduct = 9;
+        String key = request.getParameter("key");            ///////// get infor from search
+      
+        
+        /////        this is paging process
+        List<Laptop> listSearch = ldb.searchByName(key);        
+        int size=0;
+         if(key!=null){
+        size  = listSearch.size();
+         }
+         else{
+          size = list.size();
+         }
+        int numOfPage = (size % 9 == 0 ? (size / 9) : (size / 9) + 1);
+        String xpage = request.getParameter("page");
+        if (xpage == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(xpage);
+        }
+        int start, end;
+        start = (page - 1) * numOfProduct;
+        end = Math.min(page * numOfProduct, size);
+         List<Laptop> listP = new ArrayList<>();
+        if(key!=null){
+            listP = ldb.getListByPage(listSearch, start, end);
+        }else {
+             listP = ldb.getListByPage(list, start, end);
+        }
+            //// Laptop want to show will get in here
+        
+        /////////////////////  end paging process
+        request.setAttribute("manuId", manuId);
+        request.setAttribute("data", listP);
+        request.setAttribute("page", page);
+        request.setAttribute("num", numOfPage);
+        request.setAttribute("key", key);
+        request.setAttribute("manufacturer", listManu);
+        request.getRequestDispatcher("shop.jsp").forward(request, response);
+
     }
 
     /**
@@ -99,7 +133,7 @@ public class laptopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+
     }
 
     /**

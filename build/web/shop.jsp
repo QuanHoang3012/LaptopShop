@@ -110,12 +110,12 @@
                     </a>
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 247px">
-                            <a href="" class="nav-item nav-link">Acer</a>
-                            <a href="" class="nav-item nav-link">Asus</a>
-                            <a href="" class="nav-item nav-link">Msi</a>
-                            <a href="" class="nav-item nav-link">Dell</a>
-                            <a href="" class="nav-item nav-link">Lenovo</a>
-                            <a href="" class="nav-item nav-link">HP</a>         
+                            <c:set var="manuId"  value="${requestScope.manuId}"/>
+                            <a href="laptop?manuId=${0}" class="nav-item nav-link">All</a>
+                           
+                            <c:forEach items="${requestScope.manufacturer}" var="m">
+                                <a href="laptop?manuId=${m.id}" class="nav-item nav-link">${m.name}</a>
+                            </c:forEach>
                         </div>
                     </nav>
                 </div>
@@ -351,7 +351,7 @@
                                         </a>
                                     </li>
                                     <c:forEach  begin="${1}"  end="${requestScope.num}" var="i">
-                                        <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${requestScope.key}">${i}</a></li>
+                                        <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${requestScope.key}&manuId=${manuId}">${i}</a></li>
                                         </c:forEach>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
