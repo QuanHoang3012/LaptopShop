@@ -5,10 +5,7 @@
         <group>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/laptop/LaptopDAO.java</file>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/shop.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/shop.html</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/images/imagesDAO.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/images/images.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/laptop/Laptop.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/laptopServlet.java</file>
         </group>
     </open-files>
 </project-private>

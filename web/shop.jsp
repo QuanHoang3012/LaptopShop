@@ -112,7 +112,7 @@
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 247px">
                             <c:set var="manuId"  value="${requestScope.manuId}"/>
                             <a href="laptop?manuId=${0}" class="nav-item nav-link">All</a>
-                           
+
                             <c:forEach items="${requestScope.manufacturer}" var="m">
                                 <a href="laptop?manuId=${m.id}" class="nav-item nav-link">${m.name}</a>
                             </c:forEach>
@@ -172,119 +172,167 @@
             <div class="row px-xl-5">
                 <!-- Shop Sidebar Start -->
                 <div class="col-lg-3 col-md-12">
-                    <!-- Price Start -->
+                    <!-- Branch Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                        <form>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" checked id="price-all">
-                                <label class="custom-control-label" for="price-all">All Price</label>
-                                <span class="badge border font-weight-normal">1000</span>
+                        <h5 class="font-weight-semi-bold mb-4">Filter by Branch</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="-all">
+                                    <label class="custom-control-label" for="branch-all">All</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-1">
-                                <label class="custom-control-label" for="price-1">$0 - $100</label>
-                                <span class="badge border font-weight-normal">150</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-2">
-                                <label class="custom-control-label" for="price-2">$100 - $200</label>
-                                <span class="badge border font-weight-normal">295</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-3">
-                                <label class="custom-control-label" for="price-3">$200 - $300</label>
-                                <span class="badge border font-weight-normal">246</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="price-4">
-                                <label class="custom-control-label" for="price-4">$300 - $400</label>
-                                <span class="badge border font-weight-normal">145</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="price-5">
-                                <label class="custom-control-label" for="price-5">$400 - $500</label>
-                                <span class="badge border font-weight-normal">168</span>
-                            </div>
+
+                            <c:forEach items="${requestScope.manufacturer}" var="m">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="branch-${m.id}">
+                                        <label class="custom-control-label" for="branch-${m.id}">${m.name}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </form>
                     </div>
-                    <!-- Price End -->
 
-                    <!-- Color Start -->
+                    <!-- Branch End -->
+                    
+                       <!-- Price Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
-                        <form>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" checked id="color-all">
-                                <label class="custom-control-label" for="price-all">All Color</label>
-                                <span class="badge border font-weight-normal">1000</span>
+                        <h5 class="font-weight-semi-bold mb-4">Filter by Price</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="price-all">
+                                    <label class="custom-control-label" for="price-all">All</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-1">
-                                <label class="custom-control-label" for="color-1">Black</label>
-                                <span class="badge border font-weight-normal">150</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-2">
-                                <label class="custom-control-label" for="color-2">White</label>
-                                <span class="badge border font-weight-normal">295</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-3">
-                                <label class="custom-control-label" for="color-3">Red</label>
-                                <span class="badge border font-weight-normal">246</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="color-4">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                                <span class="badge border font-weight-normal">145</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="color-5">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                                <span class="badge border font-weight-normal">168</span>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Color End -->
 
-                    <!-- Size Start -->
-                    <div class="mb-5">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
-                        <form>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" checked id="size-all">
-                                <label class="custom-control-label" for="size-all">All Size</label>
-                                <span class="badge border font-weight-normal">1000</span>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input"  id="price-1">
+                                    <label class="custom-control-label" for="price-1">Dưới 10 triệu</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-1">
-                                <label class="custom-control-label" for="size-1">XS</label>
-                                <span class="badge border font-weight-normal">150</span>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input"  id="price-2">
+                                    <label class="custom-control-label" for="price-2">Từ 10-15 triệu</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-2">
-                                <label class="custom-control-label" for="size-2">S</label>
-                                <span class="badge border font-weight-normal">295</span>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input"  id="price-3">
+                                    <label class="custom-control-label" for="price-3">Từ 15-20 triệu</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-3">
-                                <label class="custom-control-label" for="size-3">M</label>
-                                <span class="badge border font-weight-normal">246</span>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input"  id="price-4">
+                                    <label class="custom-control-label" for="price-4">Từ 20-25 triệu</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                <input type="checkbox" class="custom-control-input" id="size-4">
-                                <label class="custom-control-label" for="size-4">L</label>
-                                <span class="badge border font-weight-normal">145</span>
-                            </div>
-                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                <input type="checkbox" class="custom-control-input" id="size-5">
-                                <label class="custom-control-label" for="size-5">XL</label>
-                                <span class="badge border font-weight-normal">168</span>
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input"  id="price-5">
+                                    <label class="custom-control-label" for="price-5">Trên 25 triệu</label>
+                                </div>
                             </div>
                         </form>
                     </div>
-                    <!-- Size End -->
+                    <!-- End Price -->
+                    
+                      <!-- Cpu Start -->
+                    <div class="border-bottom mb-4 pb-4">
+                        <h5 class="font-weight-semi-bold mb-4">Filter by Cpu</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="cpu-all">
+                                    <label class="custom-control-label" for="cpu-all">All</label>
+                                </div>
+                            </div>
+
+                            <c:forEach items="${requestScope.listCpu}" var="r">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="cpu-${r.id}">
+                                        <label class="custom-control-label" for="cpu-${r.id}">${r.name}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </form>
+                    </div>
+                    <!-- Cpu End -->
+                    
+                    <!-- Ram Start -->
+                    <div class="border-bottom mb-4 pb-4">
+                        <h5 class="font-weight-semi-bold mb-4">Filter by Ram</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="ram-all">
+                                    <label class="custom-control-label" for="ram-all">All</label>
+                                </div>
+                            </div>
+
+                            <c:forEach items="${requestScope.listRam}" var="r">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="ram-${r.id}">
+                                        <label class="custom-control-label" for="ram-${r.id}">${r.detail}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </form>
+                    </div>
+                    <!-- Ram End -->
+
+                            <!-- Ssd Start -->
+                    <div class="border-bottom mb-4 pb-4">
+                        <h5 class="font-weight-semi-bold mb-4">Filter by SSD</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="ssd-all">
+                                    <label class="custom-control-label" for="ssd-all">All</label>
+                                </div>
+                            </div>
+
+                            <c:forEach items="${requestScope.listSsd}" var="r">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="ssd-${r.id}">
+                                        <label class="custom-control-label" for="ssd-${r.id}">${r.detail}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </form>
+                    </div>
+                    <!-- Ssd End -->
+                    
+                            <!-- Scren Start -->
+                    <div class="border-bottom mb-4 pb-4">
+                        <h5 class="font-weight-semi-bold mb-4">Filter by Screen</h5>
+                        <form class="row">
+                            <div class="col-md-6">
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" checked id="screen-all">
+                                    <label class="custom-control-label" for="screen-all">All</label>
+                                </div>
+                            </div>
+
+                            <c:forEach items="${requestScope.listScreen}" var="r">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="screen-${r.id}">
+                                        <label class="custom-control-label" for="screen-${r.id}">${r.detail}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </form>
+                    </div>
+                    <!-- Screen End -->
+                 
                 </div>
                 <!-- Shop Sidebar End -->
 
@@ -294,16 +342,16 @@
                     <div class="row pb-3">
                         <div class="col-12 pb-1">
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                          <form id="searchForm" action="laptop" method="get">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="key" placeholder="Search by name">
-                            <div class="input-group-append">
-                                <button onclick="this.form.submit()" class="btn bg-transparent text-primary">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                                <form id="searchForm" action="laptop" method="get">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="key" placeholder="Search by name">
+                                        <div class="input-group-append">
+                                            <button onclick="this.form.submit()" class="btn bg-transparent text-primary">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="dropdown ml-4">
                                     <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
@@ -351,7 +399,13 @@
                                         </a>
                                     </li>
                                     <c:forEach  begin="${1}"  end="${requestScope.num}" var="i">
-                                        <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${requestScope.key}&manuId=${manuId}">${i}</a></li>
+                                        <c:if test="${k!=null}">
+                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${k}">${i}</a></li>
+
+                                        </c:if>
+                                        <c:if test="${k==null}">
+                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&manuId=${manuId}">${i}</a></li>
+                                            </c:if>
                                         </c:forEach>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">

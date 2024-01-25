@@ -52,5 +52,23 @@ public class ManufacturerDAO extends DBUtils {
         return null;
     }
     
+    public int getManufacturerQuantity(int id) {
+        int stock =0;
+        String sql = "select Sum(stock) as quantity from Laptop l join manufacturer m on l.manufacturerId = m.id where 1=1";
+        if(id!=0) {
+            sql+="and m.id ="+id;
+        }
+        try {
+             PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                stock = rs.getInt("quantity");
+            }
+            return stock;
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+   
   
 }
