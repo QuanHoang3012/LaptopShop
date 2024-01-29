@@ -105,16 +105,17 @@
             <div class="row border-top px-xl-5">
                 <div class="col-lg-3 d-none d-lg-block">
                     <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                        <h6 class="m-0">Brand</h6>
+                        <h6 class="m-0">Hãng sản xuất</h6>
                         <i class="fa fa-angle-down text-dark"></i>
                     </a>
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 247px">
+                            <c:set var="sort" value="${requestScope.sort}" />
                             <c:set var="manuId"  value="${requestScope.manuId}"/>
-                            <a href="laptop?manuId=${0}" class="nav-item nav-link">All</a>
+                            <a href="laptop?manuId=${0}&sort=${sort}" class="nav-item nav-link">All</a>
 
                             <c:forEach items="${requestScope.manufacturer}" var="m">
-                                <a href="laptop?manuId=${m.id}" class="nav-item nav-link">${m.name}</a>
+                                <a href="laptop?manuId=${m.id}&sort=${sort}" class="nav-item nav-link">${m.name}</a>
                             </c:forEach>
                         </div>
                     </nav>
@@ -174,7 +175,7 @@
                 <div class="col-lg-3 col-md-12">
                     <!-- Branch Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by Branch</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Hãng sản xuất</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -198,7 +199,7 @@
                     
                        <!-- Price Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by Price</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Mức giá</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -243,7 +244,7 @@
                     
                       <!-- Cpu Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by Cpu</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Cpu</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -266,7 +267,7 @@
                     
                     <!-- Ram Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by Ram</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Ram</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -289,7 +290,7 @@
 
                             <!-- Ssd Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by SSD</h5>
+                        <h5 class="font-weight-semi-bold mb-4">SSD</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -312,7 +313,7 @@
                     
                             <!-- Scren Start -->
                     <div class="border-bottom mb-4 pb-4">
-                        <h5 class="font-weight-semi-bold mb-4">Filter by Screen</h5>
+                        <h5 class="font-weight-semi-bold mb-4">Screen</h5>
                         <form class="row">
                             <div class="col-md-6">
                                 <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
@@ -344,7 +345,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <form id="searchForm" action="laptop" method="get">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="key" placeholder="Search by name">
+                                        <input type="text" class="form-control" name="key" placeholder="Tìm kiếm theo tên">
                                         <div class="input-group-append">
                                             <button onclick="this.form.submit()" class="btn bg-transparent text-primary">
                                                 <i class="fa fa-search"></i>
@@ -352,15 +353,21 @@
                                         </div>
                                     </div>
                                 </form>
+                                  <c:set var="k" value="${requestScope.key}"/>                                  
                                 <div class="dropdown ml-4">
                                     <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
-                                        Sort by
+                                        Sắp xếp
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
+                                        <c:if test="${k!=null}">
+                                        <a class="dropdown-item" href="laptop?key=${k}&sort=priceAsc" >Giá thấp</a>
+                                        <a class="dropdown-item" href="laptop?key=${k}&sort=priceDes" >Giá cao</a>
+                                        </c:if>
+                                              <c:if test="${k==null}">
+                                                    <a class="dropdown-item" href="laptop?manuId=${manuId}&sort=priceAsc"  >Giá thấp</a>
+                                        <a class="dropdown-item" href="laptop?manuId=${manuId}&sort=priceDes" >Giá cao</a>
+                                         </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -388,7 +395,7 @@
                             </div>
                         </c:forEach>
                         <c:set var="page"   value="${requestScope.page}"/>
-                        <c:set var="k" value="${requestScope.key}"/>
+                        
                         <div class="col-12 pb-1">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center mb-3">
@@ -398,13 +405,14 @@
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
+                             
                                     <c:forEach  begin="${1}"  end="${requestScope.num}" var="i">
                                         <c:if test="${k!=null}">
-                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${k}">${i}</a></li>
+                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${k}&sort=${sort}">${i}</a></li>
 
                                         </c:if>
                                         <c:if test="${k==null}">
-                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&manuId=${manuId}">${i}</a></li>
+                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&manuId=${manuId}&sort=${sort}">${i}</a></li>
                                             </c:if>
                                         </c:forEach>
                                     <li class="page-item">

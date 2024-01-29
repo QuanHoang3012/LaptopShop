@@ -36,9 +36,9 @@ public class LaptopDAO extends DBUtils {
     ScreenDAO scdb = new ScreenDAO();
     SsdDAO ssdb = new SsdDAO();
 
-    public List<Laptop> getAll() {
+    public List<Laptop> getAllLaptop() {
         List<Laptop> list = new ArrayList<>();
-        String sql = "Select * from [Laptop] ";
+        String sql = "Select * from [Laptop] order by discount  ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -80,12 +80,17 @@ public class LaptopDAO extends DBUtils {
         }
         return arr;
     }
-     public List<Laptop> searchByName(String search){
+     public List<Laptop> searchByName(String search,int option){
         List<Laptop> list = new ArrayList<>();
         String sql="Select * from [Laptop] where 1=1";
          if(search != null && !search.equals("")) {
              sql += "and name like '%"+search+"%' ";
          }
+         if(option==1){
+             sql+= " order by discount";
+         } else if (option==2){
+             sql+= " order by discount desc";
+         }       
              try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -120,7 +125,7 @@ public class LaptopDAO extends DBUtils {
         }
         return list;
      }
-     public List<Laptop> searchByCheck(int manuId[] , int screenId[], int ramId[], int cpuId[], int ssdId[], double from, double end){
+     public List<Laptop> searchByCheck(int manuId[] , int screenId[], int ramId[], int cpuId[], int ssdId[], double from, double end, int option){
             List<Laptop> list = new ArrayList<>();
             String sql = "select * from laptop where 1=1";
              if (manuId != null && manuId[0] != 0) {
@@ -176,7 +181,11 @@ public class LaptopDAO extends DBUtils {
              if(from != 0 || end !=0){
                  sql+= "and discount between ' " + from + " ' and ' "+end+"  ' " ;
              } 
-             
+               if(option==1){
+             sql+= " order by discount";
+         } else if (option==2){
+             sql+= " order by discount desc";
+         }   
             try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -212,12 +221,17 @@ public class LaptopDAO extends DBUtils {
         return list;
      }
      
-     public List<Laptop> getLaptopByManufacturerId(int manuId){
+     public List<Laptop> getLaptopByManufacturerId(int manuId, int option){
          List<Laptop> list = new ArrayList<>();
          String sql ="select * from Laptop where 1=1";
            if (manuId != 0) {
             sql += "and manufacturerId =" + manuId;
         }
+             if(option==1){
+             sql+= " order by discount";
+         } else if (option==2){
+             sql+= " order by discount desc";
+         }   
          try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -255,7 +269,7 @@ public class LaptopDAO extends DBUtils {
      
      public static void main(String[] args) {
         LaptopDAO l =new LaptopDAO();
-        List<Laptop> ld = l.getLaptopByManufacturerId(2);
-         System.out.println(ld.get(0).getName());
+
+
     }
 }
