@@ -32,7 +32,13 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
+    <script> 
+        let url = window.location.href;
+        function appendPage(i,sort){
+            url+="&page="+i+"&sort="+sort;
+            window.location.href = url;
+        }
+        </script>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
 
@@ -67,38 +73,38 @@
                         </div>
 
                         <!-- Branch End -->
-
+                        <c:set value="${requestScope.checkPrice}" var="checkPrice"/>
                         <!-- Price Start -->
                         <div class="border-bottom mb-4 pb-4">
                             <h5 class="font-weight-semi-bold mb-4">Mức giá</h5>
                             <div class="row" >
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox" checked id="c2" name="price">
+                                        <input type="radio"  id="c1" name="priceBox" value="${0}" ${checkPrice[0]?"checked":""} onclick="setCheck(this)">
                                         <label >All</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox"  id="c2" name="price">
+                                        <input type="radio"  id="c01" name="priceBox" value="${1}" ${checkPrice[1]?"checked":""} onclick="setCheck(this)">
                                         <label >Từ 10-15 triệu</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox"  id="c2" name="price">
+                                        <input type="radio"   id="c01" name="priceBox" value="${2}" ${checkPrice[2]?"checked":""} onclick="setCheck(this)">
                                         <label >Từ 15-20 triệu</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox"  id="c2" name="price">
+                                        <input type="radio"   id="c01" name="priceBox" value="${3}" ${checkPrice[3]?"checked":""} onclick="setCheck(this)">
                                         <label >Từ 20-25 triệu</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox"  id="c2" name="price">
+                                        <input type="radio"  id="c01" name="priceBox" value="${4}" ${checkPrice[4]?"checked":""} onclick="setCheck(this)">
                                         <label >Trên 25 triệu</label>
                                     </div>
                                 </div>
@@ -129,14 +135,14 @@
                             </div>
                         </div>
                         <!-- Cpu End -->
-
+                        <c:set value="${requestScope.checkRam}" var="checkRam"/>
                         <!-- Ram Start -->
                         <div class="border-bottom mb-4 pb-4">
                             <h5 class="font-weight-semi-bold mb-4">Ram</h5>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox" checked id="c2" name="ram">
+                                        <input type="checkbox" value="${0}" ${checkRam[0]?"checked":""} id="c3" name="ramBox" onclick="setCheck(this)">
                                         <label >All</label>
                                     </div>
                                 </div>
@@ -144,7 +150,7 @@
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
-                                            <input type="checkbox"id="c2" name="ram">
+                                            <input type="checkbox" id="c03" value="${m.get(i).getId()}" name="ramBox" ${checkRam[i+1]?"checked":""} onclick="setCheck(this)">
                                             <label>${m.get(i).getDetail()}</label>
                                         </div>
                                     </div>
@@ -152,14 +158,14 @@
                             </div>
                         </div>
                         <!-- Ram End -->
-
+                        <c:set value="${requestScope.checkSsd}" var="checkSsd"/>
                         <!-- Ssd Start -->
                         <div class="border-bottom mb-4 pb-4">
                             <h5 class="font-weight-semi-bold mb-4">SSD</h5>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox" checked id="c0" name="ssd">
+                                        <input type="checkbox"  id="c4" name="ssdBox" ${checkSsd[0]?"checked":""} value="${0}"  onclick="setCheck(this)">
                                         <label >All</label>
                                     </div>
                                 </div>
@@ -167,7 +173,7 @@
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
-                                            <input type="checkbox"id="ssd" name="ssd">
+                                            <input type="checkbox" id="c04" name="ssdBox" value="${m.get(i).getId()}" ${checkSsd[i+1]?"checked":""} onclick="setCheck(this)">
                                             <label>${m.get(i).getDetail()}</label>
                                         </div>
                                     </div>
@@ -175,14 +181,14 @@
                             </div>
                         </div>
                         <!-- Ssd End -->
-
+                        <c:set value="${requestScope.checkScreen}" var="checkScreen"/>
                         <!-- Scren Start -->
                         <div class="border-bottom mb-4 pb-4">
-                            <h5 class="font-weight-semi-bold mb-4">SSD</h5>
+                            <h5 class="font-weight-semi-bold mb-4">Screen</h5>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div>
-                                        <input type="checkbox" checked id="c4" name="screen">
+                                        <input type="checkbox" value="${0}" id="c5" name="screenBox" ${checkScreen[0]?"checked":""} onclick="setCheck(this)">
                                         <label >All</label>
                                     </div>
                                 </div>
@@ -190,7 +196,7 @@
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
-                                            <input type="checkbox"id="ssd" name="screen">
+                                            <input type="checkbox" id="c05" value="${m.get(i).getId()}" name="screenBox" ${checkScreen[i+1]?"checked":""} onclick="setCheck(this)">
                                             <label>${m.get(i).getDetail()}</label>
                                         </div>
                                     </div>
@@ -211,7 +217,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <form id="searchForm" action="laptop" method="get">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="key" placeholder="Tìm kiếm theo tên">
+                                        <input type="text" class="form-control" name="key" placeholder="Tìm kiếm theo tên" >
                                         <div class="input-group-append">
                                             <button onclick="this.form.submit()" class="btn bg-transparent text-primary">
                                                 <i class="fa fa-search"></i>
@@ -219,6 +225,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                <c:set var="href" value="${requestScope.href}"/>
                                 <c:set var="k" value="${requestScope.key}"/>            
                                 <c:set var="manuIdBox" value="${requestScope.manuIdBox}"/>
                                 <div class="dropdown ml-4">
@@ -227,18 +234,8 @@
                                         Sắp xếp
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                        <c:if test="${k!=null}">
-                                            <a class="dropdown-item" href="laptop?key=${k}&sort=priceAsc" >Giá thấp</a>
-                                            <a class="dropdown-item" href="laptop?key=${k}&sort=priceDes" >Giá cao</a>
-                                        </c:if>
-                                        <c:if test="${k==null && manuIdBox ==null}">                                       
-                                            <a class="dropdown-item" href="laptop?manuId=${manuId}&sort=priceAsc"  >Giá thấp</a>
-                                            <a class="dropdown-item" href="laptop?manuId=${manuId}&sort=priceDes" >Giá cao</a>                                        
-                                        </c:if>
-                                            <c:if test="${manuIdBox !=null}">
-                                            <a class="dropdown-item" href="laptop?manuIdBox=${manuIdBox}&sort=priceAsc"  >Giá thấp</a>
-                                            <a class="dropdown-item" href="laptop?manuIdBox=${manuIdBox}&sort=priceDes" >Giá cao</a>
-                                            </c:if>
+                                            <a class="dropdown-item" href="laptop?${href}sort=priceAsc" >Giá thấp</a>
+                                            <a class="dropdown-item" href="laptop?${href}sort=priceDes" >Giá cao</a>                
                                     </div>
                                 </div>
                             </div>
@@ -266,28 +263,25 @@
                             </div>
                         </c:forEach>
                         <c:set var="page"   value="${requestScope.page}"/>
-
+                        <c:set var="numPage" value="${requestScope.num}"/>
                         <div class="col-12 pb-1">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center mb-3">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                     <li class="page-item ${page==1?"disabled":""}">
+                                        <a class="page-link" href="laptop?page=${page-1}&${href}sort=${sort}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
 
-                                    <c:forEach  begin="${1}"  end="${requestScope.num}" var="i">
-                                        <c:if test="${k!=null}">
-                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&key=${k}&sort=${sort}">${i}</a></li>
+                                    <c:forEach  begin="${1}"  end="${numPage}" var="i">
+                                       
+                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&${href}sort=${sort}" >${i}</a></li>
 
-                                        </c:if>
-                                        <c:if test="${k==null}">
-                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&manuId=${manuId}&sort=${sort}">${i}</a></li>
-                                            </c:if>
                                         </c:forEach>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
+                                                                 
+                                             <li class="page-item  ${page==numPage?"disabled":""} ">
+                                        <a class="page-link" href="laptop?page=${page+1}&${href}sort=${sort}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>

@@ -178,9 +178,12 @@ public class LaptopDAO extends DBUtils {
             }
             sql += ")";
         }
-             if(from != 0 || end !=0){
-                 sql+= "and discount between ' " + from + " ' and ' "+end+"  ' " ;
+             if(from != 0 && end !=0){
+                 sql+= "and discount between " + from + " and "+end+"  " ;
              } 
+             if(end==0 && from !=0){
+                 sql+= "and discount > "+from;
+             }
                if(option==1){
              sql+= " order by discount";
          } else if (option==2){

@@ -76,7 +76,7 @@ public class laptopServlet extends HttpServlet {
         String[] screenBox_raw = request.getParameterValues("screenBox");
         String[] ramBox_raw = request.getParameterValues("ramBox");
         String[] ssdBox_raw = request.getParameterValues("ssdBox");
-        String[] priceBox_raw = request.getParameterValues("priceBox");
+        String priceBox_raw = request.getParameter("priceBox");
 
         ///////////  Get infor to know what type of sort
         String sort = request.getParameter("sort");
@@ -91,19 +91,23 @@ public class laptopServlet extends HttpServlet {
         boolean checkRam[] = new boolean[listRam.size() + 1];
         boolean checkScreen[] = new boolean[listScreen.size() + 1];
         boolean checkSsd[] = new boolean[listSsd.size() + 1];
-        boolean checkPrice[] = new boolean[4];
+        boolean checkPrice[] = new boolean[5];
 
         int[] cpuBox = null;
         int[] manuIdBox = null;
         int[] screenBox = null;
         int[] ramBox = null;
         int[] ssdBox = null;
-        int[] priceBox = null;
+        int priceBox = 0;
+        try {
+            priceBox = Integer.parseInt(priceBox_raw);
+        } catch (NumberFormatException e) {
+        }
         int manuId = 0;                          /// set it to 0 to get All
 
         //////////    Default option =1 to get ascesding price
         int option = 1;
-
+        String href = "";
         /////////      Option 1 to get ascesing and option 2 to get descciding price
         if (sort != null) {
             if (sort.equals("priceAsc")) {
@@ -116,6 +120,7 @@ public class laptopServlet extends HttpServlet {
         //////////        Check if have something to search in text to search product      
         if (key != null) {
             list = WebController.getInstance().laptopdao.searchByName(key, option);
+            href += "key=" + key+"&";
         }
 
         /////////    Check if manuId in taskbar is not null to get Laptop by manufacturer ID
@@ -125,42 +130,39 @@ public class laptopServlet extends HttpServlet {
             if (manuId == 0) {
                 checkManu[0] = true;                     ///   tick to check box "Alll"  
             }
+            href = "manuId=" + manuId+"&";
         }
 
         //////////  Check checkbox is active or not to search product by checkbox
-        if (manuIdBox_raw != null) {
-            manuIdBox = new int[manuIdBox_raw.length];
-            for (int i = 0; i < manuIdBox.length; i++) {
-                manuIdBox[i] = Integer.parseInt(manuIdBox_raw[i]);
-            }
-        }
-        if (cpuBox_raw != null) {
-            cpuBox = new int[cpuBox_raw.length];
-            for (int i = 0; i < cpuBox.length; i++) {
-                cpuBox[i] = Integer.parseInt(cpuBox_raw[i]);
-            }
-        }
-        if (ramBox_raw != null) {
-            ramBox = new int[ramBox_raw.length];
-            for (int i = 0; i < ramBox.length; i++) {
-                ramBox[i] = Integer.parseInt(ramBox_raw[i]);
-            }
-        }
-        if (ssdBox_raw != null) {
-            ssdBox = new int[ssdBox_raw.length];
-            for (int i = 0; i < ssdBox.length; i++) {
-                ssdBox[i] = Integer.parseInt(ssdBox_raw[i]);
-            }
-        }
-        if (screenBox_raw != null) {
-            screenBox = new int[screenBox_raw.length];
-            for (int i = 0; i < screenBox.length; i++) {
-                screenBox[i] = Integer.parseInt(screenBox_raw[i]);
-            }
-        }
+        manuIdBox = parseToInt(manuIdBox_raw, manuIdBox);
+        cpuBox = parseToInt(cpuBox_raw, cpuBox);
+        ramBox = parseToInt(ramBox_raw, ramBox);
+        ssdBox = parseToInt(ssdBox_raw, ssdBox);
+        screenBox = parseToInt(screenBox_raw, screenBox);
 
+        /////  Case of price
+        int from = 0, last = 0;
+        switch (priceBox) {
+            case 1:
+                from = 10000000;
+                last = 15000000;
+                break;
+
+            case 2:
+                from = 15000000;
+                last = 20000000;
+                break;
+            case 3:
+                from = 20000000;
+                last = 25000000;
+                break;
+            case 4:
+                from = 25000000;
+                last = 0;
+                break;
+        }
         if (manuIdBox_raw != null || cpuBox_raw != null || screenBox_raw != null || ssdBox_raw != null || ramBox_raw != null) {
-            list = WebController.getInstance().laptopdao.searchByCheck(manuIdBox, screenBox, ramBox, cpuBox, ssdBox, 0, 0, option);
+            list = WebController.getInstance().laptopdao.searchByCheck(manuIdBox, screenBox, ramBox, cpuBox, ssdBox, from, last, option);
         }
 
         ////////////   Set All box to tick if not select any checkbox
@@ -179,11 +181,11 @@ public class laptopServlet extends HttpServlet {
         if (ssdBox_raw == null) {
             checkSsd[0] = true;
         }
-        if (priceBox_raw == null) {
+        if (priceBox == 0) {
             checkPrice[0] = true;
         }
 
-        ///////////  set check to type of product
+        ///////////  set tick to checkbox that be selected
         if (manuIdBox_raw != null && manuIdBox[0] != 0) {
             checkManu[0] = false;
             for (int i = 1; i < checkManu.length; i++) {
@@ -194,59 +196,48 @@ public class laptopServlet extends HttpServlet {
                 }
             }
         }
-        
-        if (cpuBox_raw != null && cpuBox[0] != 0) {
-            checkCpu[0] = false;
-            for (int i = 1; i < checkCpu.length; i++) {
-                if (isCheck(listCpu.get(i - 1).getId(), cpuBox)) {
-                    checkCpu[i] = true;
-                } else {
-                    checkCpu[i] = false;
-                }
-            }
-        } else if (cpuBox_raw != null && cpuBox[0] == 0) {
-            checkCpu[0] = true;
-        }
-        
-         if (ramBox_raw != null && ramBox[0] != 0) {
-            checkRam[0] = false;
-            for (int i = 1; i < checkRam.length; i++) {
-                if (isCheck(listRam.get(i - 1).getId(), ramBox)) {
-                    checkRam[i] = true;
-                } else {
-                    checkRam[i] = false;
-                }
-            }
-        } else if (ramBox_raw != null && ramBox[0] == 0) {
-            checkRam[0] = true;
-        }
-         
-          if (screenBox_raw != null && screenBox[0] != 0) {
-            checkScreen[0] = false;
-            for (int i = 1; i < checkScreen.length; i++) {
-                if (isCheck(listScreen.get(i - 1).getId(), screenBox)) {
-                    checkScreen[i] = true;
-                } else {
-                    checkScreen[i] = false;
-                }
-            }
-        } else if (screenBox_raw != null && screenBox[0] == 0) {
-            checkScreen[0] = true;
-        }
-          
-           if (ssdBox_raw != null && ssdBox[0] != 0) {
-            checkSsd[0] = false;
-            for (int i = 1; i < checkSsd.length; i++) {
-                if (isCheck(listSsd.get(i - 1).getId(), ssdBox)) {
-                    checkSsd[i] = true;
-                } else {
-                    checkSsd[i] = false;
-                }
-            }
-        } else if (ssdBox_raw != null && ssdBox[0] == 0) {
-            checkSsd[0] = true;
+
+        if (priceBox != 0) {
+            checkPrice[priceBox] = true;
         }
 
+        checkCpu = checkBox(cpuBox_raw, cpuBox, checkCpu);
+
+        checkRam = checkBox(ramBox_raw, ramBox, checkRam);
+
+        checkScreen = checkBox(screenBox_raw, screenBox, checkScreen);
+
+        checkSsd = checkBox(ssdBox_raw, ssdBox, checkSsd);
+        
+        if(manuIdBox_raw!= null) {
+            for(int i=0;i<manuIdBox.length;i++){
+                href+= "manuIdBox="+manuIdBox[i]+"&";               
+            }
+        }
+           if(ramBox_raw!= null) {
+            for(int i=0;i<ramBox.length;i++){
+                href+= "ramBox="+ramBox[i]+"&";               
+            }
+           }
+            if(priceBox_raw!=null){
+                href+="priceBox="+priceBox+"&";
+            }
+        
+           if(cpuBox_raw!= null) {
+            for(int i=0;i<cpuBox.length;i++){
+                href+= "cpuBox="+cpuBox[i]+"&";               
+            }
+           }
+            if(ssdBox_raw!= null) {
+            for(int i=0;i<ssdBox.length;i++){
+                href+= "ssdBox="+ssdBox[i]+"&";               
+            }
+            }
+            if(screenBox_raw!= null) {
+            for(int i=0;i<screenBox.length;i++){
+                href+= "screenBox="+screenBox[i]+"&";               
+            }
+            }
         /////        this is paging process
         int size = list.size();
         int page, numOfProduct = 9;
@@ -262,15 +253,14 @@ public class laptopServlet extends HttpServlet {
         end = Math.min(page * numOfProduct, size);
         List<Laptop> listP = WebController.getInstance().laptopdao.getListByPage(list, start, end);
         /////////////////////  end paging process
-        request.setAttribute("screenBox", screenBox);
-        request.setAttribute("ssdBox", ssdBox);
-        request.setAttribute("ramBox", ramBox);
+
+        request.setAttribute("href", href);
         request.setAttribute("checkSsd", checkSsd);
         request.setAttribute("checkRam", checkRam);
         request.setAttribute("checkScreen", checkScreen);
-        request.setAttribute("manuIdBox", manuIdBox);
         request.setAttribute("checkCpu", checkCpu);
         request.setAttribute("checkManu", checkManu);
+        request.setAttribute("checkPrice", checkPrice);
         request.setAttribute("sort", sort);
         request.setAttribute("listSsd", listSsd);
         request.setAttribute("listScreen", listScreen);
@@ -284,6 +274,32 @@ public class laptopServlet extends HttpServlet {
         request.setAttribute("manufacturer", listManu);
         request.getRequestDispatcher("shop.jsp").forward(request, response);
 
+    }
+
+    private int[] parseToInt(String[] box_raw, int[] box) {
+        if (box_raw != null) {
+            box = new int[box_raw.length];
+            for (int i = 0; i < box.length; i++) {
+                box[i] = Integer.parseInt(box_raw[i]);
+            }
+        }
+        return box; 
+    }
+
+    private boolean[] checkBox(String[] boxRaw, int[] box, boolean[] check) {
+        if (boxRaw != null && box[0] != 0) {
+            check[0] = false;
+            for (int i = 1; i < check.length; i++) {
+                if (isCheck(i, box)) {
+                    check[i] = true;
+                } else {
+                    check[i] = false;
+                }
+            }
+        } else if (boxRaw != null && box[0] == 0) {
+            check[0] = true;
+        }
+        return check;
     }
 
     private boolean isCheck(int d, int[] id) {
