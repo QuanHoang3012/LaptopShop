@@ -41,8 +41,8 @@
             </div>
             <div class="row align-items-center py-3 px-xl-5">
                 <div class="col-lg-3 d-none d-lg-block">
-                    <a href="" class="text-decoration-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                    <a href="home" class="text-decoration-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">L</span>Shopper</h1>
                     </a>
                 </div>
                 <div class="col-lg-6 col-6 text-left">
@@ -83,7 +83,7 @@
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 247px">
                             <c:set var="sort" value="${requestScope.sort}" />
-                            <c:set var="manuId"  value="${requestScope.manuId}"/>
+                            <c:set var="manuId"  value="${requestScope.manufacturer}"/>
                             <a href="laptop?manuId=${0}&sort=${sort}" class="nav-item nav-link">All</a>
 
                             <c:forEach items="${requestScope.manufacturer}" var="m">
@@ -102,8 +102,8 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link">Home</a>
-                                <a href="shop.html" class="nav-item nav-link active">Shop</a>
+                                <a href="home" class="nav-item nav-link">Home</a>
+                                <a href="laptop" class="nav-item nav-link active">Shop</a>
                                 <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -126,15 +126,3 @@
         <!-- Navbar End -->
 
 
-        <!-- Page Header Start -->
-        <div class="container-fluid bg-secondary mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
-                <div class="d-inline-flex">
-                    <p class="m-0"><a href="">Home</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">Shop</p>
-                </div>
-            </div>
-        </div>
-        <!-- Page Header End -->

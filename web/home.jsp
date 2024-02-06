@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EShopper - Bootstrap Shop Template</title>
+        <title>Lamtop Shop</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -68,17 +68,17 @@
             <div class="row align-items-center py-3 px-xl-5">
                 <div class="col-lg-3 d-none d-lg-block">
                     <a href="" class="text-decoration-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                        <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">L</span>Shopper</h1>
                     </a>
                 </div>
                 <div class="col-lg-6 col-6 text-left">
-                    <form action="">
+                     <form id="searchForm" action="laptop" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products">
+                            <input type="text" class="form-control" name="key" placeholder="Search by name">
                             <div class="input-group-append">
-                                <span class="input-group-text bg-transparent text-primary">
+                                <button onclick="this.form.submit()" class="btn bg-transparent text-primary">
                                     <i class="fa fa-search"></i>
-                                </span>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -103,28 +103,16 @@
             <div class="row border-top px-xl-5">
                 <div class="col-lg-3 d-none d-lg-block">
                     <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                        <h6 class="m-0">Categories</h6>
+                        <h6 class="m-0">Hãng Sản Xuất</h6>
                         <i class="fa fa-angle-down text-dark"></i>
                     </a>
                     <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i class="fa fa-angle-down float-right mt-1"></i></a>
-                                <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                    <a href="" class="dropdown-item">Men's Dresses</a>
-                                    <a href="" class="dropdown-item">Women's Dresses</a>
-                                    <a href="" class="dropdown-item">Baby's Dresses</a>
-                                </div>
-                            </div>
-                            <a href="" class="nav-item nav-link">Shirts</a>
-                            <a href="" class="nav-item nav-link">Jeans</a>
-                            <a href="" class="nav-item nav-link">Swimwear</a>
-                            <a href="" class="nav-item nav-link">Sleepwear</a>
-                            <a href="" class="nav-item nav-link">Sportswear</a>
-                            <a href="" class="nav-item nav-link">Jumpsuits</a>
-                            <a href="" class="nav-item nav-link">Blazers</a>
-                            <a href="" class="nav-item nav-link">Jackets</a>
-                            <a href="" class="nav-item nav-link">Shoes</a>
+                       <a href="laptop?manuId=${0}" class="nav-item nav-link">All</a>   
+                            <c:forEach items="${requestScope.manufacturer}" var="m">
+                                  <a href="laptop?manuId=${m.id}" class="nav-item nav-link">${m.name}</a>
+                                </c:forEach> 
+                            
                         </div>
                     </nav>
                 </div>
@@ -138,9 +126,9 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <a href="shop.html" class="nav-item nav-link">Shop</a>
-                                <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                                <a href="home" class="nav-item nav-link active">Home</a>
+                                <a href="laptop" class="nav-item nav-link">Shop</a>
+                                <a href="detail" class="nav-item nav-link">Shop Detail</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                     <div class="dropdown-menu rounded-0 m-0">
@@ -159,22 +147,22 @@
                     <div id="header-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active" style="height: 410px;">
-                                <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
+                                <img class="img-fluid" src="images/homelap1.png" alt="Image">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                                        <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">Bảo hành 3 năm</h4>
+                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">An toàn mua hàng</h3>
+                                        <a href="laptop" class="btn btn-light py-2 px-3">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item" style="height: 410px;">
-                                <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+                                <img class="img-fluid" src="images/homelap2.png" alt="Image">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
-                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                                        <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">Cấu hình cực khủng</h4>
+                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">Giá cả hợp lý</h3>
+                                        <a href="laptop" class="btn btn-light py-2 px-3">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -202,25 +190,25 @@
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                         <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                        <h5 class="font-weight-semi-bold m-0">100% hàng chất lượng</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                         <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                        <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                        <h5 class="font-weight-semi-bold m-0">Miễn phí giao hàng</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                         <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                        <h5 class="font-weight-semi-bold m-0">Bảo hành 3 năm</h5>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
                         <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                        <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                        <h5 class="font-weight-semi-bold m-0">Hỗ trợ 24/7</h5>
                     </div>
                 </div>
             </div>
@@ -233,56 +221,50 @@
             <div class="row px-xl-5 pb-3">
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        <a href="laptop?manuId=1" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/ac7.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
+                        <h5 class="font-weight-semi-bold m-0">Acer</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                        <a href="laptop?manuId=2" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/as2.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
+                        <h5 class="font-weight-semi-bold m-0">Asus</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                        <a href="laptop?manuId=3" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/m1.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
+                        <h5 class="font-weight-semi-bold m-0">Msi</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                        <a href="laptop?manuId=4" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/d5.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
+                        <h5 class="font-weight-semi-bold m-0">Dell</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-5.jpg" alt="">
+                        <a href="laptop?manuId=5" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/leno5.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Bags</h5>
+                        <h5 class="font-weight-semi-bold m-0">Lenovo</h5>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right">15 Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="img/cat-6.jpg" alt="">
+                        <a href="laptop?manuId=6" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="images/hp5.png" alt="">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0">Shoes</h5>
+                        <h5 class="font-weight-semi-bold m-0">HP</h5>
                     </div>
                 </div>
             </div>
@@ -291,7 +273,7 @@
 
 
         <!-- Offer Start -->
-        <div class="container-fluid offer pt-5">
+<!--        <div class="container-fluid offer pt-5">
             <div class="row px-xl-5">
                 <div class="col-md-6 pb-4">
                     <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
@@ -314,14 +296,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- Offer End -->
 
 
         <!-- Products Start -->
         <div class="container-fluid pt-5">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">Trandy Laptop</span></h2>
             </div>
             <div class="row px-xl-5 pb-3">
                 <c:forEach items="${requestScope.data}" var="p">        

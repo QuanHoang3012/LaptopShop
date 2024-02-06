@@ -4,8 +4,24 @@
         <servlet-name>laptopServlet</servlet-name>
         <servlet-class>com.controller.laptopServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>menuServlet</servlet-name>
+        <servlet-class>com.controller.menuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>homeServlet</servlet-name>
+        <servlet-class>com.controller.homeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>menuServlet</servlet-name>
+        <url-pattern>/menu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 </web-app>
