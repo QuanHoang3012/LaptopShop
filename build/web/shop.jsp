@@ -244,23 +244,23 @@
                                 </div>
                             </div>
                         </div>
-                        <c:forEach items="${requestScope.data}" var="p">
+                        <c:forEach items="${requestScope.data}" var="laptop">
                             <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                                 <div class="card product-item border-0 mb-4">
                                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
 
-                                        <img class="img-fluid w-100" src="images/${p.image.href}"alt="">
+                                        <img class="img-fluid w-100" src="images/${laptop.image.get(0)}"alt="">
                                     </div>
-                                    <fmt:formatNumber value="${p.outPrice}" pattern="#,##0" var="outPrice" />
-                                    <fmt:formatNumber value="${p.discount}" pattern="#,##0" var="discount" />
+                                    <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
+                                    <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                        <h6 class="mb-3  d-inline-block">${p.name}</h6>
+                                        <h6 class="mb-3  d-inline-block">${laptop.name}</h6>
                                         <div class="d-flex justify-content-center">
                                             <h6 class="flex-shrink-0 bg-danger text-white rounded-sm p-1">${discount}đ</h6><h6 class="text-muted ml-2"><del>${outPrice}đ</del></h6>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                        <a href="detail?laptopId=${laptop.id}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                                         <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                     </div>
                                 </div>

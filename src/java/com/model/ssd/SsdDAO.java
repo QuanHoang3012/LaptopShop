@@ -40,7 +40,7 @@ public class SsdDAO extends DBUtils{
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
               while(rs.next()){
-                Ssd m = new Ssd(rs.getInt("id"), rs.getString("name"));
+                Ssd m = new Ssd(rs.getInt("id"), rs.getString("detail"));
                     return m;
             }
         } catch (SQLException e) {

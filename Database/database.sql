@@ -122,7 +122,7 @@ CREATE TABLE [accounts] (
   [username] nvarchar(255),
   [password] nvarchar(255),
   [fullName] nvarchar(255),
-  [phoneNnumber] nvarchar(20),
+  [phoneNumber] nvarchar(20),
   [email] nvarchar(255),
   [gender] nvarchar(255),
   [birthday] date,

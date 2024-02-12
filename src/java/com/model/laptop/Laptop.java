@@ -5,13 +5,12 @@
 package com.model.laptop;
 
 import com.model.cpu.Cpu;
-import com.model.images.images;
 import com.model.manufacturer.Manufacturer;
 import com.model.ram.Ram;
 import com.model.screen.Screen;
 import com.model.ssd.Ssd;
-import java.awt.Image;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -32,13 +31,14 @@ public class Laptop {
     private double discount;
     private String system;
     private float weight;
-    private images image;
+    private List<String> image;
     private Manufacturer  manufacturer;
+    private String description ;
 
     public Laptop() {
     }
 
-    public Laptop(int id, String name, double inPrice, double outPrice, int stock, Screen screen, Cpu cpu, Ram ram, Ssd ssd, String card, Date releaseYear, String origin, double discount, String system, images image, float weight, Manufacturer manufacturer) {
+    public Laptop(int id, String name, double inPrice, double outPrice, int stock, Screen screen, Cpu cpu, Ram ram, Ssd ssd, String card, Date releaseYear, String origin, double discount, String system, List<String> image, float weight, Manufacturer manufacturer,String description) {
         this.id = id;
         this.name = name;
         this.inPrice = inPrice;
@@ -56,17 +56,25 @@ public class Laptop {
         this.weight = weight;
         this.image = image;
         this.manufacturer = manufacturer;
+        this.description = description;
     }
 
-    public images getImage() {
+    public List<String> getImage() {
         return image;
     }
 
-    public void setImage(images image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
-    
-    
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     
     public int getId() {
         return id;
@@ -149,7 +157,7 @@ public class Laptop {
     }
 
     public Date getReleaseYear() {
-        return releaseYear;
+        return  releaseYear ;
     }
 
     public void setReleaseYear(Date releaseYear) {

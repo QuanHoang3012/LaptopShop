@@ -139,7 +139,7 @@
                                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                             </div>
                             <div class="navbar-nav ml-auto py-0">
-                                <a href="" class="nav-item nav-link">Login</a>
+                                <a href="login" class="nav-item nav-link">Login</a>
                                 <a href="" class="nav-item nav-link">Register</a>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                         <a href="laptop?manuId=2" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="images/as2.png" alt="">
+                            <img class="img-fluid" src="images/as6.png" alt="">
                         </a>
                         <h5 class="font-weight-semi-bold m-0">Asus</h5>
                     </div>
@@ -508,28 +508,28 @@
                 <div class="col">
                     <div class="owl-carousel vendor-carousel">
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-1.jpg" alt="">
+                            <img src="images/acer.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-2.jpg" alt="">
+                            <img src="images/asus.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-3.jpg" alt="">
+                            <img src="images/lenovo.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-4.jpg" alt="">
+                            <img src="images/dell.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-5.jpg" alt="">
+                            <img src="images/hp.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-6.jpg" alt="">
+                            <img src="images/msi.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-7.jpg" alt="">
+                            <img src="images/fpt.png" alt="">
                         </div>
                         <div class="vendor-item border p-4">
-                            <img src="img/vendor-8.jpg" alt="">
+                            <img src="images/laptop.png" alt="">
                         </div>
                     </div>
                 </div>
