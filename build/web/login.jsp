@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title> Free Stylish Login Page Website Template | Smarteyeapps.com</title>
+        <title> Login</title>
 
         <link rel="shortcut icon" href="assets/images/fav.jpg">
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -26,9 +26,9 @@
                         <div class="row">
                             <div class="col-lg-8 col-md-7 log-det">
                                 <div class="small-logo">
-                                    <i class="fab fa-asymmetrik"></i> Style Login
+                                    <i class="fab fa-asymmetrik"></i> Login
                                 </div>
-                                <h2>Sign in to Smarteyeapps</h2>
+                                <h2>Sign in to LamtopShop</h2>
                                 <div class="row">
                                     <ul>
                                         <li><i class="fab fa-facebook-f"></i></li>

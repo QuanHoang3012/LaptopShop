@@ -34,18 +34,19 @@
     </head>
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
-                <!-- Page Header Start -->
-        <div class="container-fluid bg-secondary mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-                <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
-                <div class="d-inline-flex">
-                    <p class="m-0"><a href="home">Home</a></p>
-                    <p class="m-0 px-2">-</p>
-                    <p class="m-0">Shop</p>
+            <!-- Page Header Start -->
+        <c:set var="size" value="${sessionScope.size}"/>
+            <div class="container-fluid bg-secondary mb-5">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                    <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+                    <div class="d-inline-flex">
+                        <p class="m-0"><a href="home">Home</a></p>
+                        <p class="m-0 px-2">-</p>
+                        <p class="m-0">Shop</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Page Header End -->
+            <!-- Page Header End -->
             <!-- Shop Start -->
             <div class="container-fluid pt-5">
                 <div class="row px-xl-5">
@@ -64,7 +65,8 @@
                                         <label >All</label>
                                     </div>
                                 </div>
-                                <c:set value="${requestScope.manufacturer}" var="m" />
+                                <jsp:useBean id="listManu" class="com.model.manufacturer.ManufacturerDAO"/>   
+                                <c:set value="${listManu.all}" var="m" />
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
@@ -117,6 +119,7 @@
                         <!-- End Price -->
 
                         <!-- Cpu Start -->
+
                         <c:set var="checkCpu" value="${requestScope.checkCpu}"/>
                         <div class="border-bottom mb-4 pb-4">
                             <h5 class="font-weight-semi-bold mb-4">CPU</h5>
@@ -127,7 +130,8 @@
                                         <label >All</label>
                                     </div>
                                 </div>
-                                <c:set value="${requestScope.listCpu}" var="m" />
+                                <jsp:useBean id="listCpu" class="com.model.cpu.CpuDAO"/>   
+                                <c:set value="${listCpu.all}" var="m" />
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
@@ -150,7 +154,8 @@
                                         <label >All</label>
                                     </div>
                                 </div>
-                                <c:set value="${requestScope.listRam}" var="m" />
+                                <jsp:useBean id="listRam" class="com.model.ram.RamDAO"/>                   
+                                <c:set value="${listRam.all}" var="m" />
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
@@ -173,7 +178,8 @@
                                         <label >All</label>
                                     </div>
                                 </div>
-                                <c:set value="${requestScope.listSsd}" var="m" />
+                                <jsp:useBean id="listSsd" class="com.model.ssd.SsdDAO"/>                   
+                                <c:set value="${listSsd.all}" var="m" />
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
@@ -196,7 +202,8 @@
                                         <label >All</label>
                                     </div>
                                 </div>
-                                <c:set value="${requestScope.listScreen}" var="m" />
+                                <jsp:useBean id="listScreen" class="com.model.screen.ScreenDAO"/>                   
+                                <c:set value="${listScreen.all}" var="m" />
                                 <c:forEach begin="0" end="${m.size()-1}" var="i">
                                     <div class="col-md-6">
                                         <div >
@@ -238,40 +245,49 @@
                                         Sắp xếp
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                            <a class="dropdown-item" href="laptop?${href}sort=priceAsc" >Giá thấp</a>
-                                            <a class="dropdown-item" href="laptop?${href}sort=priceDes" >Giá cao</a>                
+                                        <a class="dropdown-item" href="laptop?${href}sort=priceAsc" >Giá thấp</a>
+                                        <a class="dropdown-item" href="laptop?${href}sort=priceDes" >Giá cao</a>                
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <c:forEach items="${requestScope.data}" var="laptop">
-                            <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
-                                <div class="card product-item border-0 mb-4">
-                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    <form name="f" action="" method="post">
+    <input type="hidden" name="quantityLaptop" value="1"/>
+    <div class="row">
+        <c:forEach items="${requestScope.data}" var="laptop" varStatus="loop">
+            <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
+                    </div>
+                    <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
+                    <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="mb-3  d-inline-block">${laptop.name}</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6 class="flex-shrink-0 bg-danger text-white rounded-sm p-1">${discount}đ</h6><h6 class="text-muted ml-2"><del>${outPrice}đ</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="detail?laptopId=${laptop.id}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="#" onclick="buy('${laptop.id}')" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Close the row after every third item -->
+            <c:if test="${loop.index % 3 == 2 or loop.last}">
+                </div><div class="row">
+            </c:if>
+        </c:forEach>
+    </div>
+</form>
 
-                                        <img class="img-fluid w-100" src="images/${laptop.image.get(0)}"alt="">
-                                    </div>
-                                    <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
-                                    <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
-                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                        <h6 class="mb-3  d-inline-block">${laptop.name}</h6>
-                                        <div class="d-flex justify-content-center">
-                                            <h6 class="flex-shrink-0 bg-danger text-white rounded-sm p-1">${discount}đ</h6><h6 class="text-muted ml-2"><del>${outPrice}đ</del></h6>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between bg-light border">
-                                        <a href="detail?laptopId=${laptop.id}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
                         <c:set var="page"   value="${requestScope.page}"/>
                         <c:set var="numPage" value="${requestScope.num}"/>
                         <div class="col-12 pb-1">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center mb-3">
-                                     <li class="page-item ${page==1?"disabled":""}">
+                                    <li class="page-item ${page==1?"disabled":""}">
                                         <a class="page-link" href="laptop?page=${page-1}&${href}sort=${sort}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
@@ -279,12 +295,12 @@
                                     </li>
 
                                     <c:forEach  begin="${1}"  end="${numPage}" var="i">
-                                       
-                                            <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&${href}sort=${sort}" >${i}</a></li>
 
-                                        </c:forEach>
-                                                                 
-                                             <li class="page-item  ${page==numPage?"disabled":""} ">
+                                        <li class="${i==page?'page-item active':' '}"><a class="page-link" href="laptop?page=${i}&${href}sort=${sort}" >${i}</a></li>
+
+                                    </c:forEach>
+
+                                    <li class="page-item  ${page==numPage?"disabled":""} ">
                                         <a class="page-link" href="laptop?page=${page+1}&${href}sort=${sort}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
@@ -301,8 +317,13 @@
         <!-- Shop End -->
 
 
-         <jsp:include page="footer.jsp"></jsp:include>
-
+        <jsp:include page="footer.jsp"></jsp:include>
+        <script type="text/javascript">
+            function buy(id){
+                document.f.action = "buy?id="+id;
+                document.f.submit();
+            }
+        </script>
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

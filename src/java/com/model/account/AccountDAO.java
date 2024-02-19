@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class AccountDAO extends DBUtils {
 
-    public Account checkAccount(String username, String password) {
+    public Account getAccount(String username, String password) {
         String sql = "select * from accounts where [username] =? and [password] =? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -28,14 +28,13 @@ public class AccountDAO extends DBUtils {
                 acc.setUsername(rs.getString("username"));
                 acc.setPassword(rs.getString("password"));
                 acc.setFullname(rs.getString("fullname"));
-                acc.setPhoneNumber(rs.getString("phonenNumber"));
+                acc.setPhoneNumber(rs.getString("phoneNumber"));
                 acc.setGender(rs.getString("gender"));
                 acc.setEmail(rs.getString("email"));
                 acc.setImage(rs.getString("image"));
                 acc.setBirthday(rs.getDate("birthday"));
                 acc.setRole(rs.getInt("role"));
-                return acc;
-                
+                return acc;              
             }
         } catch (SQLException e) {
         }
@@ -44,7 +43,7 @@ public class AccountDAO extends DBUtils {
     
     public static void main(String[] args) {
         AccountDAO acb = new AccountDAO();
-        Account a = acb.checkAccount("john_doe", "password123");
+        Account a = acb.getAccount("john_doe", "password123");
         System.out.println(a.getFullname());
     }
 }

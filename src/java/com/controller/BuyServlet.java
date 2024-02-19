@@ -4,8 +4,9 @@
  */
 package com.controller;
 
-import com.model.account.Account;
-import com.model.account.AccountDAO;
+import com.model.cart.Cart;
+import com.model.item.Item;
+import com.model.laptop.Laptop;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,12 +14,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  *
  * @author Anh Quan
  */
-public class loginServlet extends HttpServlet {
+public class BuyServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +39,10 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");
+            out.println("<title>Servlet BuyServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BuyServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +60,8 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, response);   
+                     processRequest(request, response);
+
     }
 
     /**
@@ -72,19 +75,29 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO accountdao = new AccountDAO();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        HttpSession session = request.getSession();
-        
-            Account a = accountdao.getAccount(username, password);
-            if (a == null) {
-                request.setAttribute("error", "username or password is wrong");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else {
-                session.setAttribute("account", a);
-                response.sendRedirect("home");
-            }
+        HttpSession session = request.getSession(true);
+        Cart cart =null;
+        Object o = session.getAttribute("cart");
+        if(o!= null){
+            cart = (Cart) o;
+        }else {
+            cart = new Cart();
+        }
+        String quantityLaptop_raw = request.getParameter("quantityLaptop");
+        String laptopId_raw= request.getParameter("id");
+        try {
+            int quantityLaptop = Integer.parseInt(quantityLaptop_raw);
+            int laptopId = Integer.parseInt(laptopId_raw);
+            
+            Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
+            Item item = new Item(laptop, quantityLaptop, laptop.getDiscount());
+            cart.addItem(item);
+        } catch (NumberFormatException e) {
+        }
+        List<Item> listItem = cart.getItems();
+        session.setAttribute("cart", cart);
+        session.setAttribute("size", listItem.size());
+        response.sendRedirect("detail?laptopId="+laptopId_raw);
     }
 
     /**

@@ -261,17 +261,12 @@ public class laptopServlet extends HttpServlet {
         request.setAttribute("checkCpu", checkCpu);
         request.setAttribute("checkManu", checkManu);
         request.setAttribute("checkPrice", checkPrice);
-        request.setAttribute("sort", sort);
-        request.setAttribute("listSsd", listSsd);
-        request.setAttribute("listScreen", listScreen);
-        request.setAttribute("listCpu", listCpu);
-        request.setAttribute("listRam", listRam);
+        request.setAttribute("sort", sort);      
         request.setAttribute("manuId", manuId);
         request.setAttribute("data", listP);
         request.setAttribute("page", page);
         request.setAttribute("num", numOfPage);
         request.setAttribute("key", key);
-        request.setAttribute("manufacturer", listManu);
         request.getRequestDispatcher("shop.jsp").forward(request, response);
 
     }

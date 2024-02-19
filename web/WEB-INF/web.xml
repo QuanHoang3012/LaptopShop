@@ -20,6 +20,14 @@
         <servlet-name>productDetailServlet</servlet-name>
         <servlet-class>com.controller.productDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>com.controller.BuyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcessServlet</servlet-name>
+        <servlet-class>com.controller.ProcessServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -39,5 +47,13 @@
     <servlet-mapping>
         <servlet-name>productDetailServlet</servlet-name>
         <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/buy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcessServlet</servlet-name>
+        <url-pattern>/process</url-pattern>
     </servlet-mapping>
 </web-app>

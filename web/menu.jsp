@@ -63,9 +63,10 @@
                         <i class="fas fa-heart text-primary"></i>
                         <span class="badge">0</span>
                     </a>
-                    <a href="" class="btn border">
+                    <c:set var="size" value="${sessionScope.size}"/>
+                    <a href="cart.jsp" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">${size}</span>
                     </a>
                 </div>
             </div>
@@ -83,10 +84,9 @@
                     <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                         <div class="navbar-nav w-100 overflow-hidden" style="height: 247px">
                             <c:set var="sort" value="${requestScope.sort}" />
-                            <c:set var="manuId"  value="${requestScope.manufacturer}"/>
                             <a href="laptop?manuId=${0}&sort=${sort}" class="nav-item nav-link">All</a>
-
-                            <c:forEach items="${requestScope.manufacturer}" var="m">
+                            <jsp:useBean id="manufacturer" class="com.model.manufacturer.ManufacturerDAO"/>
+                            <c:forEach items="${manufacturer.all}" var="m">
                                 <a href="laptop?manuId=${m.id}&sort=${sort}" class="nav-item nav-link">${m.name}</a>
                             </c:forEach>
                         </div>
