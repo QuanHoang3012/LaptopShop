@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>web/shop.jsp</url>
-            <bookmark id="2">
-                <name/>
-                <line>0</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>src/java/com/model/laptop/LaptopDAO.java</url>
             <bookmark id="1">
                 <name/>
@@ -17,14 +9,25 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>web/shop.jsp</url>
+            <bookmark id="2">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/shop.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/homeServlet.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/CartServlet.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/account/AccountDAO.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/signup.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/cart.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/ProcessServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/menu.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/loginServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/CheckoutServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/detail.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/BuyServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/home.jsp</file>
         </group>
     </open-files>
 </project-private>

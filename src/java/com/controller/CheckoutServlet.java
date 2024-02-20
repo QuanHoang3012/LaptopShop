@@ -4,9 +4,9 @@
  */
 package com.controller;
 
+import com.model.account.Account;
 import com.model.cart.Cart;
-import com.model.item.Item;
-import com.model.laptop.Laptop;
+import com.model.order.OrderDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,13 +14,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author Anh Quan
  */
-public class BuyServlet extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class BuyServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BuyServlet</title>");            
+            out.println("<title>Servlet CheckoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BuyServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,8 +59,7 @@ public class BuyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                     processRequest(request, response);
-
+        processRequest(request, response);
     }
 
     /**
@@ -75,7 +73,7 @@ public class BuyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+             HttpSession session = request.getSession(true);
         Cart cart =null;
         Object o = session.getAttribute("cart");
         if(o!= null){
@@ -83,21 +81,18 @@ public class BuyServlet extends HttpServlet {
         }else {
             cart = new Cart();
         }
-        String quantityLaptop_raw = request.getParameter("quantityLaptop");
-        String laptopId_raw= request.getParameter("id");
-        try {
-            int quantityLaptop = Integer.parseInt(quantityLaptop_raw);
-            int laptopId = Integer.parseInt(laptopId_raw);
-            
-            Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
-            Item item = new Item(laptop, quantityLaptop, laptop.getDiscount());
-            cart.addItem(item);
-        } catch (NumberFormatException e) {
+        Account account = null;
+        Object acc = session.getAttribute("account");
+        if(acc!=null){
+            account = (Account) acc;
+            OrderDAO orderDao = WebController.getInstance().orderdao;
+            orderDao.addOrder(account, cart);
+            session.removeAttribute("cart");
+            session.setAttribute("size", o);
+            response.sendRedirect("home");
+        }else {
+            response.sendRedirect("login.jsp");
         }
-        List<Item> listItem = cart.getItems();
-        session.setAttribute("cart", cart);
-        session.setAttribute("size", listItem.size());
-        response.sendRedirect("cart.jsp");
     }
 
     /**

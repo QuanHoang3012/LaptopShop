@@ -84,10 +84,6 @@
                     </form>
                 </div>
                 <div class="col-lg-3 col-6 text-right">
-                    <a href="" class="btn border">
-                        <i class="fas fa-heart text-primary"></i>
-                        <span class="badge">0</span>
-                    </a>
                     <a href="cart.jsp" class="btn border">
                         <i class="fas fa-shopping-cart text-primary"></i>
                         <span class="badge">${sessionScope.size}</span>
@@ -129,20 +125,24 @@
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="home" class="nav-item nav-link active">Home</a>
                                 <a href="laptop" class="nav-item nav-link">Shop</a>
-                                <a href="detail" class="nav-item nav-link">Shop Detail</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                        <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                    </div>
-                                </div>
+                                <a href="cart.jsp" class="nav-item nav-link">Shopping Cart</a>
+                                <a href="checkout.jsp" class="nav-item nav-link">Checkout</a>
                                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                             </div>
-                            <div class="navbar-nav ml-auto py-0">
-                                <a href="login" class="nav-item nav-link">Login</a>
-                                <a href="" class="nav-item nav-link">Register</a>
-                            </div>
+                             <c:set var="account" value="${sessionScope.account}"/>
+                    <c:if test="${account ==null}">
+                        <div class="navbar-nav ml-auto py-0">
+                            <a href="login.jsp" class="nav-item nav-link">Login</a>
+                            <a href="signup.jsp" class="nav-item nav-link">Register</a>
+                        </div>
+                    </c:if>
+                    <c:if test="${account !=null}">
+                        <div class="navbar-nav ml-auto py-0">
+                            <img src="images/profileimage.png" alt="Profile Image" class="nav-profile-image rounded-circle" style="width: 30px; height: 30px; object-fit: cover;margin-top: 14px;">
+                            <a href="#" class="nav-item nav-link">${account.fullname}</a>
+                            <a href="login?action=logout" class="nav-item nav-link">Log out</a>
+                        </div>
+                    </c:if>
                         </div>
                     </nav>
                     <div id="header-carousel" class="carousel slide" data-ride="carousel">

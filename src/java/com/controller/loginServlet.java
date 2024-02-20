@@ -58,7 +58,12 @@ public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("login.jsp").forward(request, response);   
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+        if(action!=null){
+            session.removeAttribute("account");
+        }
+        response.sendRedirect("home");
     }
 
     /**
@@ -76,15 +81,15 @@ public class loginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        
-            Account a = accountdao.getAccount(username, password);
-            if (a == null) {
-                request.setAttribute("error", "username or password is wrong");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            } else {
-                session.setAttribute("account", a);
-                response.sendRedirect("home");
-            }
+
+        Account a = accountdao.getAccount(username, password);
+        if (a == null) {
+            request.setAttribute("error", "username or password is wrong");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            session.setAttribute("account", a);
+            response.sendRedirect("home");
+        }
     }
 
     /**

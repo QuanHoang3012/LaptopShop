@@ -5,13 +5,12 @@
 package com.controller;
 
 import com.model.cpu.CpuDAO;
-import com.model.laptop.Laptop;
 import com.model.laptop.LaptopDAO;
 import com.model.manufacturer.ManufacturerDAO;
+import com.model.order.OrderDAO;
 import com.model.ram.RamDAO;
 import com.model.screen.ScreenDAO;
 import com.model.ssd.SsdDAO;
-import java.util.List;
 
 /**
  *
@@ -24,6 +23,7 @@ public class WebController {
     RamDAO ramdao;
      ScreenDAO screendao ;
      SsdDAO ssddao;
+    OrderDAO orderdao;
     
     private static  WebController instance = null;
     private WebController() {
@@ -33,6 +33,7 @@ public class WebController {
          ramdao = new RamDAO();
          screendao = new ScreenDAO();
          ssddao = new SsdDAO();
+         orderdao = new OrderDAO();
     }
     public static  WebController getInstance () {
             if(instance == null) {

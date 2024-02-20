@@ -94,18 +94,21 @@
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus" >
+                                <button class="btn btn-primary btn-minus"  onclick="decreaseQuantity()" >
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary text-center" value="1">
+                            <input type="text" class="form-control bg-secondary text-center" value="1" name="">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
+                                <button class="btn btn-primary btn-plus" onclick="increaseQuantity()">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                                                    <form action="" name="f" method="post">
+                                                        <input type="hidden" name="quantityLaptop" value="1" id="quantity">  
+                        <button class="btn btn-primary px-3"  onclick="buy1('${laptop.id}')"  ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        </form>
                     </div>
                     <div class="d-flex pt-2">
                         <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
@@ -250,6 +253,8 @@
             <div class="text-center mb-4">
                 <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
             </div>
+                                                <form name="m" action="" method="post">
+       <input type="hidden" name="quantityLaptop" value="1"/>
             <div class="row px-xl-5">
                 <div class="col">
                     <div class="owl-carousel related-carousel">
@@ -268,21 +273,42 @@
                                 </div>
                              <div class="card-footer d-flex justify-content-between bg-light border">
                                         <a href="detail?laptopId=${laptop.id}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                        <a href="#"  onclick="buy('${laptop.id}')"  class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                     </div>
                             </div>
                         </c:forEach>
                     </div>
                 </div>
             </div>
+    </form>
         </div>
         <!-- Products End -->
-
+        
 
         <!-- Footer Start -->
         <jsp:include page="footer.jsp"></jsp:include>
-
-
+          <script type="text/javascript">
+            function buy(id){
+                document.m.action = "buy?id="+id;
+                document.m.submit();
+            }
+            function buy1(id){
+                document.f.action = "buy?id="+id;
+                document.f.submit();
+            }
+             function decreaseQuantity() {
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    }
+    function increaseQuantity() {
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+    }
+            </script>   
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

@@ -65,6 +65,7 @@
                         <tbody class="align-middle">
                             <c:set var="cart" value="${sessionScope.cart}"/>
                             <c:set var="t" value="0"/>
+                            <c:set value="0" var="totalPrice"/>
                             <c:forEach items="${cart.items}" var="item">
                                 <c:set var="t" value="${t+1}"/>
                                 <tr>
@@ -87,9 +88,10 @@
                                                 </div>
                                             </div>
 
-                                    </td>
+                                    </td>                                  
                                     <fmt:formatNumber value="${item.laptop.discount*item.quantity}" pattern="#,##0" var="price" />
                                     <td class="align-middle">${price}</td>
+                                    <c:set value="${totalPrice+item.laptop.discount*item.quantity}" var="totalPrice"/>
                             <form action="process" method="post">
                                 <input type="hidden" value="${item.laptop.id}" name="id"/>
                                 <td class="align-middle"><button class="btn btn-sm btn-primary"> <i class="fa fa-times"></i></button></td>
@@ -102,24 +104,25 @@
                 <div class="col-lg-4">              
                     <div class="card border-secondary mb-5">
                         <div class="card-header bg-secondary border-0">
-                            <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                            <h4 class="font-weight-semi-bold m-0">Tổng đơn</h4>
                         </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3 pt-1">
-                                <h6 class="font-weight-medium">Subtotal</h6>
-                                <h6 class="font-weight-medium">$150</h6>
+                                <fmt:formatNumber value="${totalPrice}" pattern="#,##0" var="totalCheckout" />
+                                <h6 class="font-weight-medium">Tổng tiền</h6>
+                                <h6 class="font-weight-medium">${totalCheckout}đ</h6>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <h6 class="font-weight-medium">Shipping</h6>
-                                <h6 class="font-weight-medium">$10</h6>
+                                <h6 class="font-weight-medium">Phí ship</h6>
+                                <h6 class="font-weight-medium">0đ</h6>
                             </div>
                         </div>
                         <div class="card-footer border-secondary bg-transparent">
                             <div class="d-flex justify-content-between mt-2">
-                                <h5 class="font-weight-bold">Total</h5>
-                                <h5 class="font-weight-bold">$160</h5>
+                                <h5 class="font-weight-bold">Tổng</h5>
+                                <h5 class="font-weight-bold">${totalCheckout}đ</h5>
                             </div>
-                            <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                            <button class="btn btn-block btn-primary my-3 py-3" onclick="checkout()">Thanh toán</button>
                         </div>
                     </div>
                 </div>
@@ -132,7 +135,11 @@
         <jsp:include page="footer.jsp"/>
         <!-- Footer End -->
 
-
+        <script type="text/javascript">
+                function checkout(){
+                    window.location.href = "checkout.jsp";
+                }
+            </script>
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
