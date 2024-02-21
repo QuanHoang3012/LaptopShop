@@ -48,7 +48,7 @@ WHERE  TABLE_TYPE = 'BASE TABLE'
 Exec Sp_executesql @sql2 
 GO 
 CREATE TABLE [Laptop] (
-  [id] integer  IDENTITY(1,1)  PRIMARY KEY,
+  [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [name] nvarchar(255),
   [inPrice] money,
   [outPrice] money,
@@ -60,10 +60,17 @@ CREATE TABLE [Laptop] (
   [card] nvarchar(255),
   [releaseyear] date,
   [origin] nvarchar(255),
-  [discount] money,
+  [discount] float,
   [system] nvarchar(255),
   [weight] float,
-  [manufacturerId] integer
+  [manufacturerId] integer,
+  [description] nvarchar(467)
+)
+GO
+
+CREATE TABLE [screen] (
+  [id] integer PRIMARY KEY,
+  [detail] varchar(255)
 )
 GO
 
@@ -72,10 +79,7 @@ CREATE TABLE [manufacturer] (
   [name] nvarchar(255)
 )
 GO
-CREATE TABLE [screen] (
-  [id] integer,
-  [detail] varchar(255)
-)
+
 CREATE TABLE [ssd] (
   [id] integer PRIMARY KEY,
   [detail] varchar(255)
@@ -101,18 +105,19 @@ CREATE TABLE [images] (
 GO
 
 CREATE TABLE [order] (
-  [id] integer   IDENTITY(1,1) PRIMARY KEY,
+ [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [customer] integer,
-  [created] date,
+  [date] date,
   [status] nvarchar(255),
-  [discountId] integer
+  [address] integer
 )
 GO
 
-CREATE TABLE [orderDetails] (
+CREATE TABLE [orderdetail] (
   [laptopId] integer,
   [orderId] integer,
-  [amount] integer,
+  [quantity] integer,
+  [price] money,
   PRIMARY KEY ([laptopId], [orderId])
 )
 GO
@@ -124,15 +129,16 @@ CREATE TABLE [accounts] (
   [fullName] nvarchar(255),
   [phoneNumber] nvarchar(20),
   [email] nvarchar(255),
-  [gender] nvarchar(255),
+  [gender] integer,
   [birthday] date,
   [image] nvarchar(255),
-  [role] integer
+  [role] integer,
+  [money] money
 )
 GO
 
 CREATE TABLE [reviews] (
-  [id] integer   IDENTITY(1,1)  PRIMARY KEY,
+  [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [customerId] integer,
   [laptopId] integer,
   [review] integer,
@@ -141,42 +147,14 @@ CREATE TABLE [reviews] (
 )
 GO
 
-CREATE TABLE [discounts] (
-  [id] integer  IDENTITY(1,1)  PRIMARY KEY,
-  [code] nvarchar(255),
-  [value] money
-)
-GO
-
-CREATE TABLE [customer_discounts] (
-  [customer] integer,
-  [discountId] integer,
-  PRIMARY KEY ([customer], [discountId])
-)
-GO
-
 CREATE TABLE [customer_address] (
-  [id] integer  IDENTITY(1,1)  PRIMARY KEY,
+  [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [customer] integer,
-  [streetNumber] integer,
-  [streetName] nvarchar(255),
-  [city] nvarchar(255),
-  [country] nvarchar(255)
-)
-GO
-
-CREATE TABLE [country] (
-  [name] nvarchar(255) PRIMARY KEY
+  [address] nvarchar(255)
 )
 GO
 
 ALTER TABLE [images] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
-GO
-
-ALTER TABLE [orderDetails] ADD FOREIGN KEY ([orderId]) REFERENCES [order] ([id])
-GO
-
-ALTER TABLE [orderDetails] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
 GO
 
 ALTER TABLE [order] ADD FOREIGN KEY ([customer]) REFERENCES [accounts] ([id])
@@ -185,22 +163,10 @@ GO
 ALTER TABLE [reviews] ADD FOREIGN KEY ([customerId]) REFERENCES [accounts] ([id])
 GO
 
-ALTER TABLE [customer_discounts] ADD FOREIGN KEY ([customer]) REFERENCES [accounts] ([id])
-GO
-
-ALTER TABLE [customer_discounts] ADD FOREIGN KEY ([discountId]) REFERENCES [discounts] ([id])
-GO
-
 ALTER TABLE [customer_address] ADD FOREIGN KEY ([customer]) REFERENCES [accounts] ([id])
 GO
 
-ALTER TABLE [customer_address] ADD FOREIGN KEY ([country]) REFERENCES [country] ([name])
-GO
-
 ALTER TABLE [Laptop] ADD FOREIGN KEY ([manufacturerId]) REFERENCES [manufacturer] ([id])
-GO
-
-ALTER TABLE [order] ADD FOREIGN KEY ([discountId]) REFERENCES [discounts] ([id])
 GO
 
 ALTER TABLE [reviews] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
@@ -214,3 +180,19 @@ GO
 
 ALTER TABLE [Laptop] ADD FOREIGN KEY ([ssdId]) REFERENCES [ssd] ([id])
 GO
+
+ALTER TABLE [Laptop] ADD FOREIGN KEY ([screenId]) REFERENCES [screen] ([id])
+GO
+
+ALTER TABLE [orderdetail] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
+GO
+
+ALTER TABLE [orderdetail] ADD FOREIGN KEY ([orderId]) REFERENCES [order] ([id])
+GO
+
+ALTER TABLE [order] ADD FOREIGN KEY ([address]) REFERENCES [customer_address] ([id])
+GO
+
+
+
+

@@ -14,17 +14,38 @@ public class Order {
     private int id;
     private Date date;
     private int customerId;
+    private String status;
     private double totalMoney;
+    private int address;
 
     public Order() {
     }
 
-    public Order(int id, Date date, int customerId, double totalMoney) {
+    public Order(int id, Date date, int customerId,String status, double totalMoney, int address) {
         this.id = id;
         this.date = date;
         this.customerId = customerId;
+        this.address = address;
+        this.status = status;
         this.totalMoney = totalMoney;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+    }
+    
     
     public int getId() {
         return id;

@@ -67,9 +67,8 @@ public class laptopServlet extends HttpServlet {
         List<Ssd> listSsd = WebController.getInstance().ssddao.getAll();
         List<Cpu> listCpu = WebController.getInstance().cpudao.getAll();
         List<Ram> listRam = WebController.getInstance().ramdao.getAll();
-        List<Laptop> list = WebController.getInstance().laptopdao.getAllLaptop();
-        List<Manufacturer> listManu = WebController.getInstance().manudao.getAll();
-
+        List<Manufacturer> listManu = WebController.getInstance().manudao.getAll();       
+        List<Laptop> list ;
         ////////////  Get information of checkbox
         String[] manuIdBox_raw = request.getParameterValues("manuIdBox");
         String[] cpuBox_raw = request.getParameterValues("cpuBox");
@@ -116,7 +115,7 @@ public class laptopServlet extends HttpServlet {
                 option = 2;
             }
         }
-
+        list = WebController.getInstance().laptopdao.getAllLaptop(option);
         //////////        Check if have something to search in text to search product      
         if (key != null) {
             list = WebController.getInstance().laptopdao.searchByName(key, option);

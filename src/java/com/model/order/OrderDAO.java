@@ -18,15 +18,17 @@ import java.time.LocalDate;
  * @author Anh Quan
  */
 public class OrderDAO extends DBUtils{
-    public void addOrder(Account account, Cart cart){
+    public void addOrder(Account account, Cart cart,int addressId){
         LocalDate currentDate = java.time.LocalDate.now();
         String date = currentDate.toString();
         try {
-            String sql = "insert into [Order] values(?,?,?)";
+            String sql = "insert into [Order] values(?,?,?,?,?)";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, date);
             st.setInt(2, account.getId());
-            st.setDouble(3, cart.getTotalMoney());
+            st.setString(3, "Đang thanh toán");
+            st.setDouble(4, cart.getTotalMoney());
+            st.setInt(5, addressId);
             st.executeUpdate();
             String sql1 = "select top 1 from [Order] order by id desc";
             PreparedStatement st1 = connection.prepareStatement(sql1);

@@ -17,15 +17,15 @@ public class Account {
     private String fullname;
     private String phoneNumber;
     private String email;
-    private String gender;
-    private Date birthday;
+    private int gender;
+    private String birthday;
     private String image;
     private int role;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String fullname, String phoneNumber, String email, String gender, Date birthday, String image, int role) {
+    public Account(int id, String username, String password, String fullname, String phoneNumber, String email, int gender, String birthday, String image, int role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -86,19 +86,19 @@ public class Account {
         this.email = email;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

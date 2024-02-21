@@ -84,7 +84,7 @@ public class loginServlet extends HttpServlet {
 
         Account a = accountdao.getAccount(username, password);
         if (a == null) {
-            request.setAttribute("error", "username or password is wrong");
+            request.setAttribute("error", "Username or password is wrong");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             session.setAttribute("account", a);

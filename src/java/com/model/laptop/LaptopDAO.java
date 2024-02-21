@@ -49,9 +49,14 @@ public class LaptopDAO extends DBUtils {
         return list;
     }
 
-    public List<Laptop> getAllLaptop() {
+    public List<Laptop> getAllLaptop(int option) {
         List<Laptop> list = new ArrayList<>();
-        String sql = "Select * from [Laptop] order by discount  ";
+        String sql = "Select * from [Laptop]";
+        if (option == 1) {
+            sql += " order by discount";
+        } else if (option == 2) {
+            sql += " order by discount desc";
+        }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

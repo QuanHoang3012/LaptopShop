@@ -123,26 +123,32 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="home" class="nav-item nav-link active">Home</a>
+                                <a href="home" class="nav-item nav-link">Home</a>
                                 <a href="laptop" class="nav-item nav-link">Shop</a>
                                 <a href="cart.jsp" class="nav-item nav-link">Shopping Cart</a>
                                 <a href="checkout.jsp" class="nav-item nav-link">Checkout</a>
                                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                             </div>
-                             <c:set var="account" value="${sessionScope.account}"/>
-                    <c:if test="${account ==null}">
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="login.jsp" class="nav-item nav-link">Login</a>
-                            <a href="signup.jsp" class="nav-item nav-link">Register</a>
-                        </div>
-                    </c:if>
-                    <c:if test="${account !=null}">
-                        <div class="navbar-nav ml-auto py-0">
-                            <img src="images/profileimage.png" alt="Profile Image" class="nav-profile-image rounded-circle" style="width: 30px; height: 30px; object-fit: cover;margin-top: 14px;">
-                            <a href="#" class="nav-item nav-link">${account.fullname}</a>
-                            <a href="login?action=logout" class="nav-item nav-link">Log out</a>
-                        </div>
-                    </c:if>
+                            <c:set var="account" value="${sessionScope.account}"/>
+                            <c:if test="${account ==null}">
+                                <div class="navbar-nav ml-auto py-0">
+                                    <a href="login.jsp" class="nav-item nav-link">Login</a>
+                                    <a href="signup.jsp" class="nav-item nav-link">Register</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${account !=null}">
+                                <div class="navbar-nav ml-auto py-0">                                   
+                                    <img src="images/profileimage.png" alt="Profile Image" class="nav-profile-image rounded-circle" style="width: 30px; height: 30px; object-fit: cover;margin-top: 14px;">
+                                    <a href="#" class="nav-item nav-link">${account.fullname}</a>
+                                     <c:if test="${account.role==1}">
+                                        <a href="profile.jsp" class="nav-item nav-link">User Profile</a>
+                                    </c:if>
+                                    <c:if test="${account.role==0}">
+                                        <a href="profile.jsp" class="nav-item nav-link">Admin</a>
+                                    </c:if>
+                                    <a href="login?action=logout" class="nav-item nav-link">Log out</a>
+                                </div>
+                            </c:if>
                         </div>
                     </nav>
                     <div id="header-carousel" class="carousel slide" data-ride="carousel">
@@ -611,7 +617,6 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
         <!-- JavaScript Libraries -->

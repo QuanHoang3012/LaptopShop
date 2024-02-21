@@ -86,7 +86,7 @@ public class CheckoutServlet extends HttpServlet {
         if(acc!=null){
             account = (Account) acc;
             OrderDAO orderDao = WebController.getInstance().orderdao;
-            orderDao.addOrder(account, cart);
+            orderDao.addOrder(account, cart,1);
             session.removeAttribute("cart");
             session.setAttribute("size", o);
             response.sendRedirect("home");

@@ -4,6 +4,8 @@
  */
 package com.controller;
 
+import com.model.account.AccountDAO;
+import com.model.address.AddressDAO;
 import com.model.cpu.CpuDAO;
 import com.model.laptop.LaptopDAO;
 import com.model.manufacturer.ManufacturerDAO;
@@ -24,7 +26,8 @@ public class WebController {
      ScreenDAO screendao ;
      SsdDAO ssddao;
     OrderDAO orderdao;
-    
+    AccountDAO accountdao;
+    AddressDAO addressdao;
     private static  WebController instance = null;
     private WebController() {
          laptopdao = new LaptopDAO();
@@ -34,6 +37,8 @@ public class WebController {
          screendao = new ScreenDAO();
          ssddao = new SsdDAO();
          orderdao = new OrderDAO();
+         accountdao = new AccountDAO();
+         addressdao = new AddressDAO();
     }
     public static  WebController getInstance () {
             if(instance == null) {
