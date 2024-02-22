@@ -90,7 +90,7 @@ public class AccountServlet extends HttpServlet {
                 String newPassword = request.getParameter("newPassword");
                 String confirmPassword = request.getParameter("confirmPassword");
                 if (account.getPassword().equals(currentPassword)) {
-                    if (newPassword.equals(confirmPassword)) {
+                    if (newPassword.equals(confirmPassword) && !newPassword.isEmpty()) {
                         boolean result = WebController.getInstance().accountdao.updatePassword(account.getId(), newPassword);
                         if (result) {
                             request.setAttribute("resultChangePass", "Đổi mật khẩu thành công");
@@ -103,6 +103,25 @@ public class AccountServlet extends HttpServlet {
                     request.setAttribute("resultChangePass", "Sai mật khẩu");
                 }
                 request.getRequestDispatcher("updatepassword.jsp").forward(request, response);
+            }else if(action.equals("addAddress")){
+                 String name = request.getParameter("fullName");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+                if(name!= null || phone!= null | address!= null){
+                    boolean result = WebController.getInstance().addressdao.addAddres(account, name,phone, address);
+                    if(result){
+                        request.setAttribute("resultAdd", "Thêm thành công");
+                        request.getRequestDispatcher("addressAccount.jsp").forward(request, response);
+                    }else     request.setAttribute("resultAdd", "Thêm thất bại");               
+                }
+            }else if(action.equals("deleteAddress")){
+                String addressId_raw = request.getParameter("id");
+                try {
+                    int addressId = Integer.parseInt(addressId_raw);
+                    WebController.getInstance().addressdao.deleteAdress(addressId);
+                    request.getRequestDispatcher("addressAccount.jsp").forward(request, response);
+                } catch (NumberFormatException e) {
+                }
             }
         } else {
             response.sendRedirect("login.jsp");

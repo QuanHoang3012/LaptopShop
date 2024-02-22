@@ -30,6 +30,13 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+          <script type="text/javascript">
+            function doDelete(id){
+                if(confirm("Bạn có chắc chắn muốn xóa địa chỉ này không?")){
+                    window.location = "account?action=deleteAddress&id="+id; /// trỏ vào href
+                }
+            }
+        </script>
     </head>
     <body>
                 <jsp:include page="menu.jsp"/>
@@ -59,65 +66,49 @@
       <h2>Địa chỉ giao hàng</h2>
       <form action="account">
           <div class="form-group">
-          <label for="name">Họ và tên</label>
-          <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên">
+          <label for="name">Họ và tên người nhận</label>
+          <input type="text" class="form-control" name="fullName" placeholder="Nhập họ và tên">
         </div>
         <div class="form-group">
           <label for="phone">Số điện thoại</label>
-          <input type="text" class="form-control" id="fullName" placeholder="Nhập số điện thoại">
+          <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại">
         </div>
         <div class="form-group">
           <label for="address">Địa chỉ</label>
-          <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+          <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ">
         </div>
-          <input type="hidden" name="action" value="password"> 
+          <input type="hidden" name="action" value="addAddress"> 
         <button type="submit" class="btn btn-primary">Thêm</button>
+        <h5 style="color: red; margin-top: 20px;">${requestScope.resultAdd}</h5>
       </form>
       <br><br>
       <div class="container-fluid">
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th rowspan="2" class="align-middle">Name/Address</th>
-        <th rowspan="2" class="align-middle">Contact Number</th>
-        <th colspan="2" class="text-center">Action</th>
+        <th rowspan="2" class="align-middle">Tên/Địa chỉ</th>
+        <th rowspan="2" class="align-middle">Số điện thoại</th>
+        <th colspan="1" class="text-center">Thao tác</th>
       </tr>
       <tr>
-        <th class="text-center">Update</th>
-        <th class="text-center">Delete</th>
+        <th class="text-center">Xóa</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Hoàng Anh Quân<br>Toà nhà Hải Đăng, thôn 3, Thạch Hoà, Thạch Thất<br>Xã Thạch Hòa, Huyện Thạch Thất, Hà Nội</td>
-        <td>+(84) 866031027</td>
+        <c:set var="account" value="${sessionScope.account}"/>
+        <jsp:useBean id="addressList" class="com.model.address.AddressDAO" />
+        <c:set value="${addressList.getAllAddressByAccount(account.id)}" var="addressbyId"/>
+        <c:forEach items="${addressbyId}"   var="m"   >
+               <tr>
+        <td>${m.name}<br>${m.address}</td>
+        <td>${m.phone}</td>
         <td class="text-center">
-          <button type="button" class="btn btn-primary btn-sm">Update</button>
-        </td>
-        <td class="text-center">
-          <button type="button" class="btn btn-danger btn-sm">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>Hoàng Anh Quân<br>Xóm 2 Diễn Phúc, Xã Diễn Phúc, Huyện Diễn Châu, Nghệ An</td>
-        <td>+(84) 866031027</td>
-        <td class="text-center">
-          <button type="button" class="btn btn-primary btn-sm">Update</button>
-        </td>
-        <td class="text-center">
-          <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="doDelete(${m.id})">Xóa</button>
         </td>
       </tr>
-      <tr>
-        <td>Lâm Nguyễn Hữu Đam<br>Xóm 2, Xã Diễn Phúc, Huyện Diễn Châu, Nghệ An</td>
-        <td>+(84) 397504978</td>
-        <td class="text-center">
-          <button type="button" class="btn btn-primary btn-sm">Update</button>
-        </td>
-        <td class="text-center">
-          <button type="button" class="btn btn-danger btn-sm">Delete</button>
-        </td>
-      </tr>
+        </c:forEach>       
+     
+       
     </tbody>
   </table>
 </div>

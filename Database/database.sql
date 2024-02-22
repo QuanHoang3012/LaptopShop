@@ -64,7 +64,7 @@ CREATE TABLE [Laptop] (
   [system] nvarchar(255),
   [weight] float,
   [manufacturerId] integer,
-  [description] nvarchar(467)
+  [description] nvarchar(500)
 )
 GO
 
@@ -105,7 +105,7 @@ CREATE TABLE [images] (
 GO
 
 CREATE TABLE [order] (
- [id] integer  IDENTITY(1,1) PRIMARY KEY,
+  [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [customer] integer,
   [date] date,
   [status] nvarchar(255),
@@ -129,7 +129,7 @@ CREATE TABLE [accounts] (
   [fullName] nvarchar(255),
   [phoneNumber] nvarchar(20),
   [email] nvarchar(255),
-  [gender] integer,
+  [gender] nvarchar(255),
   [birthday] date,
   [image] nvarchar(255),
   [role] integer,
@@ -150,6 +150,8 @@ GO
 CREATE TABLE [customer_address] (
   [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [customer] integer,
+  [name] nvarchar(255),
+  [phone] nvarchar(20),
   [address] nvarchar(255)
 )
 GO

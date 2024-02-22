@@ -140,10 +140,11 @@
                                 <div class="navbar-nav ml-auto py-0">                                   
                                     <img src="images/profileimage.png" alt="Profile Image" class="nav-profile-image rounded-circle" style="width: 30px; height: 30px; object-fit: cover;margin-top: 14px;">
                                     <a href="#" class="nav-item nav-link">${account.fullname}</a>
-                                     <c:if test="${account.role==1}">
+                                    <c:if test="${account.role==1}">
                                         <a href="profile.jsp" class="nav-item nav-link">User Profile</a>
                                     </c:if>
                                     <c:if test="${account.role==0}">
+                                        <a href="profile.jsp" class="nav-item nav-link">User Profile</a>
                                         <a href="profile.jsp" class="nav-item nav-link">Admin</a>
                                     </c:if>
                                     <a href="login?action=logout" class="nav-item nav-link">Log out</a>

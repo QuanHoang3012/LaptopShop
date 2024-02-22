@@ -14,18 +14,28 @@ public class Address {
         private int id;
         private Account account;
         private String name;
+        private String phone;
         private String address;
 
     public Address() {
     }
 
-    public Address(int id, Account account, String name, String address) {
+    public Address(int id, Account account, String name,String phone, String address) {
         this.id = id;
         this.account = account;
         this.name = name;
         this.address = address;
+        this.phone= phone;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    
     public String getName() {
         return name;
     }
