@@ -71,7 +71,7 @@ public class AddressDAO extends DBUtils {
     public List<Address> getAllAddressByAccount(int accountId){
         List<Address> list = new ArrayList<>();
         AccountDAO adb =new AccountDAO();
-        String sql="Select * from [customer_address] where customer= "+accountId;
+        String sql="Select * from [customer_address] where customer= "+accountId+" order by id desc";
          try {
             PreparedStatement st = connection.prepareStatement(sql);
               ResultSet rs = st.executeQuery();

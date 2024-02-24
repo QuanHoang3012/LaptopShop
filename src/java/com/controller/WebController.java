@@ -10,6 +10,7 @@ import com.model.cpu.CpuDAO;
 import com.model.laptop.LaptopDAO;
 import com.model.manufacturer.ManufacturerDAO;
 import com.model.order.OrderDAO;
+import com.model.order.OrderDetailDAO;
 import com.model.ram.RamDAO;
 import com.model.screen.ScreenDAO;
 import com.model.ssd.SsdDAO;
@@ -28,6 +29,7 @@ public class WebController {
     OrderDAO orderdao;
     AccountDAO accountdao;
     AddressDAO addressdao;
+    OrderDetailDAO orderdetaildao;
     private static  WebController instance = null;
     private WebController() {
          laptopdao = new LaptopDAO();
@@ -39,6 +41,7 @@ public class WebController {
          orderdao = new OrderDAO();
          accountdao = new AccountDAO();
          addressdao = new AddressDAO();
+         orderdetaildao = new OrderDetailDAO();
     }
     public static  WebController getInstance () {
             if(instance == null) {

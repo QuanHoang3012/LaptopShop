@@ -54,4 +54,11 @@ public class Cart {
             items.remove(getItemById(id));
         }
     }
+      public double getTotalMoney() {
+        double t = 0;
+        for (Item item : items) {
+            t += (item.getQuantity() * item.getLaptop().getDiscount());
+        }
+        return t;
+    }
 }

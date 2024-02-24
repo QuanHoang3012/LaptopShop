@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>src/java/com/model/laptop/LaptopDAO.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>202</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>web/shop.jsp</url>
             <bookmark id="2">
                 <name/>
@@ -17,15 +9,20 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>src/java/com/model/laptop/LaptopDAO.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>202</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/updatepassword.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/AccountServlet.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/address/Address.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/profile.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/addressAccount.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/account/AccountDAO.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/order/Order.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/order/OrderDetailDAO.java</file>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/order/OrderDAO.java</file>
         </group>
     </open-files>

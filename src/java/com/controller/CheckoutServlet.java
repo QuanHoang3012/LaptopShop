@@ -38,7 +38,7 @@ public class CheckoutServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutServlet</title>");            
+            out.println("<title>Servlet CheckoutServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CheckoutServlet at " + request.getContextPath() + "</h1>");
@@ -73,24 +73,39 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             HttpSession session = request.getSession(true);
-        Cart cart =null;
+        HttpSession session = request.getSession(true);
+        Cart cart = null;
         Object o = session.getAttribute("cart");
-        if(o!= null){
+        if (o != null) {
             cart = (Cart) o;
-        }else {
+        } else {
             cart = new Cart();
         }
         Account account = null;
         Object acc = session.getAttribute("account");
-        if(acc!=null){
+        if (acc != null) {
             account = (Account) acc;
-            OrderDAO orderDao = WebController.getInstance().orderdao;
-            orderDao.addOrder(account, cart,1);
-            session.removeAttribute("cart");
-            session.setAttribute("size", o);
-            response.sendRedirect("home");
-        }else {
+            String address_raw = request.getParameter("address");
+            int addressId ;
+            if (address_raw != null) {
+                addressId = Integer.parseInt(address_raw);
+                OrderDAO orderDao = WebController.getInstance().orderdao;
+                boolean result = orderDao.addOrder(account, cart, addressId);
+                if (result) {
+                    request.setAttribute("error", "Đơn hàng của bạn đang được xử lý");
+                } else {
+                    request.setAttribute("error", "Không thành công");
+
+                }
+                session.removeAttribute("cart");
+                session.setAttribute("size", 0);
+                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error", "Bạn phải điền hết thông tin");
+                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            }
+
+        } else {
             response.sendRedirect("login.jsp");
         }
     }

@@ -56,8 +56,8 @@
                     <div class="list-group">
                         <a href="profile.jsp" class="list-group-item list-group-item-action ">Cập nhật Hồ Sơ</a>
                         <a href="updatepassword.jsp" class="list-group-item list-group-item-action">Đổi Mật Khẩu</a>
-                        <a href="#" class="list-group-item list-group-item-action">Địa Chỉ</a>
-                        <a href="#" class="list-group-item list-group-item-action">Đơn Hàng</a>
+                        <a href="" class="list-group-item list-group-item-action">Địa Chỉ</a>
+                        <a href="product_order.jsp" class="list-group-item list-group-item-action">Đơn Hàng</a>
                         <a href="#" class="list-group-item list-group-item-action">Lịch Sử Mua Hàng</a>
                         <a href="login?action=logout" class="list-group-item list-group-item-action">Log Out</a>
                     </div>

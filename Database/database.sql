@@ -109,6 +109,7 @@ CREATE TABLE [order] (
   [customer] integer,
   [date] date,
   [status] nvarchar(255),
+  [price] money,
   [address] integer
 )
 GO

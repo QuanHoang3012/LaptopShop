@@ -13,7 +13,7 @@ public DBUtils()
 {
 try {
 // Edit URL , username, password to authenticate with your MS SQL Server
-String url = "jdbc:sqlserver://localhost:1433;databaseName= Laptop_Shop";
+    String url = "jdbc:sqlserver://localhost:1433;databaseName= Laptop_Shop";
 String username = "sa";
 String password = "123456789Q";
 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
