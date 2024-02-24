@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <filter>
+        <filter-name>LoginFillter</filter-name>
+        <filter-class>com.controller.LoginFillter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFillter</filter-name>
+        <url-pattern>/profile.jsp</url-pattern>
+        <url-pattern>/updatepassword.jsp</url-pattern>
+        <url-pattern>/account?action=order-product</url-pattern>
+        <url-pattern>/account?action=history-order</url-pattern>
+         <url-pattern>/checkout.jsp</url-pattern>
+
+    </filter-mapping>
     <servlet>
         <servlet-name>laptopServlet</servlet-name>
         <servlet-class>com.controller.laptopServlet</servlet-class>

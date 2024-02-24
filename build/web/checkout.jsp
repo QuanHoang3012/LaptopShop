@@ -61,7 +61,12 @@
             <form method="post" action="checkout">
                 <div class="row px-xl-5">
                     <div class="col-lg-6">   
-                        <h3>Địa chỉ giao hàng</h3>
+                        <div class="container mt-4">
+                            <div class="d-flex align-items-center">
+                                <h3 class="mr-3">Địa chỉ giao hàng</h3>
+                                <a href="addressAccount.jsp" class="btn btn-primary">Thêm địa chỉ</a>
+                            </div>
+                        </div>
                         <jsp:useBean id="addressList" class="com.model.address.AddressDAO" />
                         <c:set value="${addressList.getAllAddressByAccount(account.id)}" var="addressbyId"/>
                         <c:forEach items="${addressbyId}"  var="m">

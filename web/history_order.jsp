@@ -1,6 +1,6 @@
 <%-- 
-    Document   : product_order.jsp
-    Created on : Feb 23, 2024, 2:29:52 PM
+    Document   : history-order.jsp
+    Created on : Feb 24, 2024, 9:14:45 PM
     Author     : Anh Quan
 --%>
 
@@ -79,7 +79,6 @@
                                     <th rowspan="2" class="align-middle">Sản phẩm</th>
                                     <th rowspan="2" class="align-middle">Giá</th>
                                     <th rowspan="2" class="align-middle">Trạng thái</th>
-                                    <th colspan="2" class="text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,13 +98,6 @@
                                         <fmt:formatNumber value="${order.totalMoney}" pattern="#,##0" var="price" />
                                         <td>${price}đ</td>
                                         <td style="text-align: center;">${order.status}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group-vertical" role="group" aria-label="Thao tác">
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="doUpdateOrder(${order.id})">Đã Nhận được hàng</button>
-                                                <div style="margin-top: 20px;"></div> <!-- Khoảng trắng -->
-                                                     <button type="button" class="btn btn-danger btn-sm" onclick="doDeleteOrder('${order.id})">Hủy Đơn Hàng</button>                                          
-                                            </div>
-                                        </td>
 
                                     </tr>
                                     <c:set var="i" value="${i+1}"/>
@@ -134,3 +126,4 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+

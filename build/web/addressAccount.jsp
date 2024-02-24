@@ -57,8 +57,8 @@
                         <a href="profile.jsp" class="list-group-item list-group-item-action ">Cập nhật Hồ Sơ</a>
                         <a href="updatepassword.jsp" class="list-group-item list-group-item-action">Đổi Mật Khẩu</a>
                         <a href="" class="list-group-item list-group-item-action">Địa Chỉ</a>
-                        <a href="product_order.jsp" class="list-group-item list-group-item-action">Đơn Hàng</a>
-                        <a href="#" class="list-group-item list-group-item-action">Lịch Sử Mua Hàng</a>
+                        <a href="account?action=order-product"  class="list-group-item list-group-item-action">Đơn Hàng</a>
+                        <a href="account?action=history-order"class="list-group-item list-group-item-action">Lịch Sử Mua Hàng</a>
                         <a href="login?action=logout" class="list-group-item list-group-item-action">Log Out</a>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
         <td>${m.name}<br>${m.address}</td>
         <td>${m.phone}</td>
         <td class="text-center">
-            <button type="button" class="btn btn-danger btn-sm" onclick="doDelete(${m.id})">Xóa</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="doDelete('${m.id}')">Xóa</button>
         </td>
       </tr>
         </c:forEach>       

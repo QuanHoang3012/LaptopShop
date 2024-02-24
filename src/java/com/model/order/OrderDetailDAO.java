@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class OrderDetailDAO extends DBUtils{
     public List<OrderDetail> getOrderDetailByOrderId(int orderId){
+        List<OrderDetail> list = new ArrayList();
         String sql="Select * from [orderdetail] where orderId= "+orderId;
-        List<OrderDetail> list = new ArrayList<>();
         try {
              PreparedStatement st = connection.prepareStatement(sql);
                ResultSet rs = st.executeQuery();
@@ -33,5 +33,10 @@ public class OrderDetailDAO extends DBUtils{
         } catch (SQLException e) {
         }
         return list;
+    }
+    
+    public static void main(String[] args) {
+        OrderDetailDAO o = new OrderDetailDAO();
+      
     }
 }

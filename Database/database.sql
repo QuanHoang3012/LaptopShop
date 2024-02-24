@@ -193,8 +193,6 @@ GO
 ALTER TABLE [orderdetail] ADD FOREIGN KEY ([orderId]) REFERENCES [order] ([id])
 GO
 
-ALTER TABLE [order] ADD FOREIGN KEY ([address]) REFERENCES [customer_address] ([id])
-GO
 
 
 

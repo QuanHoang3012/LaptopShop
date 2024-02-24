@@ -4,10 +4,8 @@
  */
 package com.model.address;
 
-import com.controller.WebController;
 import com.model.account.Account;
 import com.model.account.AccountDAO;
-import com.model.cpu.Cpu;
 import com.model.utils.DBUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

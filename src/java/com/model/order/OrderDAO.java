@@ -38,8 +38,8 @@ public class OrderDAO extends DBUtils {
                     + "           ,?\n"
                     + "           ,?)";
             PreparedStatement st = connection.prepareStatement(sql);
-             st.setInt(1, account.getId());
-            st.setString(2, date);          
+            st.setInt(1, account.getId());
+            st.setString(2, date);
             st.setString(3, "Đang xử lý đơn hàng");
             st.setDouble(4, cart.getTotalMoney());
             st.setInt(5, addressId);
@@ -62,62 +62,92 @@ public class OrderDAO extends DBUtils {
                             + "           ,?\n"
                             + "           ,?)";
                     PreparedStatement st2 = connection.prepareStatement(sql2);
-                     st2.setInt(1, item.getLaptop().getId());
+                    st2.setInt(1, item.getLaptop().getId());
                     st2.setInt(2, orderId);
                     st2.setInt(3, item.getQuantity());
                     st2.setDouble(4, item.getPrice());
                     st2.executeUpdate();
                 }
-              
+
             }
             return true;
         } catch (SQLException e) {
         }
         return false;
     }
-    
-    public List<Order> getOrderByOrderId(int id){
+
+    public List<Order> getOrderByOrderId(int id) {
         List<Order> list = new ArrayList<>();
-        String sql="Select * from [order] where id="+id;
+        String sql = "Select * from [order] where id=" + id;
         try {
-             PreparedStatement st = connection.prepareStatement(sql);
-               ResultSet rs = st.executeQuery();
-               while(rs.next()){
-                   Order order = new Order();
-                   order.setId(rs.getInt("id"));
-                   order.setCustomerId(rs.getInt("customer"));
-                   order.setDate(rs.getDate("date"));
-                   order.setStatus(rs.getString("status"));
-                   order.setAddress(rs.getInt("address"));
-                   order.setTotalMoney(rs.getDouble("price"));
-                   list.add(order);
-               }
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setCustomerId(rs.getInt("customer"));
+                order.setDate(rs.getDate("date"));
+                order.setStatus(rs.getString("status"));
+                order.setAddress(rs.getInt("address"));
+                order.setTotalMoney(rs.getDouble("price"));
+                list.add(order);
+            }
         } catch (SQLException e) {
         }
         return list;
     }
-    
-    public List<Order> getOrderForCustomer(int accountId, String status){
+
+    public List<Order> getOrderForCustomer(int accountId, String status) {
         List<Order> list = new ArrayList<>();
-        String sql="select * from [order] where customer = "+accountId+" and status like N'%"+status+"%' order by id desc";
-         try {
-             PreparedStatement st = connection.prepareStatement(sql);
-               ResultSet rs = st.executeQuery();
-               while(rs.next()){
-                   Order order = new Order();
-                   order.setId(rs.getInt("id"));
-                   order.setCustomerId(rs.getInt("customer"));
-                   order.setDate(rs.getDate("date"));
-                   order.setStatus(rs.getString("status"));
-                   order.setAddress(rs.getInt("address"));
-                   order.setTotalMoney(rs.getDouble("price"));
-                   list.add(order);
-               }
+        String sql = "select * from [order] where customer = " + accountId + " and status like N'%" + status + "%' order by id desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setCustomerId(rs.getInt("customer"));
+                order.setDate(rs.getDate("date"));
+                order.setStatus(rs.getString("status"));
+                order.setAddress(rs.getInt("address"));
+                order.setTotalMoney(rs.getDouble("price"));
+                list.add(order);
+            }
         } catch (SQLException e) {
         }
         return list;
     }
-    
+
+    public boolean deleteOrderByOrderId(int orderId) {
+        String sql1 = "delete from [orderdetail] where orderid =" + orderId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql1);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+        String sql2 = "delete from [order] where id =" + orderId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql2);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+
+    public boolean updateStatusOrderByOrderId(int id,String status) {
+        String sql = "UPDATE [dbo].[order]\n"
+                + "   SET [status] = N'"+status+"'\n"
+                + " WHERE id ="+id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();
         List<Order> list = o.getOrderForCustomer(1, "Đang");
