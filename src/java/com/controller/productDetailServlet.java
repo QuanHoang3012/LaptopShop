@@ -4,13 +4,15 @@
  */
 package com.controller;
 
+import com.model.account.Account;
 import com.model.laptop.Laptop;
-import com.model.laptop.LaptopDAO;
 import com.model.manufacturer.Manufacturer;
+import com.model.review.Review;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -38,7 +40,7 @@ public class productDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet productDetailServlet</title>");            
+            out.println("<title>Servlet productDetailServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet productDetailServlet at " + request.getContextPath() + "</h1>");
@@ -59,14 +61,32 @@ public class productDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String laptopId_raw = request.getParameter("laptopId");
-            List<Manufacturer> listManu = WebController.getInstance().manudao.getAll();
-                request.setAttribute("manufacturer", listManu);
-            try {
-            int laptopId= Integer.parseInt(laptopId_raw);
+        HttpSession session = request.getSession();
+        String laptopId_raw = request.getParameter("laptopId");
+       String review_raw = request.getParameter("hdrating");
+        String detail = request.getParameter("detail");
+        Account account = null;
+        if(session.getAttribute("account")!= null) {
+            account = (Account) session.getAttribute("account");     
+        }
+        String alert ="";
+        try {
+            int laptopId = Integer.parseInt(laptopId_raw);
+            /////       add review to database by customer
+            if(review_raw!=null ) {
+                if(account==null){  ///////////////  must login to comment
+                  response.sendRedirect("login.jsp");
+                }else
+                WebController.getInstance().reviewdao.addReview(account.getId(), laptopId, Float.parseFloat(review_raw), detail);
+            }else {
+                alert = "Mời bạn đánh giá sao";
+            }
             Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
             List<Laptop> laptopByManu = WebController.getInstance().laptopdao.getLaptopByManufacturerId(laptop.getManufacturer().getId(), 1);
             List<String> listImage = laptop.getImage();
+            List<Review> listReview = WebController.getInstance().reviewdao.getReviewBylaptopId(laptopId);
+            request.setAttribute("alert", alert);
+            request.setAttribute("listReview", listReview);
             request.setAttribute("laptopImage", listImage);
             request.setAttribute("laptop", laptop);
             request.setAttribute("laptopByManu", laptopByManu);
@@ -86,7 +106,7 @@ public class productDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         
     }
 
     /**

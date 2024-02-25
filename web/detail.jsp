@@ -11,14 +11,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EShopper - Bootstrap Shop Template</title>
+        <title>Laptop</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
 
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
-
+        <!-- Basic styles of the plugin -->
+        <link rel="stylesheet" href="v2.3.2/jquery.rateyo.css"/>
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
@@ -31,7 +32,15 @@
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="v2.3.2/jquery.rateyo.css" >
+        <script src="v2.3.2/jquery.min.js"></script>
+        <script src="v2.3.2/jquery.rateyo.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     </head>
+
     <body>
         <jsp:include page="menu.jsp"></jsp:include>
             <!-- Page Header Start -->
@@ -54,15 +63,15 @@
                 <div class="col-lg-5 pb-5">
                     <div id="product-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner border">
-                        <div class="carousel-item active">
-                            <img class="w-100 h-100" src="images/${laptopImage.get(0)}" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="images/${laptopImage.get(1)}" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="images/${laptopImage.get(2)}" alt="Image">
-                        </div>
+                            <div class="carousel-item active">
+                                <img class="w-100 h-100" src="images/${laptopImage.get(0)}" alt="Image">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="w-100 h-100" src="images/${laptopImage.get(1)}" alt="Image">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="w-100 h-100" src="images/${laptopImage.get(2)}" alt="Image">
+                            </div>
                         </div>
                         <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                             <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -72,18 +81,15 @@
                         </a>
                     </div>
                 </div>
-
+                <jsp:useBean id="reviewdao" class="com.model.review.ReviewDAO"/>
+                <c:set value="${requestScope.listReview}" var="reviewList"/>
                 <div class="col-lg-7 pb-5">
                     <h3 class="font-weight-semi-bold">${laptop.name}</h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star"></small>
-                            <small class="fas fa-star-half-alt"></small>
-                            <small class="far fa-star"></small>
+                            ${reviewdao.getReviewAverageByLaptop(laptop.id)}<small class="fas fa-star"></small>
                         </div>
-                        <small class="pt-1">(50 Reviews)</small>
+                        <small class="pt-1">(${reviewList.size()} đánh giá)</small>
                     </div>
                     <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
                     <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
@@ -105,9 +111,9 @@
                                 </button>
                             </div>
                         </div>
-                                                    <form action="" name="f" method="post">
-                                                        <input type="hidden" name="quantityLaptop" value="1" id="quantity">  
-                        <button class="btn btn-primary px-3"  onclick="buy1('${laptop.id}')"  ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        <form action="" name="f" method="post">
+                            <input type="hidden" name="quantityLaptop" value="1" id="quantity">  
+                            <button class="btn btn-primary px-3"  onclick="buy1('${laptop.id}')"  ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                         </form>
                     </div>
                     <div class="d-flex pt-2">
@@ -142,100 +148,94 @@
                             <p>${laptop.description}</p>
                         </div>
                         <div class="tab-pane fade" id="tab-pane-2">
-                       <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Thông số kỹ thuật</th>
-      <th scope="col">Giá trị</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Màn hình</td>
-      <td>${laptop.screen.detail}</td>
-    </tr>
-    <tr>
-      <td>CPU</td>
-      <td>${laptop.cpu.name}</td>
-    </tr>
-    <tr>
-      <td>RAM</td>
-      <td>${laptop.ram.detail}</td>
-    </tr>
-    <tr>
-      <td>Ổ cứng</td>
-      <td>${laptop.ssd.detail}</td>
-    </tr>
-    <tr>    
-      <td>Đồ họa</td>
-      <td>${laptop.card}</td>
-    </tr>
-    <tr>
-      <td>Hệ điều hành</td>
-      <td>${laptop.system}</td>
-    </tr>
-    <tr>
-      <td>Trọng lượng</td>
-      <td>${laptop.weight} kg</td>
-    </tr>
-    <tr>
-      <td>Xuất xứ</td>
-      <td>${laptop.origin}</td>
-    </tr>
-    <tr>
-      <td>Năm ra mắt</td>
-      <td>${laptop.releaseYear}</td>
-    </tr>
-  </tbody>
-</table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Thông số kỹ thuật</th>
+                                        <th scope="col">Giá trị</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Màn hình</td>
+                                        <td>${laptop.screen.detail}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CPU</td>
+                                        <td>${laptop.cpu.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>RAM</td>
+                                        <td>${laptop.ram.detail}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ổ cứng</td>
+                                        <td>${laptop.ssd.detail}</td>
+                                    </tr>
+                                    <tr>    
+                                        <td>Đồ họa</td>
+                                        <td>${laptop.card}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hệ điều hành</td>
+                                        <td>${laptop.system}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trọng lượng</td>
+                                        <td>${laptop.weight} kg</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Xuất xứ</td>
+                                        <td>${laptop.origin}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Năm ra mắt</td>
+                                        <td>${laptop.releaseYear}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
+
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                    <div class="media mb-4">
-                                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                        <div class="media-body">
-                                            <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                            <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
+
+                                    <h4 class="mb-4">${reviewList.size()} đánh giá cho sản phẩm</h4>          
+                                    <c:set value="${sessionScope.account}" var="account"/>
+                                    <jsp:useBean id="accountdao" class="com.model.account.AccountDAO"/>
+                                    <c:forEach items="${reviewList}" var="rev" >
+                                        <div class="media mb-4">
+                                            <img src="images/profileimage.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <div class="media-body">
+                                                <h6>${accountdao.getAccountById(rev.customerId).fullname}<small> - <i>${rev.reviewDate}</i></small></h6>
+                                                <div class="text-primary mb-2">
+                                                    ${rev.review}<i class="fas fa-star"></i>
+                                                </div>
+                                                <p>${rev.details}</p>
                                             </div>
-                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
+
+
                                 <div class="col-md-6">
-                                    <h4 class="mb-4">Leave a review</h4>
-                                    <small>Your email address will not be published. Required fields are marked *</small>
-                                    <div class="d-flex my-3">
-                                        <p class="mb-0 mr-2">Your Rating * :</p>
-                                        <div class="text-primary">
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                            <i class="far fa-star"></i>
+                                    <h4 class="mb-4">Để lại nhận xét</h4>
+                                    <form method="get" action="detail" id="myForm">
+                                        <div class="d-flex my-3">
+                                            <p class="mb-0 mr-2" style="padding-top: 5px">Đánh giá * :</p>
+                                            <div>
+                                                <div id="rating"></div>
+                                                <input type="hidden" name="hdrating'" id="hdrating" >
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <form>
+                                        <input type="hidden" name="laptopId" value="${laptop.id}">
                                         <div class="form-group">
-                                            <label for="message">Your Review *</label>
-                                            <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Your Name *</label>
-                                            <input type="text" class="form-control" id="name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Your Email *</label>
-                                            <input type="email" class="form-control" id="email">
+                                            <label for="message">Nhận xét*</label>
+                                            <textarea id="message" cols="30" rows="5" class="form-control" name="detail" ></textarea>
                                         </div>
                                         <div class="form-group mb-0">
-                                            <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                            <input type="submit" value="Bình luận"   class="btn btn-primary px-3">
                                         </div>
                                     </form>
                                 </div>
@@ -253,68 +253,92 @@
             <div class="text-center mb-4">
                 <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
             </div>
-                                                <form name="m" action="" method="post">
-       <input type="hidden" name="quantityLaptop" value="1"/>
-            <div class="row px-xl-5">
-                <div class="col">
-                    <div class="owl-carousel related-carousel">
-                        <c:forEach items="${requestScope.laptopByManu}" var="laptop">                                     
-                            <div class="card product-item border-0">
-                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                    <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
-                                </div>
-                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                    <h6 class="text-truncate mb-3">${laptop.name}</h6>
-                                    <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
-                                    <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
-                                    <div class="d-flex justify-content-center">
-                                        <h6 class="flex-shrink-0 bg-danger text-white rounded-sm p-1">${discount}đ</h6><h6 class="text-muted ml-2"><del>${outPrice}đ</del></h6>
+            <form name="m" action="" method="post">
+                <input type="hidden" name="quantityLaptop" value="1"/>
+                <div class="row px-xl-5">
+                    <div class="col">
+                        <div class="owl-carousel related-carousel">
+                            <c:forEach items="${requestScope.laptopByManu}" var="laptop">                                     
+                                <div class="card product-item border-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
                                     </div>
-                                </div>
-                             <div class="card-footer d-flex justify-content-between bg-light border">
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3">${laptop.name}</h6>
+                                        <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
+                                        <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
+                                        <div class="d-flex justify-content-center">
+                                            <h6 class="flex-shrink-0 bg-danger text-white rounded-sm p-1">${discount}đ</h6><h6 class="text-muted ml-2"><del>${outPrice}đ</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border">
                                         <a href="detail?laptopId=${laptop.id}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
                                         <a href="#"  onclick="buy('${laptop.id}')"  class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                                     </div>
-                            </div>
-                        </c:forEach>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
-            </div>
-    </form>
+            </form>
         </div>
         <!-- Products End -->
-        
+
 
         <!-- Footer Start -->
         <jsp:include page="footer.jsp"></jsp:include>
-          <script type="text/javascript">
-            function buy(id){
-                document.m.action = "buy?id="+id;
+        <script type="text/javascript">
+            function buy(id) {
+                document.m.action = "buy?id=" + id;
                 document.m.submit();
             }
-            function buy1(id){
-                document.f.action = "buy?id="+id;
+            function buy1(id) {
+                document.f.action = "buy?id=" + id;
                 document.f.submit();
             }
-             function decreaseQuantity() {
-        var quantityInput = document.getElementById('quantity');
-        var currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
-    }
-    function increaseQuantity() {
-        var quantityInput = document.getElementById('quantity');
-        var currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-    }
-            </script>   
+            function decreaseQuantity() {
+                var quantityInput = document.getElementById('quantity');
+                var currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            }
+            function increaseQuantity() {
+                var quantityInput = document.getElementById('quantity');
+                var currentValue = parseInt(quantityInput.value);
+                quantityInput.value = currentValue + 1;
+            }
+            ///// function to jquery of rating star
+            $(function () {
+
+                $("#rating").rateYo({
+                    rating: 0,
+                    numStars: 5,
+                    maxValue: 5,
+                    halfStar: true,
+                    onChange: function (rating, rateYoInstance) {
+                        $('#hdrating').val(rating);
+                    }
+                });
+            });
+            ////////////////        function to change url to proper form
+            document.getElementById("myForm").addEventListener("submit", function (event) {
+                var form = event.target;
+                var input = form.querySelector("input[name='hdrating\\'']"); // Escaping the apostrophe in querySelector
+
+                // If the input field exists
+                if (input) {
+                    input.setAttribute("name", "hdrating"); // Change the name attribute
+                }
+            });
+
+        </script>   
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+        <script src="v2.3.2/jquery.rateyo.js"></script>
         <!-- Contact Javascript File -->
         <script src="mail/jqBootstrapValidation.min.js"></script>
         <script src="mail/contact.js"></script>
