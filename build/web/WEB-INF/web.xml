@@ -10,8 +10,7 @@
         <url-pattern>/updatepassword.jsp</url-pattern>
         <url-pattern>/account?action=order-product</url-pattern>
         <url-pattern>/account?action=history-order</url-pattern>
-         <url-pattern>/checkout.jsp</url-pattern>
-
+        <url-pattern>/checkout.jsp</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>laptopServlet</servlet-name>
@@ -49,6 +48,10 @@
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>com.controller.AccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SigUpServlet</servlet-name>
+        <servlet-class>com.controller.SigUpServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -84,5 +87,9 @@
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SigUpServlet</servlet-name>
+        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
 </web-app>

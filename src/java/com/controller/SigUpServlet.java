@@ -4,21 +4,21 @@
  */
 package com.controller;
 
-import com.model.laptop.Laptop;
-import com.model.manufacturer.Manufacturer;
+import com.model.account.Account;
+import com.model.account.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author Anh Quan
  */
-public class homeServlet extends HttpServlet {
+public class SigUpServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class homeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet homeServlet</title>");            
+            out.println("<title>Servlet SigUpServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet homeServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SigUpServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,11 +58,7 @@ public class homeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                List<Manufacturer> listManu = WebController.getInstance().manudao.getAll();
-                List<Laptop> bestSeller = WebController.getInstance().laptopdao.getLaptopBestSeller();
-                request.setAttribute("bestseller", bestSeller);
-                request.setAttribute("manufacturer", listManu);
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -76,7 +72,29 @@ public class homeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        boolean result = WebController.getInstance().accountdao.checkUsername(username);
+        String alert = "";
+        if (!result) {
+            boolean create = WebController.getInstance().accountdao.createAccount(username, password, email);
+            if (create) {
+                Account a = WebController.getInstance().accountdao.getAccount(username, password);
+                session.setAttribute("account", a);
+                response.sendRedirect("profile.jsp");
+            } else {
+                alert = "Tạo thất bại";
+                request.setAttribute("alert", alert);
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+            }
+        } else {
+            alert = "Tên đăng nhập đã được sử dụng";
+            request.setAttribute("alert", alert);
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
+
     }
 
     /**

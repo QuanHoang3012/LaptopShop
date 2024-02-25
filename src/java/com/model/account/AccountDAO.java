@@ -40,10 +40,10 @@ public class AccountDAO extends DBUtils {
         }
         return null;
     }
-    
-    public Account getAccountById(int id){
-        String sql = "select * from accounts where id = "+id;
-          try {
+
+    public Account getAccountById(int id) {
+        String sql = "select * from accounts where id = " + id;
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -64,6 +64,7 @@ public class AccountDAO extends DBUtils {
         }
         return null;
     }
+
     public boolean updateAccountById(int id, String fullname, String phoneNumber, String email, int gender, String birthday, String image) {
         String sql = "UPDATE [dbo].[accounts]\n"
                 + "   SET [fullName] =?\n"
@@ -72,31 +73,65 @@ public class AccountDAO extends DBUtils {
                 + "      ,[gender] = ?\n"
                 + "      ,[birthday] =?\n"
                 + "      ,[image] =?\n"
-                + " WHERE id="+id;
+                + " WHERE id=" + id;
         try {
-             PreparedStatement st = connection.prepareStatement(sql);
-             st.setString(1, fullname);
-             st.setString(2, phoneNumber);
-             st.setString(3, email);
-             st.setInt(4, gender);
-             st.setString(5, birthday);
-             st.setString(6, image);
-             st.executeUpdate();
-             return true;
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, fullname);
+            st.setString(2, phoneNumber);
+            st.setString(3, email);
+            st.setInt(4, gender);
+            st.setString(5, birthday);
+            st.setString(6, image);
+            st.executeUpdate();
+            return true;
         } catch (SQLException e) {
         }
         return false;
     }
-    
-    public boolean updatePassword(int id, String password){
+
+    public boolean updatePassword(int id, String password) {
         String sql = "UPDATE [dbo].[accounts]\n"
                 + "   SET [password] =?\n"
-                + " WHERE id="+id;
-                try {
-             PreparedStatement st = connection.prepareStatement(sql);
-             st.setString(1, password);         
-             st.executeUpdate();
-             return true;
+                + " WHERE id=" + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+
+    public boolean checkUsername(String username) {
+        String sql = "select * from [dbo].[accounts] where username='" + username + "'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean createAccount(String username, String password, String email) {
+        String sql = "INSERT INTO [dbo].[accounts]\n"
+                + "           ([username]\n"
+                + "           ,[password]\n"
+                + "           ,[email]\n"
+                + "             ,[role])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, email);
+            st.setInt(4, 1);
+            st.executeUpdate();
+            return true;
         } catch (SQLException e) {
         }
         return false;

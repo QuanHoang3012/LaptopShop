@@ -147,8 +147,14 @@ public class AccountServlet extends HttpServlet {
                     if(result){
                         alert="Thao tác thành công";
                     }else alert = "Thao tác thất bại";
-                }else {
+                }else if(id_raw!=null && status.equals("order-cancel")){
+                    int id = Integer.parseInt(id_raw);
+                    boolean result = WebController.getInstance().orderdao.updateStatusOrderByOrderId(id, "Đang xem xét hủy đơn");
+                    if(result){
+                        alert="Cần thời gian xác nhận khách hàng vui lòng chờ";
+                    }else alert = "Thao tác thất bại";
                 }
+                
                 
                 List<Order> orderCustomer = WebController.getInstance().orderdao.getOrderForCustomer(account.getId(), "Đang");
                 List<OrderDetail> [] orderDetailList = new List[orderCustomer.size()];

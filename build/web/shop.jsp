@@ -258,7 +258,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
+                    <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
                     </div>
                     <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
                     <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />

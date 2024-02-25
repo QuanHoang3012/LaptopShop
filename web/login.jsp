@@ -29,16 +29,7 @@
                                     <i class="fab fa-asymmetrik"></i> Login
                                 </div>
                                 <h2>Sign in to LamtopShop</h2>
-                                <div class="row">
-                                    <ul>
-                                        <li><i class="fab fa-facebook-f"></i></li>
-                                        <li><i class="fab fa-twitter"></i></li>
-                                        <li><i class="fab fa-linkedin-in"></i></li>
-                                    </ul>
-                                </div>
-                                <div class="row">
-                                    <p class="small-info">or use your email account</p>
-                                </div>
+                                  <div style="margin-top: 70px;"></div> <!-- Khoảng trắng -->
 
 
                                 <form action="login" method="post">
@@ -57,9 +48,7 @@
                                             </div>
                                             <input type="password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" name="password" value="${param.password}">
                                         </div>
-                                        <div class="row">
-                                            <p class="forget-p">Forget Password ?</p>
-                                        </div>
+                                          <div style="margin-top: 50px;"></div> <!-- Khoảng trắng -->
                                         <div class="input-group center mb-3">
                                             <button type="submit" class="btn btn-success btn-round">SIGN IN</button>
                                         </div>    

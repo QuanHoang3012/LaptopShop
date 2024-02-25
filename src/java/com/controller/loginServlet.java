@@ -60,10 +60,12 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        if(action!=null){
-            session.removeAttribute("account");
+        if (action != null) {
+            if (action.equals("logout")) {
+                session.removeAttribute("account");
+                response.sendRedirect("home");
+            } 
         }
-        response.sendRedirect("home");
     }
 
     /**

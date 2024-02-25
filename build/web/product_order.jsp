@@ -32,6 +32,9 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script type="text/javascript">
+            function doDeleteOrderUpdate(id){
+                window.location = "account?action=order-product&status=order-cancel&id=" + id;
+            }
             function doDeleteOrder(id) {
                 if (confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?")) {
                     window.location = "account?action=order-product&status=order-pending&id=" + id; /// trỏ vào href
@@ -101,9 +104,17 @@
                                         <td style="text-align: center;">${order.status}</td>
                                         <td class="text-center">
                                             <div class="btn-group-vertical" role="group" aria-label="Thao tác">
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="doUpdateOrder(${order.id})">Đã Nhận được hàng</button>
-                                                <div style="margin-top: 20px;"></div> <!-- Khoảng trắng -->
-                                                     <button type="button" class="btn btn-danger btn-sm" onclick="doDeleteOrder('${order.id})">Hủy Đơn Hàng</button>                                          
+                                                  <c:if test="${order.status eq 'Đang vận chuyển'}">
+                                                     <button type="button" class="btn btn-danger btn-sm" onclick="doUpdateOrder(${order.id})">Đã Nhận được hàng</button>
+                                                       <div style="margin-top: 20px;"></div> <!-- Khoảng trắng -->
+                                                      <button type="button" class="btn btn-danger btn-sm" onclick="doDeleteOrderUpdate('${order.id}')">Hủy Đơn Hàng</button>    
+                                                </c:if>
+                                                     <div style="margin-top: 20px;"></div> <!-- Khoảng trắng -->
+                                                <c:if test="${order.status eq 'Đang xử lý đơn hàng'}">
+                                                         <button type="button" class="btn btn-danger btn-sm" onclick="doDeleteOrder('${order.id}')">Hủy Đơn Hàng</button>    
+                                                </c:if>                                       
+                                                
+                                                                                          
                                             </div>
                                         </td>
 

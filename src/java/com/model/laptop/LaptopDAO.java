@@ -136,7 +136,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-               List<String> image = getImagesbyLaptopId(rs.getInt("id"));
+                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
                 lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
@@ -236,7 +236,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-               List<String> image = getImagesbyLaptopId(rs.getInt("id"));
+                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
                 lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
@@ -283,7 +283,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-               List<String> image = getImagesbyLaptopId(rs.getInt("id"));
+                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
                 lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
@@ -321,7 +321,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setOrigin(rs.getString("origin"));
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
-               List<String> image = getImagesbyLaptopId(rs.getInt("id"));
+                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
                 lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 lp.setWeight(rs.getFloat("weight"));
@@ -334,9 +334,31 @@ public class LaptopDAO extends DBUtils {
         return null;
     }
 
+    public List<Laptop> getLaptopBestSeller() {
+        List<Laptop> list= new ArrayList<>();
+        List<Integer> laptop = new ArrayList<>();
+        String sql = "select top 8 laptopId ,count(*) from [dbo].[orderdetail]\n"
+                + "group by laptopId\n"
+                + "order by count(*) desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            int i=0;
+            while(rs.next()){
+                laptop.add(rs.getInt(1));
+                i++;
+            }
+            for(int y=0;y<laptop.size();y++){
+                list.add(getLaptopbyLaptopId(laptop.get(y)));
+            }           
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         LaptopDAO l = new LaptopDAO();
-        Laptop  list = l.getLaptopbyLaptopId(1);
-        System.out.println(list.getImage().get(2));
+        List<Laptop> list = l.getLaptopBestSeller();
+        System.out.println(list.get(0).getName());
     }
 }
