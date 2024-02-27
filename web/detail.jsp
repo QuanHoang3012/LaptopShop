@@ -87,7 +87,8 @@
                     <h3 class="font-weight-semi-bold">${laptop.name}</h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
-                            ${reviewdao.getReviewAverageByLaptop(laptop.id)}<small class="fas fa-star"></small>
+                              <fmt:formatNumber value="${reviewdao.getReviewAverageByLaptop(laptop.id)}" pattern="#,##0.0" var="star" />
+                            ${reviewList.size()>0?star:0}/5,0<small class="fas fa-star"></small>
                         </div>
                         <small class="pt-1">(${reviewList.size()} đánh giá)</small>
                     </div>
@@ -140,7 +141,7 @@
                     <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                         <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
                         <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (${reviewList.size()})</a>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-pane-1">
@@ -198,18 +199,18 @@
                         <div class="tab-pane fade" id="tab-pane-3">
                             <div class="row">
 
-                                <div class="col-md-6">
+                                <div class="col-md-12 center">
 
                                     <h4 class="mb-4">${reviewList.size()} đánh giá cho sản phẩm</h4>          
                                     <c:set value="${sessionScope.account}" var="account"/>
                                     <jsp:useBean id="accountdao" class="com.model.account.AccountDAO"/>
                                     <c:forEach items="${reviewList}" var="rev" >
                                         <div class="media mb-4">
-                                            <img src="images/profileimage.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <img src="images/${account.image!=null?account.image:"profileimage.png"}"alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                             <div class="media-body">
                                                 <h6>${accountdao.getAccountById(rev.customerId).fullname}<small> - <i>${rev.reviewDate}</i></small></h6>
                                                 <div class="text-primary mb-2">
-                                                    ${rev.review}<i class="fas fa-star"></i>
+                                                    ${rev.review}/5,0<i class="fas fa-star"></i>
                                                 </div>
                                                 <p>${rev.details}</p>
                                             </div>
@@ -218,27 +219,7 @@
                                 </div>
 
 
-                                <div class="col-md-6">
-                                    <h4 class="mb-4">Để lại nhận xét</h4>
-                                    <form method="get" action="detail" id="myForm">
-                                        <div class="d-flex my-3">
-                                            <p class="mb-0 mr-2" style="padding-top: 5px">Đánh giá * :</p>
-                                            <div>
-                                                <div id="rating"></div>
-                                                <input type="hidden" name="hdrating'" id="hdrating" >
-                                            </div>
-
-                                        </div>
-                                        <input type="hidden" name="laptopId" value="${laptop.id}">
-                                        <div class="form-group">
-                                            <label for="message">Nhận xét*</label>
-                                            <textarea id="message" cols="30" rows="5" class="form-control" name="detail" ></textarea>
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <input type="submit" value="Bình luận"   class="btn btn-primary px-3">
-                                        </div>
-                                    </form>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -309,28 +290,7 @@
                 quantityInput.value = currentValue + 1;
             }
             ///// function to jquery of rating star
-            $(function () {
-
-                $("#rating").rateYo({
-                    rating: 0,
-                    numStars: 5,
-                    maxValue: 5,
-                    halfStar: true,
-                    onChange: function (rating, rateYoInstance) {
-                        $('#hdrating').val(rating);
-                    }
-                });
-            });
-            ////////////////        function to change url to proper form
-            document.getElementById("myForm").addEventListener("submit", function (event) {
-                var form = event.target;
-                var input = form.querySelector("input[name='hdrating\\'']"); // Escaping the apostrophe in querySelector
-
-                // If the input field exists
-                if (input) {
-                    input.setAttribute("name", "hdrating"); // Change the name attribute
-                }
-            });
+            
 
         </script>   
         <!-- JavaScript Libraries -->

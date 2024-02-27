@@ -52,6 +52,14 @@
         <servlet-name>SigUpServlet</servlet-name>
         <servlet-class>com.controller.SigUpServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReviewServlet</servlet-name>
+        <servlet-class>com.controller.ReviewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <servlet-class>com.controller.AdminProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -91,5 +99,13 @@
     <servlet-mapping>
         <servlet-name>SigUpServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewServlet</servlet-name>
+        <url-pattern>/review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminProductServlet</servlet-name>
+        <url-pattern>/admin-product</url-pattern>
     </servlet-mapping>
 </web-app>

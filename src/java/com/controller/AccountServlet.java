@@ -71,6 +71,10 @@ public class AccountServlet extends HttpServlet {
                 String phoneNumber = request.getParameter("phone");
                 String birthday = request.getParameter("birthdate");
                 String gender_raw = request.getParameter("gender");
+                String image = request.getParameter("avatar");
+                if(image.isEmpty()){
+                    image = WebController.getInstance().accountdao.getAccountById(account.getId()).getImage();
+                }
                 int gender = 1;
                 if (gender_raw.equals("male")) {
                     gender = 1;
@@ -79,7 +83,7 @@ public class AccountServlet extends HttpServlet {
                 } else if (gender_raw.equals("other")) {
                     gender = 2;
                 }
-                boolean result = WebController.getInstance().accountdao.updateAccountById(account.getId(), fullname, phoneNumber, email, gender, birthday, null);
+                boolean result = WebController.getInstance().accountdao.updateAccountById(account.getId(), fullname, phoneNumber, email, gender, birthday, image);
                 Account updateAccount = WebController.getInstance().accountdao.getAccountById(account.getId());
                 session.setAttribute("account", updateAccount);
                 if (result) {
@@ -154,8 +158,7 @@ public class AccountServlet extends HttpServlet {
                         alert="Cần thời gian xác nhận khách hàng vui lòng chờ";
                     }else alert = "Thao tác thất bại";
                 }
-                
-                
+                               
                 List<Order> orderCustomer = WebController.getInstance().orderdao.getOrderForCustomer(account.getId(), "Đang");
                 List<OrderDetail> [] orderDetailList = new List[orderCustomer.size()];
                 for(int i=0;i<orderCustomer.size();i++){

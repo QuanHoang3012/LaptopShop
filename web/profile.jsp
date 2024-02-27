@@ -68,7 +68,7 @@
                                     <!-- Avatar -->
                                     <div class="form-group col-md-12">
                                         <label for="avatar">Chọn ảnh</label>
-                                        <input type="file" class="form-control-file" id="avatar">
+                                        <input type="file" class="form-control-file" id="avatar" name="avatar" value="${account.image}">
                                     </div>
 
                                     <!-- Username -->

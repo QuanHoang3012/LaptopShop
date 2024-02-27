@@ -335,7 +335,7 @@ public class LaptopDAO extends DBUtils {
     }
 
     public List<Laptop> getLaptopBestSeller() {
-        List<Laptop> list= new ArrayList<>();
+        List<Laptop> list = new ArrayList<>();
         List<Integer> laptop = new ArrayList<>();
         String sql = "select top 8 laptopId ,count(*) from [dbo].[orderdetail]\n"
                 + "group by laptopId\n"
@@ -343,17 +343,29 @@ public class LaptopDAO extends DBUtils {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            int i=0;
-            while(rs.next()){
+            int i = 0;
+            while (rs.next()) {
                 laptop.add(rs.getInt(1));
                 i++;
             }
-            for(int y=0;y<laptop.size();y++){
+            for (int y = 0; y < laptop.size(); y++) {
                 list.add(getLaptopbyLaptopId(laptop.get(y)));
-            }           
+            }
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public boolean deleteLaptopById(int id) {
+        String sql = "DELETE FROM [dbo].[Laptop]\n"
+                + "      WHERE id=" + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     public static void main(String[] args) {

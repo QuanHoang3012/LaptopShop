@@ -32,15 +32,10 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
         <script type="text/javascript">
-            function doDeleteOrder(id) {
-                if (confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?")) {
-                    window.location = "account?action=order-product&status=order-pending&id=" + id; /// trỏ vào href
-                }
-            }
-             function doUpdateOrder(id) {
-                if (confirm("Bạn muốn xác nhận đơn hàng này không?")) {
-                    window.location = "account?action=order-product&status=order-finish&id=" + id; /// trỏ vào href
-                }
+            function doRate(id) {
+                
+                    window.location = "review?orderId=" + id; /// trỏ vào href
+                
             }
         </script>
     </head>
@@ -79,6 +74,8 @@
                                     <th rowspan="2" class="align-middle">Sản phẩm</th>
                                     <th rowspan="2" class="align-middle">Giá</th>
                                     <th rowspan="2" class="align-middle">Trạng thái</th>
+                                    <th rowspan="2" class="align-middle">Thao tác</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,6 +95,14 @@
                                         <fmt:formatNumber value="${order.totalMoney}" pattern="#,##0" var="price" />
                                         <td>${price}đ</td>
                                         <td style="text-align: center;">${order.status}</td>
+                                        <td class="text-center">
+                                            <c:if test="${order.status eq 'Đã nhận hàng'}">
+                                                <div class="btn-group-vertical" role="group" aria-label="Thao tác">
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="doRate(${order.id})">Đánh giá</button>                                                                                                                                 
+                                            </div>
+                                            </c:if>
+                                            
+                                        </td>
 
                                     </tr>
                                     <c:set var="i" value="${i+1}"/>

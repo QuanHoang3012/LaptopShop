@@ -39,7 +39,7 @@ public class ReviewDAO extends DBUtils {
             st.setInt(2, laptopId);
             st.setFloat(3, review);
             st.setString(4, date);
-            st.setString(5, detail);
+            st.setNString(5, detail);
             st.executeUpdate();
         } catch (SQLException e) {
         }

@@ -147,11 +147,25 @@ public class OrderDAO extends DBUtils {
         }
         return false;
     }
+    
+    public List<Integer> getLaptopByOrdeId(int orderId){
+       List<Integer> list = new ArrayList<>();
+       String sql= "select * from [dbo].[orderdetail] where orderId ="+orderId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                list.add(rs.getInt("laptopId"));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();
-        List<Order> list = o.getOrderForCustomer(1, "Đang");
-        System.out.println(list.get(0).getCustomerId());
+        List<Integer> list = o.getLaptopByOrdeId(13);
+        System.out.println(list.get(1));
     }
 
 }
