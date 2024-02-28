@@ -87,7 +87,7 @@
                     <h3 class="font-weight-semi-bold">${laptop.name}</h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
-                              <fmt:formatNumber value="${reviewdao.getReviewAverageByLaptop(laptop.id)}" pattern="#,##0.0" var="star" />
+                            <fmt:formatNumber value="${reviewdao.getReviewAverageByLaptop(laptop.id)}" pattern="#,##0.0" var="star" />
                             ${reviewList.size()>0?star:0}/5,0<small class="fas fa-star"></small>
                         </div>
                         <small class="pt-1">(${reviewList.size()} đánh giá)</small>
@@ -203,10 +203,11 @@
 
                                     <h4 class="mb-4">${reviewList.size()} đánh giá cho sản phẩm</h4>          
                                     <c:set value="${sessionScope.account}" var="account"/>
+                                    <jsp:useBean id="laptopdao" class="com.model.laptop.LaptopDAO"/>
                                     <jsp:useBean id="accountdao" class="com.model.account.AccountDAO"/>
                                     <c:forEach items="${reviewList}" var="rev" >
                                         <div class="media mb-4">
-                                            <img src="images/${account.image!=null?account.image:"profileimage.png"}"alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <img src="images/${reviewList.size()>0?laptopdao.getImageForUser(rev.customerId):"profileimage.png"}"alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                             <div class="media-body">
                                                 <h6>${accountdao.getAccountById(rev.customerId).fullname}<small> - <i>${rev.reviewDate}</i></small></h6>
                                                 <div class="text-primary mb-2">
@@ -219,7 +220,7 @@
                                 </div>
 
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -290,7 +291,7 @@
                 quantityInput.value = currentValue + 1;
             }
             ///// function to jquery of rating star
-            
+
 
         </script>   
         <!-- JavaScript Libraries -->

@@ -33,6 +33,18 @@ public class LaptopDAO extends DBUtils {
     ScreenDAO scdb = new ScreenDAO();
     SsdDAO ssdb = new SsdDAO();
 
+    public void updateImagebyLaptopId(int id, String newHref, String oldHref) {
+        String sql = "UPDATE [dbo].[images]\n"
+                + "   SET [href] = ?\n"
+                + " WHERE laptopId=" + id + " and href = '" + oldHref + "' ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newHref);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
     public List<String> getImagesbyLaptopId(int laptopId) {
         List<String> list = new ArrayList<>();
         String sql = "Select * from  [Laptop_Shop].[dbo].[images] where laptopId=" + laptopId;
@@ -47,6 +59,19 @@ public class LaptopDAO extends DBUtils {
         } catch (SQLException e) {
         }
         return list;
+    }
+
+    public String getImageForUser(int id) {
+        String sql = "Select * from  [Laptop_Shop].[dbo].[accounts] where id=" + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getString("image");
+            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     public List<Laptop> getAllLaptop(int option) {
@@ -358,9 +383,53 @@ public class LaptopDAO extends DBUtils {
 
     public boolean deleteLaptopById(int id) {
         String sql = "DELETE FROM [dbo].[Laptop]\n"
-                + "      WHERE id=" + id;
+                + "WHERE id=" + id;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+
+    public boolean updateLaptop(int laptopId, String name, double inPrice, double outPrice, int stock, int screenId, int cpuId, int ramId, int ssdId, String card, String releaseYear, String origin, double discount, String system, int manufacturerId,double weight, String description) {
+        String sql = "UPDATE [dbo].[Laptop]\n"
+                + "   SET [name] = ?\n"
+                + "      ,[inPrice] = ?\n"
+                + "      ,[outPrice] = ?\n"
+                + "      ,[stock] = ?\n"
+                + "      ,[screenId] = ?\n"
+                + "      ,[cpuId] = ?\n"
+                + "      ,[ramId] = ?\n"
+                + "      ,[ssdId] = ?\n"
+                + "      ,[card] = ?\n"
+                + "      ,[releaseyear] = ?\n"
+                + "      ,[origin] = ?\n"
+                + "      ,[discount] = ?\n"
+                + "      ,[system] = ?\n"
+                + "      ,[weight] = ?\n"
+                + "      ,[manufacturerId] = ?\n"
+                + "      ,[description] = ?\n"
+                + " WHERE id=" + laptopId;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setDouble(2, inPrice);
+            st.setDouble(3, outPrice);
+            st.setInt(4, stock);
+            st.setInt(5, screenId);
+            st.setInt(6, cpuId);
+            st.setInt(7, ramId);
+            st.setInt(8, ssdId);
+            st.setString(9, card);
+            st.setString(10, releaseYear);
+            st.setString(11, origin);
+            st.setDouble(12, discount);
+            st.setString(13, system);
+            st.setInt(15, manufacturerId);
+            st.setDouble(14, weight);
+            st.setString(16, description);
             st.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -371,6 +440,6 @@ public class LaptopDAO extends DBUtils {
     public static void main(String[] args) {
         LaptopDAO l = new LaptopDAO();
         List<Laptop> list = l.getLaptopBestSeller();
-        System.out.println(list.get(0).getName());
+        System.out.println(l.getImagesbyLaptopId(16).get(1));
     }
 }

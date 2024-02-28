@@ -60,6 +60,10 @@
         <servlet-name>AdminProductServlet</servlet-name>
         <servlet-class>com.controller.AdminProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminEditProductServlet</servlet-name>
+        <servlet-class>com.controller.AdminEditProductServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -107,5 +111,9 @@
     <servlet-mapping>
         <servlet-name>AdminProductServlet</servlet-name>
         <url-pattern>/admin-product</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEditProductServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 </web-app>

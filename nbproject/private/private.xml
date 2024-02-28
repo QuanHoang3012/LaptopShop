@@ -2,18 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>src/java/com/model/laptop/LaptopDAO.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>202</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>web/shop.jsp</url>
             <bookmark id="2">
                 <name/>
                 <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/java/com/model/laptop/LaptopDAO.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>214</line>
                 <key/>
             </bookmark>
         </file>
@@ -23,6 +23,7 @@
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin_product.jsp</file>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/AdminProductServlet.java</file>
             <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin/index.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin-header.jsp</file>
         </group>
     </open-files>
 </project-private>

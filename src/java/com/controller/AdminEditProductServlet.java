@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Anh Quan
  */
-public class AdminProductServlet extends HttpServlet {
+public class AdminEditProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,10 @@ public class AdminProductServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminProductServlet</title>");
+            out.println("<title>Servlet AdminEditProductServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminProductServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminEditProductServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,46 +57,52 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Laptop> list = WebController.getInstance().laptopdao.getAllLaptop(1);
-        String href = "";
-        String key = request.getParameter("search");
-               String action = request.getParameter("action");
         String laptopId_raw = request.getParameter("laptopId");
-        String alert ="";
-        if (key != null) {
-            list = WebController.getInstance().laptopdao.searchByName(key, 1);
-            href += "search=" + key;
-        }
-       if(action!=null){
-            if(action.equals("delete")){
+        String name = request.getParameter("name");
+        String inPrice_raw = request.getParameter("inPrice");
+        String outPrice_raw = request.getParameter("outPrice");
+        String discount_raw = request.getParameter("discount");
+        String stock_raw = request.getParameter("stock");
+        String card = request.getParameter("card");
+        String year = request.getParameter("releaseYear");
+        String origin = request.getParameter("origin");
+        String system = request.getParameter("system");
+        String weight_raw = request.getParameter("weight");
+        String description = request.getParameter("description");
+        String ramId = request.getParameter("ram");
+        String cpuId = request.getParameter("cpu");
+        String screenId = request.getParameter("screen");
+        String ssdId = request.getParameter("ssd");
+        String manuId = request.getParameter("manu");
+        String[] image = request.getParameterValues("image");
+        String alert = "";
+        try {
             int laptopId = Integer.parseInt(laptopId_raw);
-            boolean result = WebController.getInstance().laptopdao.deleteLaptopById(laptopId);
-            if(result){
-                alert = "Delete successful";
-            }else alert="Delete failed";
-            }   
-       }
-        /////        this is paging process
-        int size = list.size();
-        int page, numOfProduct = 12;
-        int numOfPage = (size % 12 == 0 ? (size / 12) : (size / 12) + 1);
-        String xpage = request.getParameter("page");
-        if (xpage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(xpage);
+            List<String> listImage = WebController.getInstance().laptopdao.getImagesbyLaptopId(laptopId);
+            Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
+            if (stock_raw != null) {
+                boolean result = WebController.getInstance().laptopdao.updateLaptop(laptopId, name, Double.parseDouble(inPrice_raw), Double.parseDouble(outPrice_raw), Integer.parseInt(stock_raw), Integer.parseInt(screenId), Integer.parseInt(cpuId), Integer.parseInt(ramId), Integer.parseInt(ssdId), card, year, origin, Double.parseDouble(discount_raw), system, Integer.parseInt(manuId), Double.parseDouble(weight_raw), description);
+                laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
+                if (result) {
+                 if(image.length>1){                   
+                     for (int i = 0; i < image.length; i++) {
+                        WebController.getInstance().laptopdao.updateImagebyLaptopId(laptopId, image[i], listImage.get(i));
+                    }
+                 }else {
+                     image[0] = listImage.get(0);
+                 }
+                    
+                    alert = "Cập nhật thành công";
+                } else {
+                    alert = "Cập nhật thất bại";
+                }
+            }
+            request.setAttribute("alert", alert);
+            request.setAttribute("laptop", laptop);
+            request.getRequestDispatcher("admin_editproduct.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
         }
-        int start, end;
-        start = (page - 1) * numOfProduct;
-        end = Math.min(page * numOfProduct, size);
-        List<Laptop> listP = WebController.getInstance().laptopdao.getListByPage(list, start, end);
-        /////////////////////  end paging process
-        request.setAttribute("alert", alert);
-        request.setAttribute("href", href);
-        request.setAttribute("product", listP);
-        request.setAttribute("page", page);
-        request.setAttribute("num", numOfPage);
-        request.getRequestDispatcher("admin_product.jsp").forward(request, response);
+
     }
 
     /**
