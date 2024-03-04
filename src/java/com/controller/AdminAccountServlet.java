@@ -4,20 +4,19 @@
  */
 package com.controller;
 
-import com.model.laptop.Laptop;
+import com.model.account.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author Anh Quan
  */
-public class AdminProductServlet extends HttpServlet {
+public class AdminAccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +35,10 @@ public class AdminProductServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminProductServlet</title>");
+            out.println("<title>Servlet AdminAccountServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminProductServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminAccountServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,48 +56,35 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Laptop> list = WebController.getInstance().laptopdao.getAllLaptop(1);
-        String href = "";
-        String key = request.getParameter("search");
-               String action = request.getParameter("action");
-        String laptopId_raw = request.getParameter("laptopId");
-        String alert ="";
-        if (key != null) {
-            list = WebController.getInstance().laptopdao.searchByName(key, 1);
-            href += "search=" + key;
+        String action = request.getParameter("action");
+        String alert = "";
+        if (action != null) {
+            if (action.equals("create")) {
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String email = request.getParameter("email");
+                String phone = request.getParameter("phone");
+                String fullname = request.getParameter("fullname");
+                int role = Integer.parseInt(request.getParameter("role"));
+                boolean result = WebController.getInstance().accountdao.checkUsername(username);
+                if (!result) {
+                    boolean create = WebController.getInstance().accountdao.createAccount(username, password, email, fullname, phone, role);
+                    if (create) {
+                        alert = "Succesfull";
+                        request.setAttribute("alert", alert);
+                        request.getRequestDispatcher("admin_createAccount.jsp").forward(request, response);
+                    } else {
+                        alert = "Failed";
+                        request.setAttribute("alert", alert);
+                        request.getRequestDispatcher("admin_createAccount.jsp").forward(request, response);
+                    }
+                } else {
+                    alert = "User name was existed before";
+                    request.setAttribute("alert", alert);
+                    request.getRequestDispatcher("admin_createAccount.jsp").forward(request, response);
+                }
+            }
         }
-       if(action!=null){
-            if(action.equals("delete")){
-            int laptopId = Integer.parseInt(laptopId_raw);
-            WebController.getInstance().laptopdao.deleteImageByLaptopId(laptopId);
-            boolean result = WebController.getInstance().laptopdao.deleteLaptopById(laptopId);
-            if(result){
-                list = WebController.getInstance().laptopdao.getAllLaptop(1);
-                alert = "Delete successful";
-            }else alert="Delete failed";
-            }   
-       }
-        /////        this is paging process
-        int size = list.size();
-        int page, numOfProduct = 12;
-        int numOfPage = (size % 12 == 0 ? (size / 12) : (size / 12) + 1);
-        String xpage = request.getParameter("page");
-        if (xpage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(xpage);
-        }
-        int start, end;
-        start = (page - 1) * numOfProduct;
-        end = Math.min(page * numOfProduct, size);
-        List<Laptop> listP = WebController.getInstance().laptopdao.getListByPage(list, start, end);
-        /////////////////////  end paging process
-        request.setAttribute("alert", alert);
-        request.setAttribute("href", href);
-        request.setAttribute("product", listP);
-        request.setAttribute("page", page);
-        request.setAttribute("num", numOfPage);
-        request.getRequestDispatcher("adminProduct.jsp").forward(request, response);
     }
 
     /**

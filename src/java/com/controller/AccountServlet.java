@@ -149,6 +149,10 @@ public class AccountServlet extends HttpServlet {
                     int id = Integer.parseInt(id_raw);
                     boolean result = WebController.getInstance().orderdao.updateStatusOrderByOrderId(id, "Đã nhận hàng");
                     if(result){
+                        List<Integer> listLaptopId = WebController.getInstance().orderdao.getLaptopByOrdeId(id);                      
+                        for (Integer m : listLaptopId) {
+                            WebController.getInstance().laptopdao.updateStock(m,WebController.getInstance().laptopdao.getLaptopbyLaptopId(m).getStock()-1);
+                        }
                         alert="Thao tác thành công";
                     }else alert = "Thao tác thất bại";
                 }else if(id_raw!=null && status.equals("order-cancel")){

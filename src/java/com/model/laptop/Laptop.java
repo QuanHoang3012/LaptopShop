@@ -26,7 +26,7 @@ public class Laptop {
     private Ram ram;
     private Ssd ssd;
     private String card ;
-    private Date releaseYear;
+    private String releaseYear;
     private String origin;
     private double discount;
     private String system;
@@ -38,7 +38,7 @@ public class Laptop {
     public Laptop() {
     }
 
-    public Laptop(int id, String name, double inPrice, double outPrice, int stock, Screen screen, Cpu cpu, Ram ram, Ssd ssd, String card, Date releaseYear, String origin, double discount, String system, List<String> image, float weight, Manufacturer manufacturer,String description) {
+    public Laptop(int id, String name, double inPrice, double outPrice, int stock, Screen screen, Cpu cpu, Ram ram, Ssd ssd, String card, String releaseYear, String origin, double discount, String system, List<String> image, float weight, Manufacturer manufacturer,String description) {
         this.id = id;
         this.name = name;
         this.inPrice = inPrice;
@@ -156,11 +156,11 @@ public class Laptop {
         this.card = card;
     }
 
-    public Date getReleaseYear() {
+    public String getReleaseYear() {
         return  releaseYear ;
     }
 
-    public void setReleaseYear(Date releaseYear) {
+    public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
 

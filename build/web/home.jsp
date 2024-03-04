@@ -151,7 +151,7 @@
                                     </c:if>
                                     <c:if test="${account.role==0}">
                                         <a href="profile.jsp" class="nav-item nav-link">User Profile</a>
-                                        <a href="profile.jsp" class="nav-item nav-link">Admin</a>
+                                        <a href="admin-product" class="nav-item nav-link">Admin</a>
                                     </c:if>
                                     <a href="login?action=logout" class="nav-item nav-link">Log out</a>
                                 </div>

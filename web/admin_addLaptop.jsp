@@ -1,4 +1,10 @@
 <%-- 
+    Document   : admin_addLaptop
+    Created on : Feb 29, 2024, 3:04:32 PM
+    Author     : Anh Quan
+--%>
+
+<%-- 
     Document   : admin_editproduct.jsp
     Created on : Feb 28, 2024, 11:17:28 PM
     Author     : Anh Quan
@@ -30,80 +36,101 @@
     </head>
     <body class="app">
         <jsp:include page="admin-header.jsp"/>
-        <c:set value="${requestScope.laptop}" var="laptop"/>
         <div class="app-wrapper">
             <h2 style="color: red;margin-left: 20px;margin-top: 20px">${requestScope.alert}</h2>
-            <div class="container" style="margin-top: 50px">
-                <form  action="edit">
+            <div class="row" style="margin-left: 30px">
+                <div class="col-md-6">
                     <div class="row">
-                        <div class="col-md-6">
-                            <input type="hidden" name="laptopId" value="${laptop.id}"/>
+                        <div class="col-md-3">
+                            <button><a href="add" target="target">Add Branch</a></button>
+                        </div>
+                        <div class="col-md-3">
+                            <button>Add Ram</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button>Add Cpu</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button>Add Ssd</button>
+                        </div>                                      
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button>Add Screen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="margin-top: 20px">
+                <form  action="addproduct">
+                    <div class="row">
+                        <div class="col-md-6">                      
                             <div class="form-group">
                                 <label >Name</label>
-                                <input type="text" class="form-control" name="name" value="${laptop.name}" required>
+                                <input type="text" class="form-control" name="nameAdd" value="" required>
                             </div>
-                            <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
-                            <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
-                            <fmt:formatNumber value="${laptop.inPrice}" pattern="#,##0" var="inPrice" />
+
 
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >InPrice</label>
-                                        <input type="text" class="form-control" name="inPrice" value="${laptop.inPrice}" required="">
+                                        <input type="text" class="form-control" name="inPriceAdd" value="" required="">
                                     </div>             
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >OutPrice</label>
-                                        <input type="text" class="form-control" name="outPrice" value="${laptop.outPrice}" required>
+                                        <input type="text" class="form-control" name="outPriceAdd" value="" required>
                                     </div>             
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >Stock</label>
-                                        <input type="number" class="form-control"  name="stock" value="${laptop.stock}" required>
+                                        <input type="number" class="form-control"  name="stockAdd" value="" required>
                                     </div>             
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label >Card</label>
-                                <input type="text" class="form-control"name="card" value="${laptop.card}" required>
+                                <input type="text" class="form-control"name="cardAdd" value="" required>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >Release Year</label>
-                                        <input type="text" class="form-control"  name="releaseYear" value="${laptop.releaseYear}" required>
+                                        <input type="text" class="form-control"  name="releaseYearAdd" value="" required>
                                     </div>             
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label >Origin</label>
-                                        <input type="text" class="form-control"  name="origin" value="${laptop.origin}" required>
+                                        <input type="text" class="form-control"  name="origin" value="" required>
                                     </div>             
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Discount</label>
-                                        <input type="text" class="form-control"  name="discount" value="${laptop.discount}" required>
+                                        <input type="text" class="form-control"  name="discountAdd" value="" required>
                                     </div>             
                                 </div>
                             </div>
                             <div class="row">
                                 <label >Image</label>
-                                <input type="file" name="image" multiple="">
+                                <input type="file" name="imageAdd" multiple="">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label >System</label>
-                                            <input type="text" class="form-control"  name="system" value="${laptop.system}" required>
+                                            <input type="text" class="form-control"  name="systemAdd" value="" required>
                                         </div>             
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label >Weight</label>
-                                            <input type="text" class="form-control"  name="weight" value="${laptop.weight}" required>
+                                            <input type="text" class="form-control"  name="weightAdd" value="" required>
                                         </div>             
                                     </div>
                                 </div>
@@ -111,8 +138,8 @@
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                     <label >Description</label>
-                                     <input type="text" class="form-control"  name="description" value="${laptop.description}" height="30px" required>
+                                    <label >Description</label>
+                                    <input type="text" class="form-control"  name="descriptionAdd" value="" height="30px" required>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +158,7 @@
                                         <label>Ram</label>
                                         <c:forEach items="${ram}" var="m" >
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.ram.id?"checked":""} name="ram">
+                                                <input class="form-check-input" type="radio" value="${m.id}"   name="ramAdd" required="">
                                                 <label class="form-check-label" >${m.detail}</label>
                                             </div>
                                         </c:forEach>                              
@@ -143,7 +170,7 @@
                                         <label>Ram</label>
                                         <c:forEach items="${cpu}" var="m" >
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.cpu.id?"checked":""}  name="cpu">
+                                                <input class="form-check-input" type="radio" value="${m.id}"   name="cpuAdd" required="">
                                                 <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
@@ -155,7 +182,7 @@
                                         <label>Branch</label>
                                         <c:forEach items="${manu}" var="m" >
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.manufacturer.id?"checked":""}  name="manu">
+                                                <input class="form-check-input" type="radio" value="${m.id}" name="manuAdd" required="">
                                                 <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
@@ -169,7 +196,7 @@
                                         <label>SSD</label>
                                         <c:forEach items="${ssd}" var="m" >
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.ssd.id?"checked":""}   name="ssd">
+                                                <input class="form-check-input" type="radio" value="${m.id}"     name="ssdAdd" required="">
                                                 <label class="form-check-label" >${m.detail}</label>
                                             </div>
                                         </c:forEach>                              
@@ -181,7 +208,7 @@
                                         <label>Screen</label>
                                         <c:forEach items="${screen}" var="m" >
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.screen.id?"checked":""}  name="screen">
+                                                <input class="form-check-input" type="radio" value="${m.id}" name="screenAdd" required="">
                                                 <label class="form-check-label" >${m.detail}</label>
                                             </div>
                                         </c:forEach>                              
@@ -189,20 +216,20 @@
                                 </div>
                             </div>
                         </div>
-                                        <button class="btn btn-primary w-auto mx-auto" style="margin-top: 50px" type="submit" value="Update">Update</button>   
+                        <button class="btn btn-primary w-auto mx-auto" style="margin-top: 50px" type="submit" value="Add">Add</button>   
                     </div>
-                                                </form>
+                </form>
             </div>
+        </div>
     </div>
-</div>
 
-<!-- Javascript -->          
-<script src="assets1/plugins/popper.min.js"></script>
-<script src="assets1/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    <!-- Javascript -->          
+    <script src="assets1/plugins/popper.min.js"></script>
+    <script src="assets1/plugins/bootstrap/js/bootstrap.min.js"></script>  
 
 
-<!-- Page Specific JS -->
-<script src="assets1/js/app.js"></script> 
+    <!-- Page Specific JS -->
+    <script src="assets1/js/app.js"></script> 
 
 </body>
 

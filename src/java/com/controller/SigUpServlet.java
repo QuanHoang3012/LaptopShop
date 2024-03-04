@@ -79,7 +79,7 @@ public class SigUpServlet extends HttpServlet {
         boolean result = WebController.getInstance().accountdao.checkUsername(username);
         String alert = "";
         if (!result) {
-            boolean create = WebController.getInstance().accountdao.createAccount(username, password, email);
+            boolean create = WebController.getInstance().accountdao.createAccount(username, password, email, null, null, 1);
             if (create) {
                 Account a = WebController.getInstance().accountdao.getAccount(username, password);
                 session.setAttribute("account", a);

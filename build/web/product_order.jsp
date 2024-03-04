@@ -33,7 +33,9 @@
         <link href="css/style.css" rel="stylesheet">
         <script type="text/javascript">
             function doDeleteOrderUpdate(id){
+                 if (confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?")) {
                 window.location = "account?action=order-product&status=order-cancel&id=" + id;
+            }
             }
             function doDeleteOrder(id) {
                 if (confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?")) {

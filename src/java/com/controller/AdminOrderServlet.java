@@ -5,6 +5,8 @@
 package com.controller;
 
 import com.model.laptop.Laptop;
+import com.model.order.Order;
+import com.model.order.OrderDetail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +19,7 @@ import java.util.List;
  *
  * @author Anh Quan
  */
-public class AdminProductServlet extends HttpServlet {
+public class AdminOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +38,10 @@ public class AdminProductServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminProductServlet</title>");
+            out.println("<title>Servlet AdminOrderServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminProductServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminOrderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,29 +59,23 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Laptop> list = WebController.getInstance().laptopdao.getAllLaptop(1);
-        String href = "";
-        String key = request.getParameter("search");
-               String action = request.getParameter("action");
-        String laptopId_raw = request.getParameter("laptopId");
-        String alert ="";
-        if (key != null) {
-            list = WebController.getInstance().laptopdao.searchByName(key, 1);
-            href += "search=" + key;
+        List<Order> listOrder = WebController.getInstance().orderdao.getAllOrder();
+        List<OrderDetail>[] orderDetailList = new List[listOrder.size()];
+        String action = request.getParameter("action");
+        String orderId = request.getParameter("id");
+        for (int i = 0; i < listOrder.size(); i++) {
+            orderDetailList[i] = WebController.getInstance().orderdetaildao.getOrderDetailByOrderId(listOrder.get(i).getId());
         }
-       if(action!=null){
-            if(action.equals("delete")){
-            int laptopId = Integer.parseInt(laptopId_raw);
-            WebController.getInstance().laptopdao.deleteImageByLaptopId(laptopId);
-            boolean result = WebController.getInstance().laptopdao.deleteLaptopById(laptopId);
-            if(result){
-                list = WebController.getInstance().laptopdao.getAllLaptop(1);
-                alert = "Delete successful";
-            }else alert="Delete failed";
-            }   
-       }
-        /////        this is paging process
-        int size = list.size();
+        if(action != null ){
+            if (action.equals("ship")){
+                    WebController.getInstance().orderdao.updateStatusOrderByOrderId(Integer.parseInt(orderId), "Đang vận chuyển");
+            }else  if (action.equals("cancel")){
+                WebController.getInstance().orderdao.updateStatusOrderByOrderId(Integer.parseInt(orderId), "Đã hủy");
+            }
+              listOrder = WebController.getInstance().orderdao.getAllOrder();
+        }
+        
+           int size = listOrder.size();
         int page, numOfProduct = 12;
         int numOfPage = (size % 12 == 0 ? (size / 12) : (size / 12) + 1);
         String xpage = request.getParameter("page");
@@ -91,14 +87,13 @@ public class AdminProductServlet extends HttpServlet {
         int start, end;
         start = (page - 1) * numOfProduct;
         end = Math.min(page * numOfProduct, size);
-        List<Laptop> listP = WebController.getInstance().laptopdao.getListByPage(list, start, end);
-        /////////////////////  end paging process
-        request.setAttribute("alert", alert);
-        request.setAttribute("href", href);
-        request.setAttribute("product", listP);
+        List<Order> listP = WebController.getInstance().orderdao.getListByPage(listOrder, start, end);
         request.setAttribute("page", page);
+        request.setAttribute("data", listP);
         request.setAttribute("num", numOfPage);
-        request.getRequestDispatcher("adminProduct.jsp").forward(request, response);
+        request.setAttribute("orderList", listOrder);
+        request.setAttribute("orderdetailList", orderDetailList);
+        request.getRequestDispatcher("admin_order.jsp").forward(request, response);
     }
 
     /**

@@ -32,7 +32,7 @@
         <jsp:include page="admin-header.jsp"/>
         <c:set value="${requestScope.laptop}" var="laptop"/>
         <div class="app-wrapper">
-            <h2 style="color: red">${requestScope.alert}</h2>
+            <h2 style="color: red;margin-left: 20px;margin-top: 20px">${requestScope.alert}</h2>
             <div class="container" style="margin-top: 50px">
                 <form  action="edit">
                     <div class="row">

@@ -116,20 +116,24 @@ public class AccountDAO extends DBUtils {
         return false;
     }
 
-    public boolean createAccount(String username, String password, String email) {
+    public boolean createAccount(String username, String password, String email, String name, String phone, int role) {
         String sql = "INSERT INTO [dbo].[accounts]\n"
                 + "           ([username]\n"
                 + "           ,[password]\n"
                 + "           ,[email]\n"
+                + "           ,[fullName]\n"
+                + "           ,[phoneNumber]\n"
                 + "             ,[role])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?)";
+                + "           (?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, password);
             st.setString(3, email);
-            st.setInt(4, 1);
+            st.setString(4, name);
+            st.setString(5, phone);
+            st.setInt(6, role);
             st.executeUpdate();
             return true;
         } catch (SQLException e) {

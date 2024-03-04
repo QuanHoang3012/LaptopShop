@@ -11,6 +11,8 @@
         <url-pattern>/account?action=order-product</url-pattern>
         <url-pattern>/account?action=history-order</url-pattern>
         <url-pattern>/checkout.jsp</url-pattern>
+        <url-pattern>/admin_order</url-pattern>
+        <url-pattern>/admin_addLaptop.jsp</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>laptopServlet</servlet-name>
@@ -64,6 +66,18 @@
         <servlet-name>AdminEditProductServlet</servlet-name>
         <servlet-class>com.controller.AdminEditProductServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminAddServlet</servlet-name>
+        <servlet-class>com.controller.AdminAddServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminOrderServlet</servlet-name>
+        <servlet-class>com.controller.AdminOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminAccountServlet</servlet-name>
+        <servlet-class>com.controller.AdminAccountServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -115,5 +129,17 @@
     <servlet-mapping>
         <servlet-name>AdminEditProductServlet</servlet-name>
         <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAddServlet</servlet-name>
+        <url-pattern>/addproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminOrderServlet</servlet-name>
+        <url-pattern>/admin_order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminAccountServlet</servlet-name>
+        <url-pattern>/admin-account</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -13,17 +13,19 @@
             <url>src/java/com/model/laptop/LaptopDAO.java</url>
             <bookmark id="1">
                 <name/>
-                <line>214</line>
+                <line>270</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin_product.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/AdminProductServlet.java</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin/index.jsp</file>
-            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/admin-header.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/laptop/LaptopDAO.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/AccountServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/web/product_order.jsp</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/AdminAddServlet.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/model/order/OrderDAO.java</file>
+            <file>file:/E:/Work_space/JAVA/JavaWeb/project/LaptopShop/LaptopShop/src/java/com/controller/laptopServlet.java</file>
         </group>
     </open-files>
 </project-private>

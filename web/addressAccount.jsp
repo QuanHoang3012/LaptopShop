@@ -67,15 +67,15 @@
       <form action="account">
           <div class="form-group">
           <label for="name">Họ và tên người nhận</label>
-          <input type="text" class="form-control" name="fullName" placeholder="Nhập họ và tên">
+          <input type="text" class="form-control" name="fullName" placeholder="Nhập họ và tên" required="">
         </div>
         <div class="form-group">
           <label for="phone">Số điện thoại</label>
-          <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại">
+          <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" required="">
         </div>
         <div class="form-group">
           <label for="address">Địa chỉ</label>
-          <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ">
+          <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ" required="">
         </div>
           <input type="hidden" name="action" value="addAddress"> 
         <button type="submit" class="btn btn-primary">Thêm</button>

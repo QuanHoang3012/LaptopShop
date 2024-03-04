@@ -97,6 +97,27 @@ public class OrderDAO extends DBUtils {
         return list;
     }
 
+    public List<Order> getAllOrder() {
+        List<Order> list = new ArrayList<>();
+        String sql = "select * from [order] order by id desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+               while (rs.next()) {
+                Order order = new Order();
+                order.setId(rs.getInt("id"));
+                order.setCustomerId(rs.getInt("customer"));
+                order.setDate(rs.getDate("date"));
+                order.setStatus(rs.getString("status"));
+                order.setAddress(rs.getInt("address"));
+                order.setTotalMoney(rs.getDouble("price"));
+                list.add(order);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
     public List<Order> getOrderForCustomer(int accountId, String status) {
         List<Order> list = new ArrayList<>();
         String sql = "select * from [order] where customer = " + accountId + " and status like N'%" + status + "%' order by id desc";
@@ -135,10 +156,10 @@ public class OrderDAO extends DBUtils {
         return false;
     }
 
-    public boolean updateStatusOrderByOrderId(int id,String status) {
+    public boolean updateStatusOrderByOrderId(int id, String status) {
         String sql = "UPDATE [dbo].[order]\n"
-                + "   SET [status] = N'"+status+"'\n"
-                + " WHERE id ="+id;
+                + "   SET [status] = N'" + status + "'\n"
+                + " WHERE id =" + id;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.executeUpdate();
@@ -147,19 +168,26 @@ public class OrderDAO extends DBUtils {
         }
         return false;
     }
-    
-    public List<Integer> getLaptopByOrdeId(int orderId){
-       List<Integer> list = new ArrayList<>();
-       String sql= "select * from [dbo].[orderdetail] where orderId ="+orderId;
+
+    public List<Integer> getLaptopByOrdeId(int orderId) {
+        List<Integer> list = new ArrayList<>();
+        String sql = "select * from [dbo].[orderdetail] where orderId =" + orderId;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(rs.getInt("laptopId"));
             }
         } catch (Exception e) {
         }
         return list;
+    }
+    public List<Order> getListByPage(List<Order> list, int start, int end) {
+        List<Order> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
     }
 
     public static void main(String[] args) {
