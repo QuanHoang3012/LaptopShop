@@ -94,29 +94,41 @@
                     </div>
                     <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
                     <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
+                    Còn lại:  <small class="font-weight-semi-bold mb-4">${laptop.stock}</small>
                     <h3 class="font-weight-semi-bold mb-4">${discount}đ</h3>
+
+
                     <p class="mb-4">${laptop.description}</p>
 
 
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus"  onclick="decreaseQuantity()" >
+                                <button class="btn btn-primary btn-minus" disabled="false"  onclick="decreaseQuantity()" id="minus" >
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary text-center" value="1" name="">
+                            <input type="text" class="form-control bg-secondary text-center" readonly="" value="1" name="">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus" onclick="increaseQuantity()">
+                                <button class="btn btn-primary btn-plus" onclick="increaseQuantity('${laptop.stock}')"  id="plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
+                                <c:set value="${sessionScope.cart}" var="cart"/>
+                                <c:if test="${cart.getItemById(laptop.id)!=null}">
+                                    <c:set value="${cart.getQuantitById(laptop.id)}" var="quantityCart"/>
+                                </c:if>
+                                <c:if test="${cart.getItemById(laptop.id)==null}">
+                                    <c:set value="0" var="quantityCart"/>
+                                </c:if>
                         </div>
                         <form action="" name="f" method="post">
+                            <input type="hidden" name="stockLaptop" value="${laptop.stock}" id="stock"/>
                             <input type="hidden" name="quantityLaptop" value="1" id="quantity">  
-                            <button class="btn btn-primary px-3"  onclick="buy1('${laptop.id}')"  ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
-                        </form>
+                            <button class="btn btn-primary px-3"  onclick="buy1(${laptop.id},${quantityCart})"  ><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                            </form>
                     </div>
+
                     <div class="d-flex pt-2">
                         <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
                         <div class="d-inline-flex">
@@ -274,21 +286,51 @@
                 document.m.action = "buy?id=" + id;
                 document.m.submit();
             }
-            function buy1(id) {
-                document.f.action = "buy?id=" + id;
-                document.f.submit();
+            function buy1(id,amount) {
+                var stock = document.getElementById('stock');
+                var stockValue = parseInt(stock.value);
+                var quantityInput = document.getElementById('quantity');
+                var currentValue = parseInt(quantityInput.value);
+                if (currentValue > stockValue - amount) {
+                    alert("Số lượng không có sẵn !");
+                   event.preventDefault();
+                } else {
+                    document.f.action = "buy?id=" + id;
+                    document.f.submit();
+                }
+
             }
             function decreaseQuantity() {
                 var quantityInput = document.getElementById('quantity');
                 var currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
+                var plusButton = document.getElementById("plus");
+                if (currentValue > 0) {
                     quantityInput.value = currentValue - 1;
                 }
+                var minusButton = document.getElementById("minus");
+                if (quantityInput.value == 1) {
+                    minusButton.disabled = true;
+                } else {
+                    minusButton.disabled = false;
+                }
+                plusButton.disabled = false;
             }
-            function increaseQuantity() {
+            function increaseQuantity(stock) {
+                   var minusButton = document.getElementById("minus");
+                   var plusButton = document.getElementById("plus");
                 var quantityInput = document.getElementById('quantity');
                 var currentValue = parseInt(quantityInput.value);
                 quantityInput.value = currentValue + 1;
+                   if (quantityInput.value == 1) {
+                    minusButton.disabled = true;
+                } else {
+                    minusButton.disabled = false;
+                }
+                if(currentValue  == stock-1){
+                    plusButton.disabled = true;
+                }else {
+                    plusButton.disabled = false;
+                }
             }
             ///// function to jquery of rating star
 

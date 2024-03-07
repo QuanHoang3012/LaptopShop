@@ -104,7 +104,7 @@
                         </a><!--//nav-link-->
                     </li><!--//nav-item-->
                     <li class="nav-item">
-                        <a class="nav-link" href="admin_user">
+                        <a class="nav-link" href="admin_user.jsp">
                             <span class="nav-icon">
                                 <!-- Replace this SVG code with your user icon SVG -->
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

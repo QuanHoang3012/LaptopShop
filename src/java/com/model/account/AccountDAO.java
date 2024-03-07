@@ -8,6 +8,8 @@ import com.model.utils.DBUtils;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -139,6 +141,31 @@ public class AccountDAO extends DBUtils {
         } catch (SQLException e) {
         }
         return false;
+    }
+
+    public List<Account> getAccountByRole(int role) {
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from accounts where role =" + role;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account acc = new Account();
+                acc.setId(rs.getInt("id"));
+                acc.setUsername(rs.getString("username"));
+                acc.setPassword(rs.getString("password"));
+                acc.setFullname(rs.getString("fullname"));
+                acc.setPhoneNumber(rs.getString("phoneNumber"));
+                acc.setGender(rs.getInt("gender"));
+                acc.setEmail(rs.getString("email"));
+                acc.setImage(rs.getString("image"));
+                acc.setBirthday(rs.getString("birthday"));
+                acc.setRole(rs.getInt("role"));
+                list.add(acc);
+            }
+        } catch (SQLException e) {
+        }
+        return list;
     }
 
     public static void main(String[] args) {

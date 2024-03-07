@@ -87,7 +87,8 @@ public class CheckoutServlet extends HttpServlet {
             account = (Account) acc;
             String address_raw = request.getParameter("address");
             int addressId ;
-            if (address_raw != null) {
+            if(cart.getItems().size()>0){
+                if (address_raw != null) {
                 addressId = Integer.parseInt(address_raw);
                 OrderDAO orderDao = WebController.getInstance().orderdao;
                 boolean result = orderDao.addOrder(account, cart, addressId);
@@ -101,9 +102,13 @@ public class CheckoutServlet extends HttpServlet {
                 session.setAttribute("size", 0);
                 request.getRequestDispatcher("checkout.jsp").forward(request, response);
             } else {
+                    request.setAttribute("error", "Bạn phải điền hết thông tin");
+                request.getRequestDispatcher("checkout.jsp").forward(request, response);
+                }} else {
                 request.setAttribute("error", "Bạn phải điền hết thông tin");
                 request.getRequestDispatcher("checkout.jsp").forward(request, response);
             }
+          
 
         } else {
             response.sendRedirect("login.jsp");

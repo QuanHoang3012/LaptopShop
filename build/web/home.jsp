@@ -133,7 +133,7 @@
                                 <a href="laptop" class="nav-item nav-link">Shop</a>
                                 <a href="cart.jsp" class="nav-item nav-link">Shopping Cart</a>
                                 <a href="checkout.jsp" class="nav-item nav-link">Checkout</a>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                <a href="contact.jsp" class="nav-item nav-link">Policy</a>
                             </div>
                             <c:set var="account" value="${sessionScope.account}"/>
                             <c:if test="${account ==null}">

@@ -39,7 +39,7 @@ public class ProcessServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProcessServlet</title>");            
+            out.println("<title>Servlet ProcessServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ProcessServlet at " + request.getContextPath() + "</h1>");
@@ -61,29 +61,29 @@ public class ProcessServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Cart cart =null;
+        Cart cart = null;
         Object o = session.getAttribute("cart");
-        if(o!= null){
+        if (o != null) {
             cart = (Cart) o;
-        }else {
+        } else {
             cart = new Cart();
         }
-           String quantityLaptop_raw = request.getParameter("quantityLaptop").trim();
-        String laptopId_raw= request.getParameter("id");
+        String quantityLaptop_raw = request.getParameter("quantityLaptop").trim();
+        String laptopId_raw = request.getParameter("id");
         try {
             int quantityLaptop = Integer.parseInt(quantityLaptop_raw);
             int laptopId = Integer.parseInt(laptopId_raw);
-            if(quantityLaptop==-1 && cart.getQuantitById(laptopId)<=1){
+            if (quantityLaptop == -1 && cart.getQuantitById(laptopId) <= 1) {
                 cart.removeItem(laptopId);
-            }else {
-                 Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
-            Item item = new Item(laptop, quantityLaptop, laptop.getDiscount());     
-            cart.addItem(item);
+            } else {
+                Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
+                    Item item = new Item(laptop, quantityLaptop, laptop.getDiscount());
+                    cart.addItem(item);
             }
         } catch (NumberFormatException e) {
-        }         
+        }
         List<Item> listItem = cart.getItems();
-          session.setAttribute("cart", cart);
+        session.setAttribute("cart", cart);
         session.setAttribute("size", listItem.size());
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
@@ -100,18 +100,18 @@ public class ProcessServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Cart cart =null;
+        Cart cart = null;
         Object o = session.getAttribute("cart");
-        if(o!= null){
+        if (o != null) {
             cart = (Cart) o;
-        }else {
+        } else {
             cart = new Cart();
         }
-          String laptopId_raw= request.getParameter("id");
-          int id = Integer.parseInt(laptopId_raw);
-          cart.removeItem(id);
-          List<Item> listItem = cart.getItems();
-          session.setAttribute("cart", cart);
+        String laptopId_raw = request.getParameter("id");
+        int id = Integer.parseInt(laptopId_raw);
+        cart.removeItem(id);
+        List<Item> listItem = cart.getItems();
+        session.setAttribute("cart", cart);
         session.setAttribute("size", listItem.size());
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }

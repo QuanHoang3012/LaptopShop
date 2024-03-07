@@ -6,6 +6,7 @@ package com.controller;
 
 import com.model.cpu.Cpu;
 import com.model.laptop.Laptop;
+import com.model.laptop.LaptopDAO;
 import com.model.manufacturer.Manufacturer;
 import com.model.ram.Ram;
 import com.model.screen.Screen;
@@ -62,7 +63,7 @@ public class laptopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        LaptopDAO laptopdao = new LaptopDAO();
         List<Screen> listScreen = WebController.getInstance().screendao.getAll();
         List<Ssd> listSsd = WebController.getInstance().ssddao.getAll();
         List<Cpu> listCpu = WebController.getInstance().cpudao.getAll();
@@ -115,7 +116,7 @@ public class laptopServlet extends HttpServlet {
                 option = 2;
             }
         }
-        list = WebController.getInstance().laptopdao.getAllLaptop(option);
+        list = laptopdao.getAllLaptop(option);
         //////////        Check if have something to search in text to search product      
         if (key != null) {
             list = WebController.getInstance().laptopdao.searchByName(key, option);

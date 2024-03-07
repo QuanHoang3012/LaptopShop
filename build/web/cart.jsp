@@ -67,22 +67,21 @@
                             <c:set var="t" value="0"/>
                             <c:set value="0" var="totalPrice"/>
                             <c:forEach items="${cart.items}" var="item">
-                                <c:set var="t" value="${t+1}"/>
                                 <tr>
-                                    <td class="align-middle"><img src="images/${item.laptop.image.get(0)}" alt="" style="width: 50px;">${item.laptop.name}</td>
+                                    <td class="align-middle"><a href="detail?laptopId=${item.laptop.id}"><img src="images/${item.laptop.image.get(0)}" alt="" style="width: 50px;"></a>${item.laptop.name}</td>
                                         <fmt:formatNumber value="${item.laptop.discount}" pattern="#,##0" var="discount" />
                                     <td class="align-middle">${discount}đ</td>
                                     <td class="align-middle">
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
                                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                                 <div class="input-group-prepend">
-                                                    <a href="process?quantityLaptop=-1&id=${item.laptop.id}" class="btn btn-sm btn-primary btn-minus">
+                                                    <a href="process?quantityLaptop=-1&id=${item.laptop.id}" class="btn btn-sm btn-primary btn-minus" >
                                                         <i class="fa fa-minus"></i>
                                                     </a>
                                                 </div>
                                                 <input type="text" readonly class="form-control form-control-sm bg-secondary text-center" value="${item.quantity}">
                                                 <div class="input-group-append">
-                                                    <a href="process?quantityLaptop=1&id=${item.laptop.id}" class="btn btn-sm btn-primary btn-plus">
+                                                    <a href="process?quantityLaptop=1&id=${item.laptop.id}" class="btn btn-sm btn-primary btn-plus ${item.quantity>=item.laptop.stock?"disabled":""}">
                                                         <i class="fa fa-plus"></i>
                                                     </a>
                                                 </div>
@@ -141,7 +140,7 @@
                 }
             </script>
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+ 
 
 
         <!-- JavaScript Libraries -->

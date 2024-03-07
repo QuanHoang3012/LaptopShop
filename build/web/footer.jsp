@@ -28,7 +28,7 @@
                         <a class="text-dark mb-2" href="laptop"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
                         <a class="text-dark mb-2" href="cart.jsp"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-dark mb-2" href="checkout.jsp"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                        <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                        <a class="text-dark" href="contact.jsp"><i class="fa fa-angle-right mr-2"></i>Policy</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -42,18 +42,9 @@
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="font-weight-bold text-dark mb-4">Feedback</h5>
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" class="form-control border-0 py-4" placeholder="Họ và tên" required="required" />
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control border-0 py-4" placeholder="Emaill"
-                                   required="required" />
-                        </div>
-                        <div>
-                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Gửi</button>
-                        </div>
-                    </form>
+                    <div>
+                        Mọi thắc mắc và góp ý cần hỗ trợ xin vui lòng liên hệ địa chỉ Email và số điện thoại 
+                    </div>
                 </div>
             </div>
         </div>

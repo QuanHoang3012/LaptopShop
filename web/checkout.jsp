@@ -115,25 +115,7 @@
                                     </div>
                                 </div>
                         </div>
-                        <div class="card border-secondary mb-5">
-                            <div class="card-header bg-secondary border-0">
-                                <h4 class="font-weight-semi-bold m-0">Phương thức thanh toán</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" checked="" id="paypal">
-                                        <label class="custom-control-label" for="paypal">COD</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                                        <label class="custom-control-label" for="directcheck">Mobile Banking</label>
-                                    </div>
-                                </div>
-                            </div>
-
+                                                <div class="card border-secondary mb-5">
                             <c:set value="${requestScope.error}" var="error"/>
                             <div class="card-footer border-secondary bg-transparent">
                                 <button type="submit" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" >Thanh toán</button>
@@ -141,7 +123,9 @@
 
                         </div>
                     </div>
+                        
                 </div>
+                               
             </form>
         </div>
         <!-- Checkout End -->

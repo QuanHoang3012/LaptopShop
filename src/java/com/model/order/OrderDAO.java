@@ -117,7 +117,18 @@ public class OrderDAO extends DBUtils {
         }
         return list;
     }
-
+    public int getAccountByOrder(int id){
+        String sql="select customer from [order] where id="+id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
     public List<Order> getOrderForCustomer(int accountId, String status) {
         List<Order> list = new ArrayList<>();
         String sql = "select * from [order] where customer = " + accountId + " and status like N'%" + status + "%' order by id desc";
@@ -138,7 +149,9 @@ public class OrderDAO extends DBUtils {
         }
         return list;
     }
-
+    
+    
+    
     public boolean deleteOrderByOrderId(int orderId) {
         String sql1 = "delete from [orderdetail] where orderid =" + orderId;
         try {
@@ -193,7 +206,7 @@ public class OrderDAO extends DBUtils {
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();
         List<Integer> list = o.getLaptopByOrdeId(13);
-        System.out.println(list.get(1));
+        System.out.println(o.getAccountByOrder(1));
     }
 
 }

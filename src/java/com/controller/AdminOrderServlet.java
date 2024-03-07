@@ -4,7 +4,6 @@
  */
 package com.controller;
 
-import com.model.laptop.Laptop;
 import com.model.order.Order;
 import com.model.order.OrderDetail;
 import jakarta.servlet.ServletException;
@@ -66,16 +65,25 @@ public class AdminOrderServlet extends HttpServlet {
         for (int i = 0; i < listOrder.size(); i++) {
             orderDetailList[i] = WebController.getInstance().orderdetaildao.getOrderDetailByOrderId(listOrder.get(i).getId());
         }
-        if(action != null ){
-            if (action.equals("ship")){
-                    WebController.getInstance().orderdao.updateStatusOrderByOrderId(Integer.parseInt(orderId), "Đang vận chuyển");
-            }else  if (action.equals("cancel")){
+        if (action != null) {
+            if (action.equals("ship")) {
+                WebController.getInstance().orderdao.updateStatusOrderByOrderId(Integer.parseInt(orderId), "Đang vận chuyển");
+                String message = 
+                         " Xác nhận đơn hàng\n"
+                        + "  Xin chào bạn,\n"
+                        + "  Chúng tôi xin được thông báo rằng đơn hàng của bạn đã xác nhận thành công và đang được vận chuyển.\n"
+                        + "  Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua fb.com/hoangquanjmg hoặc gọi cho chúng tôi theo số +866 031 027\n"
+                        + "  Cảm ơn bạn đã ủng hộ shop. Sự ủng hộ của bạn là động lực để chúng tôi ngày một hoàn thiện hơn.\n"
+                        + "  Chúc bạn một ngày tốt lành!\n";            
+                SendMail s = new SendMail();
+                s.sendMail(WebController.getInstance().accountdao.getAccountById(WebController.getInstance().orderdao.getAccountByOrder(Integer.parseInt(orderId))).getEmail(), "Thông báo xác nhận đặt hàng thành công!", message, "quanhahe186591@fpt.edu.vn", "klvp ulsd hbqk jvdk");
+            } else if (action.equals("cancel")) {
                 WebController.getInstance().orderdao.updateStatusOrderByOrderId(Integer.parseInt(orderId), "Đã hủy");
             }
-              listOrder = WebController.getInstance().orderdao.getAllOrder();
+            listOrder = WebController.getInstance().orderdao.getAllOrder();
         }
-        
-           int size = listOrder.size();
+
+        int size = listOrder.size();
         int page, numOfProduct = 12;
         int numOfPage = (size % 12 == 0 ? (size / 12) : (size / 12) + 1);
         String xpage = request.getParameter("page");

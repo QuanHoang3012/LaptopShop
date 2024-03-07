@@ -30,7 +30,7 @@ public class Cart {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    private Item getItemById(int id){
+    public Item getItemById(int id){
         for(Item item: items){
             if(item.getLaptop().getId()==id){
                 return item ;

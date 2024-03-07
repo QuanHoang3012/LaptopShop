@@ -4,6 +4,16 @@
         <filter-name>LoginFillter</filter-name>
         <filter-class>com.controller.LoginFillter</filter-class>
     </filter>
+    <filter>
+        <filter-name>LoginAdminFilter</filter-name>
+        <filter-class>com.controller.LoginAdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginAdminFilter</filter-name>
+        <url-pattern>/admin_order</url-pattern>
+        <url-pattern>/admin_addLaptop.jsp</url-pattern>
+        <url-pattern>/admin_user.jsp</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>LoginFillter</filter-name>
         <url-pattern>/profile.jsp</url-pattern>
@@ -13,6 +23,7 @@
         <url-pattern>/checkout.jsp</url-pattern>
         <url-pattern>/admin_order</url-pattern>
         <url-pattern>/admin_addLaptop.jsp</url-pattern>
+        <url-pattern>/admin_user.jsp</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>laptopServlet</servlet-name>
