@@ -15,33 +15,62 @@ import java.util.List;
  *
  * @author Anh Quan
  */
-public class SsdDAO extends DBUtils{
-     public List<Ssd> getAll() {
+public class SsdDAO extends DBUtils {
+
+    public List<Ssd> getAll() {
         List<Ssd> list = new ArrayList<>();
         String sql = "Select * from ssd";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Ssd m = new Ssd(rs.getInt("id"), rs.getString("detail"));
                 list.add(m);
             }
         } catch (SQLException e) {
         }
         return list;
-    } 
-     public  Ssd getSsdbyId (int id){
+    }
+
+    public boolean deleteSsd(int id) {
+        String sql = "DELETE FROM [dbo].[ssd]\n"
+                + "      WHERE id="+id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean insertSsd(String name) {
+        String sql = "INSERT INTO [dbo].[ssd]\n"
+                + "           ([detail])\n"
+                + "     VALUES\n"
+                + "           (?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public Ssd getSsdbyId(int id) {
         List<Ssd> list = new ArrayList<>();
-        String sql="Select * from  [Laptop_Shop].[dbo].[ssd] where 1=1";
-        if(id!=0) {
-            sql += "and id="+id;
+        String sql = "Select * from  [Laptop_Shop].[dbo].[ssd] where 1=1";
+        if (id != 0) {
+            sql += "and id=" + id;
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-              while(rs.next()){
+            while (rs.next()) {
                 Ssd m = new Ssd(rs.getInt("id"), rs.getString("detail"));
-                    return m;
+                return m;
             }
         } catch (SQLException e) {
         }

@@ -160,7 +160,7 @@
                                     <div class="col-md-6">
                                         <div >
                                             <input type="checkbox" id="c03" value="${m.get(i).getId()}" name="ramBox" ${checkRam[i+1]?"checked":""} onclick="setCheck(this)">
-                                            <label>${m.get(i).getDetail()}</label>
+                                            <label>${m.get(i).getName()}</label>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -184,7 +184,7 @@
                                     <div class="col-md-6">
                                         <div >
                                             <input type="checkbox" id="c04" name="ssdBox" value="${m.get(i).getId()}" ${checkSsd[i+1]?"checked":""} onclick="setCheck(this)">
-                                            <label>${m.get(i).getDetail()}</label>
+                                            <label>${m.get(i).getName()}</label>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -208,7 +208,7 @@
                                     <div class="col-md-6">
                                         <div >
                                             <input type="checkbox" id="c05" value="${m.get(i).getId()}" name="screenBox" ${checkScreen[i+1]?"checked":""} onclick="setCheck(this)">
-                                            <label>${m.get(i).getDetail()}</label>
+                                            <label>${m.get(i).getName()}</label>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -253,12 +253,13 @@
                         </div>
                                     <form name="f" action="" method="post">
     <input type="hidden" name="quantityLaptop" value="1"/>
+    <jsp:useBean id="laptopdao" class="com.model.laptop.LaptopDAO"/>
     <div class="row">
         <c:forEach items="${requestScope.data}" var="laptop" varStatus="loop">
             <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                    <img class="img-fluid w-100" src="images/${laptop.image.get(0)}" alt="">
+                        <img class="img-fluid w-100" src="images/${laptopdao.getImagesbyLaptopId(laptop.id).get(0)}" alt="">
                     </div>
                     <fmt:formatNumber value="${laptop.outPrice}" pattern="#,##0" var="outPrice" />
                     <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />

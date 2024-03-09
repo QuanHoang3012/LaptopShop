@@ -89,6 +89,10 @@
         <servlet-name>AdminAccountServlet</servlet-name>
         <servlet-class>com.controller.AdminAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminTypeServlet</servlet-name>
+        <servlet-class>com.controller.AdminTypeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>laptopServlet</servlet-name>
         <url-pattern>/laptop</url-pattern>
@@ -152,5 +156,9 @@
     <servlet-mapping>
         <servlet-name>AdminAccountServlet</servlet-name>
         <url-pattern>/admin-account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminTypeServlet</servlet-name>
+        <url-pattern>/addtype</url-pattern>
     </servlet-mapping>
 </web-app>

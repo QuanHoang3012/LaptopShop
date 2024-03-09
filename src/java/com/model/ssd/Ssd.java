@@ -10,11 +10,11 @@ package com.model.ssd;
  */
 public class Ssd {
     private int id;
-    private String detail;
+    private String name;
 
-    public Ssd(int id, String detail) {
+    public Ssd(int id, String name) {
         this.id = id;
-        this.detail = detail;
+        this.name = name;
     }
 
     public Ssd() {
@@ -28,12 +28,12 @@ public class Ssd {
         this.id = id;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getName() {
+        return name;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setName(String detail) {
+        this.name = detail;
     }
     
 }

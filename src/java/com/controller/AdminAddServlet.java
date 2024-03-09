@@ -73,24 +73,28 @@ public class AdminAddServlet extends HttpServlet {
         String screenId = request.getParameter("screenAdd");
         String ssdId = request.getParameter("ssdAdd");
         String manuId = request.getParameter("manuAdd");
-        String[] image = request.getParameterValues("imageAdds");
+        String[] image = request.getParameterValues("imageAdd");
         String alert = "";
+        System.out.println(outPrice_raw);
         try {
+                outPrice_raw = outPrice_raw.replace(".", " ");
+                inPrice_raw = inPrice_raw.replace(".", " ");
+                discount_raw = discount_raw.replace(".", " ");
            
-                WebController.getInstance().laptopdao.insertLaptop(name, Double.parseDouble(inPrice_raw), Double.parseDouble(outPrice_raw), Integer.parseInt(stock_raw), Integer.parseInt(screenId), Integer.parseInt(cpuId), Integer.parseInt(ramId), Integer.parseInt(ssdId), card, year, origin, Double.parseDouble(discount_raw), system, Integer.parseInt(manuId), Double.parseDouble(weight_raw), description);
-                
-//                if(result){
-//                    if(image.length>1){
-//                        int laptopId = WebController.getInstance().laptopdao.getLastLaptopIdAdded();
-//                        for(int i=0;i<image.length;i++){
-//                            WebController.getInstance().laptopdao.insertImageByLaptopId(laptopId, image[i]);
-//                        }
-//                    }
-//                    alert = "Add successfull";
-//                }else alert="Add failed";
+                boolean result =WebController.getInstance().laptopdao.insertLaptop(name, Float.parseFloat(inPrice_raw), Float.parseFloat(outPrice_raw), Integer.parseInt(stock_raw), Integer.parseInt(screenId), Integer.parseInt(cpuId), Integer.parseInt(ramId), Integer.parseInt(ssdId), card, year, origin, Float.parseFloat(discount_raw), system, Integer.parseInt(manuId), Double.parseDouble(weight_raw), description);
+               
+                if(result){
+                     if(image!=null){
+                        int laptopId = WebController.getInstance().laptopdao.getLastLaptopIdAdded();
+                        for(int i=0;i<image.length;i++){
+                            WebController.getInstance().laptopdao.insertImageByLaptopId(laptopId, image[i]);
+                        }
+                     }
+                    alert = "Add successfull";
+                }else alert="Add failed";
             
             request.setAttribute("alert", alert);
-            response.sendRedirect("admin-product");
+            request.getRequestDispatcher("admin_addLaptop.jsp").forward(request, response);
         } catch (IOException e) {
         }
     }
@@ -111,7 +115,7 @@ public class AdminAddServlet extends HttpServlet {
 
     /**
      * Returns a short description of the servlet.
-     *
+     *  
      * @return a String containing servlet description
      */
     @Override

@@ -50,8 +50,8 @@ GO
 CREATE TABLE [Laptop] (
   [id] integer  IDENTITY(1,1) PRIMARY KEY,
   [name] nvarchar(255),
-  [inPrice] money,
-  [outPrice] money,
+  [inPrice] float,
+  [outPrice] float,
   [stock] integer,
   [screenId] integer,
   [cpuId] integer,
@@ -69,31 +69,31 @@ CREATE TABLE [Laptop] (
 GO
 
 CREATE TABLE [screen] (
-  [id] integer PRIMARY KEY,
+  [id] integer IDENTITY(1,1) PRIMARY KEY,
   [detail] varchar(255)
 )
 GO
 
 CREATE TABLE [manufacturer] (
-  [id] integer PRIMARY KEY,
+  [id] integer IDENTITY(1,1) PRIMARY KEY,
   [name] nvarchar(255)
 )
 GO
 
 CREATE TABLE [ssd] (
-  [id] integer PRIMARY KEY,
+  [id] integer IDENTITY(1,1) PRIMARY KEY,
   [detail] varchar(255)
 )
 GO
 
 CREATE TABLE [ram] (
-  [id] integer PRIMARY KEY,
+  [id] integer IDENTITY(1,1) PRIMARY KEY,
   [detail] varchar(255)
 )
 GO
 
 CREATE TABLE [cpu] (
-  [id] integer PRIMARY KEY,
+  [id] integer IDENTITY(1,1) PRIMARY KEY,
   [name] varchar(255)
 )
 GO
@@ -119,7 +119,7 @@ CREATE TABLE [orderdetail] (
   [orderId] integer,
   [quantity] integer,
   [price] money,
-  PRIMARY KEY ([laptopId], [orderId])
+  PRIMARY KEY ([orderId])
 )
 GO
 
@@ -169,26 +169,7 @@ GO
 ALTER TABLE [customer_address] ADD FOREIGN KEY ([customer]) REFERENCES [accounts] ([id])
 GO
 
-ALTER TABLE [Laptop] ADD FOREIGN KEY ([manufacturerId]) REFERENCES [manufacturer] ([id])
-GO
 
-ALTER TABLE [reviews] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
-GO
-
-ALTER TABLE [Laptop] ADD FOREIGN KEY ([cpuId]) REFERENCES [cpu] ([id])
-GO
-
-ALTER TABLE [Laptop] ADD FOREIGN KEY ([ramId]) REFERENCES [ram] ([id])
-GO
-
-ALTER TABLE [Laptop] ADD FOREIGN KEY ([ssdId]) REFERENCES [ssd] ([id])
-GO
-
-ALTER TABLE [Laptop] ADD FOREIGN KEY ([screenId]) REFERENCES [screen] ([id])
-GO
-
-ALTER TABLE [orderdetail] ADD FOREIGN KEY ([laptopId]) REFERENCES [Laptop] ([id])
-GO
 
 ALTER TABLE [orderdetail] ADD FOREIGN KEY ([orderId]) REFERENCES [order] ([id])
 GO

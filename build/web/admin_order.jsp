@@ -184,7 +184,6 @@
                                                             <td class="cell">${accountdao.getAccountById(order.customerId).fullname}</td>
                                                             <td class="cell"><span>${order.date}</span><span class="note"></span></td>
                                                             <td class="cell"><span class="badge bg-success">${order.status}</span></td>
-                                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
                                                             <fmt:formatNumber value="${order.totalMoney}" pattern="#,##0" var="price" />
                                                             <td class="cell">${price}đ</td>
                                                         </tr>                                                        

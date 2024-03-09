@@ -57,7 +57,7 @@ public class AdminProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Laptop> list = WebController.getInstance().laptopdao.getAllLaptop(1);
+        List<Laptop> list = WebController.getInstance().laptopdao.getAll();
         String href = "";
         String key = request.getParameter("search");
                String action = request.getParameter("action");
@@ -73,7 +73,7 @@ public class AdminProductServlet extends HttpServlet {
             WebController.getInstance().laptopdao.deleteImageByLaptopId(laptopId);
             boolean result = WebController.getInstance().laptopdao.deleteLaptopById(laptopId);
             if(result){
-                list = WebController.getInstance().laptopdao.getAllLaptop(1);
+                list = WebController.getInstance().laptopdao.getAll();
                 alert = "Delete successful";
             }else alert="Delete failed";
             }   

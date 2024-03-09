@@ -42,29 +42,29 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-3">
-                            <button><a href="add" target="target">Add Branch</a></button>
+                            <button><a href="addtype?type=manu" >Branch</a></button>
                         </div>
                         <div class="col-md-3">
-                            <button>Add Ram</button>
+                            <button><a href="addtype?type=ram">Ram</a></button>
                         </div>
                         <div class="col-md-3">
-                            <button>Add Cpu</button>
+                            <button><a href="addtype?type=cpu">Cpu</a></button>
                         </div>
                         <div class="col-md-3">
-                            <button>Add Ssd</button>
-                        </div>                                      
+                            <button><a href="addtype?type=ssd">Ssd</a></button>
+                        </div>                                     
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-3">
-                            <button>Add Screen</button>
+                            <button><a href="addtype?type=screen">Screen</a></button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="container" style="margin-top: 20px">
-                <form  action="addproduct">
+                <form  action="addproduct" method="get">
                     <div class="row">
                         <div class="col-md-6">                      
                             <div class="form-group">
@@ -119,7 +119,7 @@
                             </div>
                             <div class="row">
                                 <label >Image</label>
-                                <input type="file" name="imageAdd" multiple="">
+                                <input type="file" name="imageAdd" multiple="" required="">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -159,7 +159,7 @@
                                         <c:forEach items="${ram}" var="m" >
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="${m.id}"   name="ramAdd" required="">
-                                                <label class="form-check-label" >${m.detail}</label>
+                                                <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
                                     </div>
@@ -197,7 +197,7 @@
                                         <c:forEach items="${ssd}" var="m" >
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="${m.id}"     name="ssdAdd" required="">
-                                                <label class="form-check-label" >${m.detail}</label>
+                                                <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
                                     </div>
@@ -209,7 +209,7 @@
                                         <c:forEach items="${screen}" var="m" >
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="${m.id}" name="screenAdd" required="">
-                                                <label class="form-check-label" >${m.detail}</label>
+                                                <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
                                     </div>

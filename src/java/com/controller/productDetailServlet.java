@@ -68,14 +68,14 @@ public class productDetailServlet extends HttpServlet {
             
             Laptop laptop = WebController.getInstance().laptopdao.getLaptopbyLaptopId(laptopId);
             List<Laptop> laptopByManu = WebController.getInstance().laptopdao.getLaptopByManufacturerId(laptop.getManufacturer().getId(), 1);
-            List<String> listImage = laptop.getImage();
+            List<String> listImage = WebController.getInstance().laptopdao.getImagesbyLaptopId(laptopId);
             List<Review> listReview = WebController.getInstance().reviewdao.getReviewBylaptopId(laptopId);
             request.setAttribute("listReview", listReview);
             request.setAttribute("laptopImage", listImage);
             request.setAttribute("laptop", laptop);
             request.setAttribute("laptopByManu", laptopByManu);
             request.getRequestDispatcher("detail.jsp").forward(request, response);
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
     }
 

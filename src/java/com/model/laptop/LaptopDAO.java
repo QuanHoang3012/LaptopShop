@@ -115,7 +115,43 @@ public class LaptopDAO extends DBUtils {
         }
         return null;
     }
-
+      public List<Laptop> getAll() {
+        List<Laptop> list = new ArrayList<>();
+        String sql = "Select * from [Laptop] order by stock asc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Laptop lp = new Laptop();
+                lp.setId(rs.getInt("id"));
+                lp.setName(rs.getString("name"));
+                lp.setInPrice(rs.getDouble("inPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
+                lp.setStock(rs.getInt("stock"));
+                Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
+                lp.setScreen(sc);
+                Cpu c = cdb.getCpubyId(rs.getInt("cpuId"));
+                lp.setCpu(c);
+                Ram r = rdb.getRambyId(rs.getInt("ramId"));
+                lp.setRam(r);
+                Ssd ssd = ssdb.getSsdbyId(rs.getInt("ssdId"));
+                lp.setSsd(ssd);
+                lp.setCard(rs.getString("card"));
+                lp.setReleaseYear(rs.getString("releaseYear"));
+                lp.setOrigin(rs.getString("origin"));
+                lp.setDiscount(rs.getDouble("discount"));
+                lp.setSystem(rs.getString("system"));                
+                lp.setDescription(rs.getNString("description"));
+                lp.setWeight(rs.getFloat("weight"));
+                Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
+                lp.setManufacturer(m);
+                list.add(lp);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public List<Laptop> getAllLaptop(int option) {
         List<Laptop> list = new ArrayList<>();
         String sql = "Select * from [Laptop]";
@@ -132,7 +168,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setId(rs.getInt("id"));
                 lp.setName(rs.getString("name"));
                 lp.setInPrice(rs.getDouble("inPrice"));
-                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
                 lp.setStock(rs.getInt("stock"));
                 Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
                 lp.setScreen(sc);
@@ -146,9 +182,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setReleaseYear(rs.getString("releaseYear"));
                 lp.setOrigin(rs.getString("origin"));
                 lp.setDiscount(rs.getDouble("discount"));
-                lp.setSystem(rs.getString("system"));
-                List<String> image = getImagesbyLaptopId(lp.getId());
-                lp.setImage(image);
+                lp.setSystem(rs.getString("system"));                
                 lp.setDescription(rs.getNString("description"));
                 lp.setWeight(rs.getFloat("weight"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
@@ -188,7 +222,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setId(rs.getInt("id"));
                 lp.setName(rs.getString("name"));
                 lp.setInPrice(rs.getDouble("inPrice"));
-                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
                 lp.setStock(rs.getInt("stock"));
                 Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
                 lp.setScreen(sc);
@@ -204,8 +238,6 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
-                lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
                 lp.setManufacturer(m);
@@ -288,7 +320,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setId(rs.getInt("id"));
                 lp.setName(rs.getString("name"));
                 lp.setInPrice(rs.getDouble("inPrice"));
-                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
                 lp.setStock(rs.getInt("stock"));
                 Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
                 lp.setScreen(sc);
@@ -304,8 +336,6 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
-                lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
                 lp.setManufacturer(m);
@@ -335,7 +365,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setId(rs.getInt("id"));
                 lp.setName(rs.getString("name"));
                 lp.setInPrice(rs.getDouble("inPrice"));
-                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
                 lp.setStock(rs.getInt("stock"));
                 Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
                 lp.setScreen(sc);
@@ -351,8 +381,6 @@ public class LaptopDAO extends DBUtils {
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
                 lp.setWeight(rs.getFloat("weight"));
-                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
-                lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
                 lp.setManufacturer(m);
@@ -374,7 +402,7 @@ public class LaptopDAO extends DBUtils {
                 lp.setId(rs.getInt("id"));
                 lp.setName(rs.getString("name"));
                 lp.setInPrice(rs.getDouble("inPrice"));
-                lp.setOutPrice(rs.getDouble("OutPrice"));
+                lp.setOutPrice(rs.getDouble("outPrice"));
                 lp.setStock(rs.getInt("stock"));
                 Screen sc = scdb.getScreenbyId(rs.getInt("screenId"));
                 lp.setScreen(sc);
@@ -389,8 +417,6 @@ public class LaptopDAO extends DBUtils {
                 lp.setOrigin(rs.getString("origin"));
                 lp.setDiscount(rs.getDouble("discount"));
                 lp.setSystem(rs.getString("system"));
-                List<String> image = getImagesbyLaptopId(rs.getInt("id"));
-                lp.setImage(image);
                 lp.setDescription(rs.getNString("description"));
                 lp.setWeight(rs.getFloat("weight"));
                 Manufacturer m = mdb.getManufacturerbyId(rs.getInt("manufacturerId"));
@@ -490,15 +516,15 @@ public class LaptopDAO extends DBUtils {
         return false;
     }
 
-    public void insertLaptop(String name, double inPrice, double outPrice, int stock, int screenId, int cpuId, int ramId, int ssdId, String card, String releaseYear, String origin, double discount, String system, int manufacturerId, double weight, String description) {
+    public boolean insertLaptop(String name, float inPrice, float outPrice, int stock, int screenId, int cpuId, int ramId, int ssdId, String card, String releaseYear, String origin, float discount, String system, int manufacturerId, double weight, String description) {
         String sql = "INSERT INTO [Laptop]\n"
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, name);
-            st.setDouble(2, inPrice);
-            st.setDouble(3, outPrice);
+            st.setFloat(2, inPrice);
+            st.setFloat(3, outPrice);
             st.setInt(4, stock);
             st.setInt(5, screenId);
             st.setInt(6, cpuId);
@@ -507,20 +533,25 @@ public class LaptopDAO extends DBUtils {
             st.setString(9, card);
             st.setString(10, releaseYear);
             st.setString(11, origin);
-            st.setDouble(12, discount);
+            st.setFloat(12, discount);
             st.setString(13, system);
             st.setDouble(14, weight);
             st.setInt(15, manufacturerId);
             st.setString(16, description);
             st.executeUpdate();
+            return true;
         } catch (SQLException e) {
         }
+        return false;
     }
 
     public static void main(String[] args) {
         LaptopDAO l = new LaptopDAO();
-
-          l.insertLaptop("jiji", 1, 1, 9, 1, 1, 1, 1, "222", "2023", "trung", 0, "11", 1, 0, "22");
+        List<String> laptop = l.getImagesbyLaptopId(1);
+        List<Laptop> list = l.getAllLaptop(1);
+        l.insertImageByLaptopId(65, "fot2");
+        System.out.println(list.get(0).getName());
+//          l.insertLaptop("jiji", 1, 1, 9, 1, 1, 1, 1, "222", "2023", "trung", 0, "11", 1, 0, "22");
           System.out.println(l.getAllLaptop(1).get(64).getName());
     }
 }

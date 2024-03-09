@@ -25,7 +25,7 @@ public class ManufacturerDAO extends DBUtils {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Manufacturer m = new Manufacturer(rs.getInt("id"), rs.getString("name"));
                 list.add(m);
             }
@@ -33,17 +33,44 @@ public class ManufacturerDAO extends DBUtils {
         }
         return list;
     }
-    
-    public  Manufacturer getManufacturerbyId(int id){
+
+    public boolean deleteManufacturer(int id) {
+        String sql = "DELETE FROM [dbo].[manufacturer]\n"
+                + "      WHERE id=" + id;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean insertManufacturer(String name) {
+        String sql = "INSERT INTO [dbo].[manufacturer]\n"
+                + "           ([name])\n"
+                + "     VALUES\n"
+                + "           (?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.executeUpdate();
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public Manufacturer getManufacturerbyId(int id) {
         List<Manufacturer> list = new ArrayList<>();
-        String sql="Select * from  [Laptop_Shop].[dbo].[manufacturer] where 1=1";
-        if(id!=0) {
-            sql += "and id="+id;
+        String sql = "Select * from  [Laptop_Shop].[dbo].[manufacturer] where 1=1";
+        if (id != 0) {
+            sql += "and id=" + id;
         }
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-              while(rs.next()){
+            while (rs.next()) {
                 Manufacturer m = new Manufacturer(rs.getInt("id"), rs.getString("name"));
                 return m;
             }
@@ -51,17 +78,17 @@ public class ManufacturerDAO extends DBUtils {
         }
         return null;
     }
-    
+
     public int getManufacturerQuantity(int id) {
-        int stock =0;
+        int stock = 0;
         String sql = "select Sum(stock) as quantity from Laptop l join manufacturer m on l.manufacturerId = m.id where 1=1";
-        if(id!=0) {
-            sql+="and m.id ="+id;
+        if (id != 0) {
+            sql += "and m.id =" + id;
         }
         try {
-             PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 stock = rs.getInt("quantity");
             }
             return stock;
@@ -69,6 +96,5 @@ public class ManufacturerDAO extends DBUtils {
         }
         return 0;
     }
-   
-  
+
 }

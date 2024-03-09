@@ -63,12 +63,13 @@
                             </tr>
                         </thead>
                         <tbody class="align-middle">
+                            <jsp:useBean id="laptopdao" class="com.model.laptop.LaptopDAO"/>
                             <c:set var="cart" value="${sessionScope.cart}"/>
                             <c:set var="t" value="0"/>
                             <c:set value="0" var="totalPrice"/>
                             <c:forEach items="${cart.items}" var="item">
                                 <tr>
-                                    <td class="align-middle"><a href="detail?laptopId=${item.laptop.id}"><img src="images/${item.laptop.image.get(0)}" alt="" style="width: 50px;"></a>${item.laptop.name}</td>
+                                    <td class="align-middle"><a href="detail?laptopId=${item.laptop.id}"><img src="images/${laptopdao.getImagesbyLaptopId(item.laptop.id).get(0)}" alt="" style="width: 50px;"></a>${item.laptop.name}</td>
                                         <fmt:formatNumber value="${item.laptop.discount}" pattern="#,##0" var="discount" />
                                     <td class="align-middle">${discount}đ</td>
                                     <td class="align-middle">

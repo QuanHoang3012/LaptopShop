@@ -1,32 +1,32 @@
-﻿INSERT INTO [manufacturer] VALUES (1,N'Acer'),
-	(2,N'Asus'),
-	(3,N'Msi'),
-	(4,N'Dell'),
-	(5,N'Lenovo'),
-	(6,N'HP');
+﻿INSERT INTO [manufacturer] VALUES (N'Acer'),
+	(N'Asus'),
+	(N'Msi'),
+	(N'Dell'),
+	(N'Lenovo'),
+	(N'HP');
 
 
-INSERT INTO [cpu] VALUES (1,N'Intel Core i3'),
-	(2,N'Intel Core i5'),
-	(3,N'Intel Core i7'),
-	(4,N'Amd Ryzen 3'),
-	(5,N'Amd Ryzen 5'),
-	(6,N'Amd Ryzen 7');
+INSERT INTO [cpu] VALUES (N'Intel Core i3'),
+	(N'Intel Core i5'),
+	(N'Intel Core i7'),
+	(N'Amd Ryzen 3'),
+	(N'Amd Ryzen 5'),
+	(N'Amd Ryzen 7');
 
-INSERT INTO [ssd] VALUES (1,N'SSD 1 TB'),
-	(2,N'SSD 512 GB'),
-	(3,N'SSD 256 GB'),
-	(4,N'SSD 128 GB'),
-	(5,N'SSD 2 TB');
+INSERT INTO [ssd] VALUES (N'SSD 1 TB'),
+	(N'SSD 512 GB'),
+	(N'SSD 256 GB'),
+	(N'SSD 128 GB'),
+	(N'SSD 2 TB');
 
-INSERT INTO [ram] VALUES (1,N'4GB'),
-	(2,N'8GB'),
-	(3,N'16GB'),
-	(4,N'32GB');
+INSERT INTO [ram] VALUES (N'4GB'),
+	(N'8GB'),
+	(N'16GB'),
+	(N'32GB');
 
-INSERT INTO [screen] VALUES (1,N'13 inch'),
-	(2,N'14 inch'),
-	(3,N'Trên 15 inch');
+INSERT INTO [screen] VALUES (N'13 inch'),
+	(N'14 inch'),
+	(N'Trên 15 inch');
 
 INSERT INTO [Laptop]  VALUES (N'Laptop Acer Aspire 7 Gaming A715-76-57CY i5 12450H/8GB/512GB/15.6""FHD/Win11 (No.00881876)',9344500,16990000,15,3,2,2,2,N'Intel UHD Graphics',N'2023',N'Trung Quốc',13990000,N'Windows 11 Home Single Language',2.1,1,N'Dù có tên là Gaming, song chiếc laptop Acer Aspire 7 Gaming A715-76-57CY được sinh ra là để phục vụ cho nhân viên văn phòng hoặc các bạn sinh viên muốn tìm kiếm một sản phẩm phù hợp để sử dụng mỗi ngày và quan trọng nhất là mức giá phải rẻ. Đây là sản phẩm mới nhất trong dòng Acer Aspire vốn đã nổi tiếng và quen thuộc với rất nhiều người yêu công nghệ từ trước tới nay.'),
 	(N'Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11 (No.00783546)',11544500,20990000,15,2,5,3,2,N'AMD Radeon Graphics',N'2021',N'Trung Quốc',14290000,N'Windows 11 Home Single Language',1.19,1,N'Acer Swift 3 SF314-512-741L vẫn giữ được sự mỏng nhẹ, tinh tế nhưng mạnh mẽ hơn bao giờ hết. Bạn sẽ được trải nghiệm bộ vi xử lý Intel Core i7 gen 12 siêu mạnh và màn hình 2K sắc nét, nâng tầm giá trị cuộc sống.'),
