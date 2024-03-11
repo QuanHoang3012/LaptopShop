@@ -221,7 +221,7 @@
                                     <jsp:useBean id="accountdao" class="com.model.account.AccountDAO"/>
                                     <c:forEach items="${reviewList}" var="rev" >
                                         <div class="media mb-4">
-                                            <img src="images/${reviewList.size()>0?laptopdao.getImageForUser(rev.customerId):"profileimage.png"}"alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                            <img src="images/${laptopdao.getImageForUser(rev.customerId)!=null?laptopdao.getImageForUser(rev.customerId):"profileimage.png"}"alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                             <div class="media-body">
                                                 <h6>${accountdao.getAccountById(rev.customerId).fullname}<small> - <i>${rev.reviewDate}</i></small></h6>
                                                 <div class="text-primary mb-2">
