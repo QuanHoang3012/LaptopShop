@@ -13,6 +13,8 @@
         <url-pattern>/admin_order</url-pattern>
         <url-pattern>/admin_addLaptop.jsp</url-pattern>
         <url-pattern>/admin_user.jsp</url-pattern>
+        <url-pattern>/overview.jsp</url-pattern>
+
     </filter-mapping>
     <filter-mapping>
         <filter-name>LoginFillter</filter-name>

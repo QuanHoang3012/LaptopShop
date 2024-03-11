@@ -72,7 +72,7 @@ public class AccountServlet extends HttpServlet {
                 String birthday = request.getParameter("birthdate");
                 String gender_raw = request.getParameter("gender");
                 String image = request.getParameter("avatar");
-                if(image.isEmpty()){
+                if (image.isEmpty()) {
                     image = WebController.getInstance().accountdao.getAccountById(account.getId()).getImage();
                 }
                 int gender = 1;
@@ -137,48 +137,54 @@ public class AccountServlet extends HttpServlet {
                 String status = request.getParameter("status");
                 String id_raw = request.getParameter("id");
                 String alert = "";
-                if(id_raw!=null && status.equals("order-pending")) {
+                if (id_raw != null && status.equals("order-pending")) {
                     int id = Integer.parseInt(id_raw);
                     boolean result = WebController.getInstance().orderdao.deleteOrderByOrderId(id);
-                    if(result){
-                        alert="Hủy đơn thành công";
-                    }else alert = "Hủy đơn thất bại";
-                }else {
+                    if (result) {
+                        alert = "Hủy đơn thành công";
+                    } else {
+                        alert = "Hủy đơn thất bại";
+                    }
+                } else {
                 }
-                 if(id_raw!=null && status.equals("order-finish")) {
+                if (id_raw != null && status.equals("order-finish")) {
                     int id = Integer.parseInt(id_raw);
                     boolean result = WebController.getInstance().orderdao.updateStatusOrderByOrderId(id, "Đã nhận hàng");
-                    if(result){
-                        List<Integer> listLaptopId = WebController.getInstance().orderdao.getLaptopByOrdeId(id);                      
+                    if (result) {
+                        List<Integer> listLaptopId = WebController.getInstance().orderdao.getLaptopByOrdeId(id);
                         for (Integer m : listLaptopId) {
-                            WebController.getInstance().laptopdao.updateStock(m,WebController.getInstance().laptopdao.getLaptopbyLaptopId(m).getStock()-1);
+                                WebController.getInstance().laptopdao.updateStock(m, WebController.getInstance().laptopdao.getLaptopbyLaptopId(m).getStock() - WebController.getInstance().orderdetaildao.getQuantityLaptopOfOrderdetail(id, m));
                         }
-                        alert="Thao tác thành công";
-                    }else alert = "Thao tác thất bại";
-                }else if(id_raw!=null && status.equals("order-cancel")){
+                        alert = "Thao tác thành công";
+                    } else {
+                        alert = "Thao tác thất bại";
+                    }
+                } else if (id_raw != null && status.equals("order-cancel")) {
                     int id = Integer.parseInt(id_raw);
                     boolean result = WebController.getInstance().orderdao.updateStatusOrderByOrderId(id, "Đang xem xét hủy đơn");
-                    if(result){
-                        alert="Cần thời gian xác nhận khách hàng vui lòng chờ";
-                    }else alert = "Thao tác thất bại";
+                    if (result) {
+                        alert = "Cần thời gian xác nhận khách hàng vui lòng chờ";
+                    } else {
+                        alert = "Thao tác thất bại";
+                    }
                 }
-                               
+
                 List<Order> orderCustomer = WebController.getInstance().orderdao.getOrderForCustomer(account.getId(), "Đang");
-                List<OrderDetail> [] orderDetailList = new List[orderCustomer.size()];
-                for(int i=0;i<orderCustomer.size();i++){
+                List<OrderDetail>[] orderDetailList = new List[orderCustomer.size()];
+                for (int i = 0; i < orderCustomer.size(); i++) {
                     orderDetailList[i] = WebController.getInstance().orderdetaildao.getOrderDetailByOrderId(orderCustomer.get(i).getId());
                 }
-                request.setAttribute("orderList",orderCustomer );
+                request.setAttribute("orderList", orderCustomer);
                 request.setAttribute("alert", alert);
                 request.setAttribute("orderdetailList", orderDetailList);
                 request.getRequestDispatcher("product_order.jsp").forward(request, response);
-            }else if(action.equals("history-order")){
+            } else if (action.equals("history-order")) {
                 List<Order> orderCustomer = WebController.getInstance().orderdao.getOrderForCustomer(account.getId(), "Đã");
-                List<OrderDetail> [] orderDetailList = new List[orderCustomer.size()];
-                for(int i=0;i<orderCustomer.size();i++){
+                List<OrderDetail>[] orderDetailList = new List[orderCustomer.size()];
+                for (int i = 0; i < orderCustomer.size(); i++) {
                     orderDetailList[i] = WebController.getInstance().orderdetaildao.getOrderDetailByOrderId(orderCustomer.get(i).getId());
                 }
-                request.setAttribute("orderList",orderCustomer );
+                request.setAttribute("orderList", orderCustomer);
                 request.setAttribute("orderdetailList", orderDetailList);
                 request.getRequestDispatcher("history_order.jsp").forward(request, response);
             }

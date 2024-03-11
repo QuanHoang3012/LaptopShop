@@ -119,7 +119,6 @@ CREATE TABLE [orderdetail] (
   [orderId] integer,
   [quantity] integer,
   [price] money,
-  PRIMARY KEY ([orderId])
 )
 GO
 

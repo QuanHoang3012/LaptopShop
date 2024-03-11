@@ -4,11 +4,14 @@
     Author     : Anh Quan
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en"> 
     <head>
-        <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+        <title>Over-view</title>
 
         <!-- Meta -->
         <meta charset="utf-8">
@@ -37,31 +40,24 @@
 
                     <h1 class="app-page-title">Overview</h1>
 
+                    <jsp:useBean id="laptopdao" class="com.model.laptop.LaptopDAO"/>
+                    <jsp:useBean id="orderdao" class="com.model.order.OrderDAO"/>
 
                     <div class="row g-4 mb-4">
                         <div class="col-6 col-lg-3">
+                            <c:set value="${0}" var="totalMoney"/>
+                            <c:forEach items="${orderdao.getPriceGroupByDate()}" var="i">
+                                <c:set value="${totalMoney+i.getTotalMoney()}" var="totalMoney"/>
+                            </c:forEach>
+                            <fmt:formatNumber value="${totalMoney}" pattern="#,##0" var="money" />
                             <div class="app-card app-card-stat shadow-sm h-100">
                                 <div class="app-card-body p-3 p-lg-4">
                                     <h4 class="stats-type mb-1">Total Sales</h4>
-                                    <div class="stats-figure">$12,628</div>
+                                    <div class="stats-figure">${money}đ</div>
                                     <div class="stats-meta text-success">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-                                        </svg> 20%</div>
-                                </div><!--//app-card-body-->
-                                <a class="app-card-link-mask" href="#"></a>
-                            </div><!--//app-card-->
-                        </div><!--//col-->
-
-                        <div class="col-6 col-lg-3">
-                            <div class="app-card app-card-stat shadow-sm h-100">
-                                <div class="app-card-body p-3 p-lg-4">
-                                    <h4 class="stats-type mb-1">Expenses</h4>
-                                    <div class="stats-figure">$2,250</div>
-                                    <div class="stats-meta text-success">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
-                                        </svg> 5% </div>
+                                        </svg> </div>
                                 </div><!--//app-card-body-->
                                 <a class="app-card-link-mask" href="#"></a>
                             </div><!--//app-card-->
@@ -69,8 +65,8 @@
                         <div class="col-6 col-lg-3">
                             <div class="app-card app-card-stat shadow-sm h-100">
                                 <div class="app-card-body p-3 p-lg-4">
-                                    <h4 class="stats-type mb-1">Projects</h4>
-                                    <div class="stats-figure">23</div>
+                                    <h4 class="stats-type mb-1">Products</h4>
+                                    <div class="stats-figure">${laptopdao.numberOfProduct()}</div>
                                     <div class="stats-meta">
                                         Open</div>
                                 </div><!--//app-card-body-->
@@ -81,7 +77,7 @@
                             <div class="app-card app-card-stat shadow-sm h-100">
                                 <div class="app-card-body p-3 p-lg-4">
                                     <h4 class="stats-type mb-1">Invoices</h4>
-                                    <div class="stats-figure">6</div>
+                                    <div class="stats-figure">${orderdao.numberOfOrder()}</div>
                                     <div class="stats-meta">New</div>
                                 </div><!--//app-card-body-->
                                 <a class="app-card-link-mask" href="#"></a>
@@ -98,10 +94,44 @@
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//app-card-header-->
+                                <c:set value="${orderdao.getPriceGroupByDate()}" var="listO"/>
                                 <div class="app-card-body p-3 p-lg-4">
-                                    <div class="chart-container">
-                                        <canvas id="canvas-linechart" ></canvas>
-                                    </div>
+                                    <script>
+
+                                        window.onload = function () {
+                                            var dataPoints = [];
+                                        <c:forEach var="item" items="${listO}">
+                                            dataPoints.push({
+                                                x: new Date('${item.date}'),
+                                                y: ${item.getTotalMoney()}
+                                            });
+                                        </c:forEach>
+                                            var chart = new CanvasJS.Chart("chartContainer", {
+                                                animationEnabled: true,
+                                                title: {
+                                                    text: "Doanh thu"
+                                                },
+                                                axisY: {
+                                                    title: "Triệu",
+                                                    valueFormatString: "#0,,.",
+                                                    suffix: "triệu",
+
+                                                },
+                                                data: [{
+                                                        yValueFormatString: "#,### vnd",
+                                                        xValueFormatString: "DD/MM/YYYY",
+                                                        type: "spline",
+                                                        dataPoints: dataPoints
+                                                    }]
+                                            });
+                                            chart.render();
+
+                                        }
+                                    </script>
+                                    <!--                                    <div class="chart-container">
+                                                                            <canvas id="canvas-linechart" ></canvas>
+                                                                        </div>-->
+                                    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                                 </div><!--//app-card-body-->
                             </div><!--//app-card-->
                         </div><!--//col-->
@@ -125,6 +155,7 @@
         <script src="assets1/plugins/bootstrap/js/bootstrap.min.js"></script>  
 
         <!-- Charts JS -->
+        <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
         <script src="assets1/plugins/chart.js/chart.min.js"></script> 
         <script src="assets1/js/index-charts.js"></script> 
 

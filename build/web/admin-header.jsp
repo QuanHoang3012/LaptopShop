@@ -58,7 +58,7 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="index.html"><span class="logo-text">ADMIN</span></a>
+                <a class="app-logo" href="overview.jsp"><span class="logo-text">ADMIN</span></a>
 
             </div><!--//app-branding-->  
 

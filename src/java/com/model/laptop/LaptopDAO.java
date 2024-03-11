@@ -32,7 +32,19 @@ public class LaptopDAO extends DBUtils {
     RamDAO rdb = new RamDAO();
     ScreenDAO scdb = new ScreenDAO();
     SsdDAO ssdb = new SsdDAO();
-
+    
+    public int numberOfProduct(){
+        String sql="select count(*) from laptop ";
+        try {
+               PreparedStatement st = connection.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+                if(rs.next()){
+                    return rs.getInt(1);
+                }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
     public void updateStock(int id,int stock) {
         String sql = "update laptop\n"
                 + "set stock =?\n"
@@ -549,9 +561,6 @@ public class LaptopDAO extends DBUtils {
         LaptopDAO l = new LaptopDAO();
         List<String> laptop = l.getImagesbyLaptopId(1);
         List<Laptop> list = l.getAllLaptop(1);
-        l.insertImageByLaptopId(65, "fot2");
-        System.out.println(list.get(0).getName());
-//          l.insertLaptop("jiji", 1, 1, 9, 1, 1, 1, 1, "222", "2023", "trung", 0, "11", 1, 0, "22");
-          System.out.println(l.getAllLaptop(1).get(64).getName());
+        System.out.println(l.numberOfProduct());
     }
 }

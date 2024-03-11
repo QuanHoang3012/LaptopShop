@@ -21,6 +21,39 @@ import java.util.List;
  */
 public class OrderDAO extends DBUtils {
 
+    public List<Order> getPriceGroupByDate() {
+        List<Order> list = new ArrayList<>();
+        String sql = "select date , sum (discount-inPrice) from [orderdetail] od join [order] o on od.orderId=o.id\n"
+                + "                 join Laptop l on od.laptopId= l.id\n"
+                + "	where o.status = N'Đã nhận hàng'\n"
+                + "                 group by date";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Order o = new Order();
+                o.setDate(rs.getDate(1));
+                o.setTotalMoney(rs.getDouble(2));
+                list.add(o);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    public int numberOfOrder() {
+        String sql = "select count(*) from [order] where status = N'Đã nhận hàng'";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
     public boolean addOrder(Account account, Cart cart, int addressId) {
         LocalDate currentDate = java.time.LocalDate.now();
         String date = currentDate.toString();
@@ -103,7 +136,7 @@ public class OrderDAO extends DBUtils {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-               while (rs.next()) {
+            while (rs.next()) {
                 Order order = new Order();
                 order.setId(rs.getInt("id"));
                 order.setCustomerId(rs.getInt("customer"));
@@ -117,18 +150,20 @@ public class OrderDAO extends DBUtils {
         }
         return list;
     }
-    public int getAccountByOrder(int id){
-        String sql="select customer from [order] where id="+id;
+
+    public int getAccountByOrder(int id) {
+        String sql = "select customer from [order] where id=" + id;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getInt(1);
             }
         } catch (Exception e) {
         }
         return 0;
     }
+
     public List<Order> getOrderForCustomer(int accountId, String status) {
         List<Order> list = new ArrayList<>();
         String sql = "select * from [order] where customer = " + accountId + " and status like N'%" + status + "%' order by id desc";
@@ -149,9 +184,7 @@ public class OrderDAO extends DBUtils {
         }
         return list;
     }
-    
-    
-    
+
     public boolean deleteOrderByOrderId(int orderId) {
         String sql1 = "delete from [orderdetail] where orderid =" + orderId;
         try {
@@ -195,6 +228,7 @@ public class OrderDAO extends DBUtils {
         }
         return list;
     }
+
     public List<Order> getListByPage(List<Order> list, int start, int end) {
         List<Order> arr = new ArrayList<>();
         for (int i = start; i < end; i++) {
@@ -205,8 +239,8 @@ public class OrderDAO extends DBUtils {
 
     public static void main(String[] args) {
         OrderDAO o = new OrderDAO();
-        List<Integer> list = o.getLaptopByOrdeId(13);
-        System.out.println(o.getAccountByOrder(1));
+        List<Order> list = o.getPriceGroupByDate();
+        System.out.println(list.get(1).getTotalMoney());
     }
 
 }

@@ -101,7 +101,7 @@
                 rating: 0,
                 numStars: 5,
                 maxValue: 5,
-                halfStar: true,
+                halfStar: false,
                 onChange: function (rating, rateYoInstance) {
                     $('#hdrating').val(rating);
                 }

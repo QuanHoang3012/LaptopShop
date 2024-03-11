@@ -322,11 +322,12 @@
             <form name="f" action="" method="post">
             <input type="hidden" name="quantityLaptop" value="1"/>
             <div class="row px-xl-5 pb-3">
+                <jsp:useBean id="laptopdao" class="com.model.laptop.LaptopDAO"/>
                 <c:forEach items="${requestScope.bestseller}" var="p">        
                     <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <img class="img-fluid w-100" src="images/${p.image.get(0)}" alt="">
+                                <img class="img-fluid w-100" src="images/${laptopdao.getImagesbyLaptopId(p.id).get(0)}" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                 <h6 class="mb-3  d-inline-block ">${p.name}</h6>

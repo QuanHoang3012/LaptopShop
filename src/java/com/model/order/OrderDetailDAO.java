@@ -35,8 +35,23 @@ public class OrderDetailDAO extends DBUtils{
         return list;
     }
     
+      public int getQuantityLaptopOfOrderdetail(int orderId , int laptopId){
+              String sql="Select * from [orderdetail] where orderId= "+orderId;
+              try {
+             PreparedStatement st = connection.prepareStatement(sql);
+               ResultSet rs = st.executeQuery();
+               while(rs.next()){
+                   if(laptopId == rs.getInt("laptopId")){
+                       return rs.getInt("quantity");
+                   }
+               }
+        } catch (SQLException e) {
+        }
+              return 0;
+    }
+    
     public static void main(String[] args) {
         OrderDetailDAO o = new OrderDetailDAO();
-      
+        System.out.println(o.getQuantityLaptopOfOrderdetail(1, 16));
     }
 }

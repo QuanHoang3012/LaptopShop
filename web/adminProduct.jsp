@@ -94,10 +94,12 @@
                                         <h4 class="app-doc-title truncate mb-0"><a href="#file-link">${laptop.name}</a></h4>
                                         <div class="app-doc-meta">
                                             <fmt:formatNumber value="${laptop.discount}" pattern="#,##0" var="discount" />
+                                            <fmt:formatNumber value="${laptop.inPrice}" pattern="#,##0" var="inPrice" />
                                             <fmt:formatNumber value="${reviewdao.getReviewAverageByLaptop(laptop.id)}" pattern="#,##0.0" var="star" />
                                             <ul class="list-unstyled mb-0">
-                                                 <li><span class="text-muted">ID: </span> ${laptop.id}</li>
-                                                <li><span class="text-muted">Price</span> ${discount}đ</li>
+                                                <li><span class="text-muted">ID: </span> ${laptop.id}</li>
+                                                <li><span class="text-muted">Inprice</span> ${inPrice}đ</li>
+                                                <li><span class="text-muted">Outprice</span> ${discount}đ</li>
                                                 <li><span class="text-muted">Rating:</span> ${reviewList.size()>0?star:0}/5,0<small class="fas fa-star"></small></li>
                                                 <li><span class="text-muted">Stock: </span>${laptop.stock}</li>
                                             </ul>
