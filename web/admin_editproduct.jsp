@@ -170,7 +170,7 @@
                                         <c:forEach items="${ssd}" var="m" >
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.ssd.id?"checked":""}   name="ssd">
-                                                <label class="form-check-label" >${m.detail}</label>
+                                                <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
                                     </div>
@@ -182,7 +182,7 @@
                                         <c:forEach items="${screen}" var="m" >
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" value="${m.id}"  ${m.id==laptop.screen.id?"checked":""}  name="screen">
-                                                <label class="form-check-label" >${m.detail}</label>
+                                                <label class="form-check-label" >${m.name}</label>
                                             </div>
                                         </c:forEach>                              
                                     </div>
